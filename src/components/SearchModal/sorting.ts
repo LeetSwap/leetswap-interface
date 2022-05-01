@@ -29,7 +29,7 @@ function getTokenComparator(balances: {
     const balanceComp = balanceComparator(balanceA, balanceB)
     if (balanceComp !== 0) return balanceComp
 
-    if ((tokenA as WrappedTokenInfo).list.name === (tokenB as WrappedTokenInfo).list.name) {
+    if ((tokenA as WrappedTokenInfo).list?.name === (tokenB as WrappedTokenInfo).list?.name) {
       const tokenAPosition = getPositionOnList(tokenA as WrappedTokenInfo)
       const tokenBPosition = getPositionOnList(tokenB as WrappedTokenInfo)
       return tokenAPosition < tokenBPosition ? -1 : 1
