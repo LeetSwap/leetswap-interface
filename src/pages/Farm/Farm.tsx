@@ -26,7 +26,7 @@ import {
   useRewardInfos,
   usePool,
   useOwnWeeklyEmission,
-  // useCalculateAPR,
+  useCalculateAPR,
   useFarmTVL,
 } from 'state/farm/farm-hooks'
 import { PotionIcon4 } from '../../components/Potions/Potions'
@@ -123,11 +123,8 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
   const stakedAmount = lpToken ? CurrencyAmount.fromRawAmount(lpToken, stakedRawAmount || 0) : undefined
 
   const ownPrimaryWeeklyEmission = useOwnWeeklyEmission(poolEmissionAmount, stakedAmount, totalPoolStaked)
-  // const primaryAPR = useCalculateAPR(poolEmissionAmount, totalPoolStaked)
-  const ownSecondaryWeeklyEmission = useOwnWeeklyEmission(rewardPerSecondAmount, stakedAmount, totalPoolStaked)
-  // const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, totalPoolStaked)
 
-  // const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
+  const ownSecondaryWeeklyEmission = useOwnWeeklyEmission(rewardPerSecondAmount, stakedAmount, totalPoolStaked)
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = availableLPAmount
@@ -147,7 +144,10 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
 
   // get the USD value of staked dIFFUSION
 
-  const valueOfTotalStakedAmountInUSDC = useFarmTVL(pair ?? undefined)
+  const valueOfTotalStakedAmountInUSDC = useFarmTVL(pair ?? undefined, totalPoolStaked)
+  const primaryAPR = useCalculateAPR(poolEmissionAmount, valueOfTotalStakedAmountInUSDC)
+  const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, valueOfTotalStakedAmountInUSDC)
+  const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
 
   const toggleWalletModal = useWalletModalToggle()
 
@@ -191,9 +191,9 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
             <PoolHeading width={1 / 2} align="center">
               <TYPE.mediumHeader color={'primary1'}>Total deposits</TYPE.mediumHeader>
             </PoolHeading>
-            {/* <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 2} align="center">
               <TYPE.mediumHeader color={'primary1'}>APR</TYPE.mediumHeader>
-            </PoolHeading> */}
+            </PoolHeading>
           </RowBetween>
           <HRDark />
           <RowBetween>
@@ -204,11 +204,11 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                   : `${totalPoolStaked?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} DIFF - LP`}
               </TYPE.body>
             </PoolHeading>
-            {/* <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 2} align="center">
               <TYPE.body fontSize={20} fontWeight={500}>
-                {JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${JSBI.multiply(totalAPR, JSBI.BigInt(100))}%` : '-'}
+                {JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${totalAPR.toString()}%` : '-'}
               </TYPE.body>
-            </PoolHeading> */}
+            </PoolHeading>
           </RowBetween>
           <CardNoise />
           <RowBetween>

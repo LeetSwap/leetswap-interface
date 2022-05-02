@@ -162,8 +162,8 @@ export function FarmTableRow({
   totalLPStaked,
   primaryEmissionPerSecond,
   secondaryEmissionPerSecond,
-}: // totalAPR,
-TableRowProps) {
+  totalAPR,
+}: TableRowProps) {
   return (
     <PoolRow to={`/farm/${poolId}`}>
       <AutoRow gap="0%" justify={'space-between'}>
@@ -205,9 +205,7 @@ TableRowProps) {
             </Emission>
           )}
         </RowColumn>
-        {/* <RowColumn>
-          {totalAPR && JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${JSBI.multiply(totalAPR, JSBI.BigInt(100))}%` : '-'}
-        </RowColumn> */}
+        <RowColumn>{totalAPR && JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${totalAPR.toString()}%` : '-'}</RowColumn>
       </AutoRow>
       <HRDark />
     </PoolRow>

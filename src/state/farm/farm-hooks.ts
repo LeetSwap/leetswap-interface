@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers'
 import { useToken } from 'hooks/Tokens'
 import { useComplexRewarderTime, useMiniChef, usePairContract } from 'hooks/useContract'
 import { useTotalSupply } from 'hooks/useTotalSupply'
-import useUSDCPrice, { useUSDCValue } from 'hooks/useUSDCPrice'
+import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { useV2Pair } from 'hooks/useV2Pairs'
 import { useActiveWeb3React } from 'hooks/web3'
 import JSBI from 'jsbi'
@@ -287,30 +287,42 @@ export function useOwnWeeklyEmission(
   }, [poolEmission, stakedLPAmount, totalPoolStaked])
 }
 
-export function useCalculateAPR(poolEmission?: CurrencyAmount<Token>, totalPoolStaked?: CurrencyAmount<Token>) {
+export function useCalculateAPR(poolEmissionPerSecond?: CurrencyAmount<Token>, farmTVL?: CurrencyAmount<Token>) {
   // return JSBI.BigInt(0)
-  const fractionOfPool = 100
-  const onePercentOfPool = totalPoolStaked?.divide(fractionOfPool)
+  const fractionOfPool = 1000
 
-  const hypotheticalEmissionPerYear = poolEmission?.multiply(JSBI.BigInt(60 * 60 * 24 * 365)).divide(fractionOfPool)
+  const hypotheticalEmissionPerYear = poolEmissionPerSecond
+    ?.multiply(JSBI.BigInt(60 * 60 * 24 * 365))
+    .divide(fractionOfPool)
 
-  const emissionTokenPrice = useUSDCPrice(poolEmission?.currency)
+  const valueOfYearlyEmission = useUSDCValue(hypotheticalEmissionPerYear)
 
-  // console.log('emissionTokenPrice', emissionTokenPrice, poolEmission?.currency.name)
-  const emissionAmount =
-    poolEmission?.currency && onePercentOfPool
-      ? CurrencyAmount.fromRawAmount(poolEmission?.currency, onePercentOfPool.multiply(2).quotient)
-      : undefined
-  const usdValueOfStakedLP = useUSDCValue(emissionAmount)
-  // console.log('usdValueOfStakedLP', usdValueOfStakedLP?.toSignificant())
+  const inputAmount = farmTVL?.divide(fractionOfPool)
 
   const apr =
-    usdValueOfStakedLP &&
-    hypotheticalEmissionPerYear &&
-    emissionTokenPrice &&
-    usdValueOfStakedLP.greaterThan(JSBI.BigInt(0))
-      ? JSBI.divide(emissionTokenPrice?.quote(hypotheticalEmissionPerYear).quotient, usdValueOfStakedLP.quotient)
+    valueOfYearlyEmission && inputAmount
+      ? JSBI.divide(valueOfYearlyEmission?.multiply(100).quotient, inputAmount?.quotient)
       : JSBI.BigInt(0)
+
+  return apr
+
+  // const emissionTokenPrice = useUSDCPrice(poolEmissionPerSecond?.currency)
+
+  // // console.log('emissionTokenPrice', emissionTokenPrice, poolEmissionPerSecond?.currency.name)
+  // const emissionAmount =
+  //   poolEmissionPerSecond?.currency && onePercentOfPool
+  //     ? CurrencyAmount.fromRawAmount(poolEmissionPerSecond?.currency, onePercentOfPool.multiply(2).quotient)
+  //     : undefined
+  // const usdValueOfStakedLP = useUSDCValue(emissionAmount)
+  // // console.log('usdValueOfStakedLP', usdValueOfStakedLP?.toSignificant())
+
+  // const apr =
+  //   usdValueOfStakedLP &&
+  //   hypotheticalEmissionPerYear &&
+  //   emissionTokenPrice &&
+  //   usdValueOfStakedLP.greaterThan(JSBI.BigInt(0))
+  //     ? JSBI.divide(emissionTokenPrice?.quote(hypotheticalEmissionPerYear).quotient, usdValueOfStakedLP.quotient)
+  //     : JSBI.BigInt(0)
 
   return apr
 }

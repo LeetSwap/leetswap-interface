@@ -63,11 +63,11 @@ function PoolRow({
 }: PoolProps) {
   const { totalPoolStaked, pair } = usePairTokens(lpTokenAddress)
   const { rewardPerSecondAmount } = useRewardInfos(poolId, rewarderAddress)
-  const primaryAPR = useCalculateAPR(poolEmissionAmount, totalPoolStaked)
-  const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, totalPoolStaked)
-  const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
 
   const tvl = useFarmTVL(pair ?? undefined, totalPoolStaked)
+  const primaryAPR = useCalculateAPR(poolEmissionAmount, tvl)
+  const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, tvl)
+  const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
 
   return (
     <>
