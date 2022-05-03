@@ -81,7 +81,7 @@ export function FarmTableHeader() {
       <FarmTableHeaderText>Pool</FarmTableHeaderText>
       <FarmTableHeaderText>TVL</FarmTableHeaderText>
       <FarmTableHeaderText>Rewards (per Week)</FarmTableHeaderText>
-      {/* <FarmTableHeaderText>APR</FarmTableHeaderText> */}
+      <FarmTableHeaderText>APR</FarmTableHeaderText>
     </FarmTableHeaderContainer>
   )
 }
