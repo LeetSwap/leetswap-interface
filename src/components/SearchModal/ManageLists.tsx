@@ -27,7 +27,7 @@ import useTheme from '../../hooks/useTheme'
 import ListToggle from '../Toggle/ListToggle'
 import Card from 'components/Card'
 import { CurrencyModalView } from './CurrencySearchModal'
-import { UNSUPPORTED_LIST_URLS } from 'constants/lists'
+import { UNSUPPORTED_LIST_URLS, DEFAULT_LIST_OF_LISTS } from 'constants/lists'
 
 const Wrapper = styled(Column)`
   width: 100%;
@@ -179,7 +179,7 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
           </StyledListUrlText>
           <StyledMenu ref={node as any}>
             <ButtonEmpty onClick={toggle} ref={setReferenceElement} padding="0">
-              <Settings stroke={isActive ? theme.bg1 : theme.text1} size={12} />
+              <Settings stroke={theme.text1} size={12} />
             </ButtonEmpty>
             {open && (
               <PopoverContainer show={true} ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
@@ -269,6 +269,16 @@ export function ManageLists({
         }
 
         if (l1 && l2) {
+          const l1Index = DEFAULT_LIST_OF_LISTS.indexOf(u1)
+          const l2Index = DEFAULT_LIST_OF_LISTS.indexOf(u2)
+          if (l1Index >= 0 && l2Index >= 0) {
+            return l1Index < l2Index ? -1 : l1Index === l2Index ? 0 : 1
+          } else if (l1Index >= 0) {
+            return 1
+          } else if (l2Index >= 0) {
+            return -1
+          }
+
           return l1.name.toLowerCase() < l2.name.toLowerCase()
             ? -1
             : l1.name.toLowerCase() === l2.name.toLowerCase()
