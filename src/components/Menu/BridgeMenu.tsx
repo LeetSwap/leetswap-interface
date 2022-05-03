@@ -75,6 +75,11 @@ export function BridgeMenu() {
               Nomad <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
+          <MenuItem href="https://bridge.connext.network/">
+            <div>
+              Connext <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
           <MenuItem href="https://spacestation.zone/">
             <div>
               Gravity Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
