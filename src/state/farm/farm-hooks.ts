@@ -299,19 +299,12 @@ export function useCalculateAPR(poolEmissionPerSecond?: CurrencyAmount<Token>, f
 
   const inputAmount = farmTVL?.divide(fractionOfPool)
 
-  console.log(`value of yearly emmission`)
-  console.log(`${JSON.stringify(valueOfYearlyEmission)}`)
-  console.log(`input amount`)
-  console.log(`${JSON.stringify(inputAmount)}`)
-  try {
-    const apr =
-      valueOfYearlyEmission && inputAmount
-        ? JSBI.divide(valueOfYearlyEmission?.multiply(100).quotient, inputAmount?.quotient)
-        : JSBI.BigInt(0)
-    return apr
-  } catch {
-    return JSBI.BigInt(0)
-  }
+  const apr =
+    valueOfYearlyEmission && inputAmount && JSBI.greaterThan(inputAmount.quotient, JSBI.BigInt('0'))
+      ? JSBI.divide(valueOfYearlyEmission?.multiply(100).quotient, inputAmount?.quotient)
+      : JSBI.BigInt(0)
+
+  return apr
 
   // const emissionTokenPrice = useUSDCPrice(poolEmissionPerSecond?.currency)
 
