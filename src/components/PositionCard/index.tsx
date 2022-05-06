@@ -27,6 +27,7 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { RowBetween, RowFixed, AutoRow } from '../Row'
 import { Dots } from '../swap/styleds'
 import { BIG_INT_ZERO } from '../../constants/misc'
+import { useUSDCValue } from 'hooks/useUSDCPrice'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -180,7 +181,6 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   // if staked balance balance provided, add to standard liquidity amount
   const userPoolBalance = stakedBalance ? userDefaultPoolBalance?.add(stakedBalance) : userDefaultPoolBalance
-
   const poolTokenPercentage =
     !!userPoolBalance &&
     !!totalPoolTokens &&
@@ -201,6 +201,11 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
       : [undefined, undefined]
 
   const backgroundColor = useColor(pair?.token0)
+
+  const token0Value = useUSDCValue(token0Deposited)
+  const token1Value = useUSDCValue(token1Deposited)
+
+  const positionValue = token0Value?.multiply(2) || token1Value?.multiply(2)
 
   return (
     <StyledPositionCard border={border} bgColor={backgroundColor}>
@@ -240,6 +245,15 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
               </Text>
             </FixedHeightRow>
+            <FixedHeightRow>
+              <Text fontSize={16} fontWeight={500}>
+                Position Value:
+              </Text>
+              <Text fontSize={16} fontWeight={500}>
+                {positionValue ? `$${positionValue.toFixed(0, { groupSeparator: ',' })}` : ''}
+              </Text>
+            </FixedHeightRow>
+
             {stakedBalance && (
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>

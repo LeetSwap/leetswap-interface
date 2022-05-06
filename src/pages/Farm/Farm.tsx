@@ -33,6 +33,7 @@ import { PotionIcon4 } from '../../components/Potions/Potions'
 import { Box } from 'rebass/styled-components'
 import { HRDark } from '../../components/HR/HR'
 import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
+import { useUSDCValue } from 'hooks/useUSDCPrice'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -135,19 +136,27 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
   const [showUnstakingModal, setShowUnstakingModal] = useState(false)
   const [showClaimRewardModal, setShowClaimRewardModal] = useState(false)
 
-  // fade cards if nothing staked or nothing earned yet
-  // const disableTop = !stakedAmount || stakedAmount.equalTo(JSBI.BigInt(0))
-
-  // const WETH = token0?.isNative ? tokenA : tokenB
-  // const colorToken = token0?.isNative ? token1 : token0
-  // const backgroundColor = useColor(colorToken ?? undefined)
-
-  // get the USD value of staked dIFFUSION
-
   const valueOfTotalStakedAmountInUSDC = useFarmTVL(pair ?? undefined, totalPoolStaked)
   const primaryAPR = useCalculateAPR(poolEmissionAmount, valueOfTotalStakedAmountInUSDC)
   const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, valueOfTotalStakedAmountInUSDC)
   const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
+
+  const [token0Deposited, token1Deposited] =
+    !!pair &&
+    !!totalPoolStaked &&
+    !!stakedAmount &&
+    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+    JSBI.greaterThanOrEqual(totalPoolStaked.quotient, stakedAmount.quotient)
+      ? [
+          pair.getLiquidityValue(pair.token0, totalPoolStaked, stakedAmount, false),
+          pair.getLiquidityValue(pair.token1, totalPoolStaked, stakedAmount, false),
+        ]
+      : [undefined, undefined]
+
+  const token0Value = useUSDCValue(token0Deposited)
+  const token1Value = useUSDCValue(token1Deposited)
+
+  const positionValue = token0Value?.multiply(2) || token1Value?.multiply(2)
 
   const toggleWalletModal = useWalletModalToggle()
 
@@ -188,25 +197,33 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
       <DataRow style={{ gap: '24px' }}>
         <PoolData>
           <RowBetween>
-            <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 3} align="center">
               <TYPE.mediumHeader color={'primary1'}>Total deposits</TYPE.mediumHeader>
             </PoolHeading>
-            <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 3} align="center">
               <TYPE.mediumHeader color={'primary1'}>APR</TYPE.mediumHeader>
+            </PoolHeading>
+            <PoolHeading width={1 / 3} align="center">
+              <TYPE.mediumHeader color={'primary1'}>Your Deposit</TYPE.mediumHeader>
             </PoolHeading>
           </RowBetween>
           <HRDark />
           <RowBetween>
-            <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 3} align="center">
               <TYPE.body fontSize={20} fontWeight={500}>
                 {valueOfTotalStakedAmountInUSDC
                   ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
                   : `${totalPoolStaked?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} DIFF - LP`}
               </TYPE.body>
             </PoolHeading>
-            <PoolHeading width={1 / 2} align="center">
+            <PoolHeading width={1 / 3} align="center">
               <TYPE.body fontSize={20} fontWeight={500}>
                 {JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${totalAPR.toString()}%` : '-'}
+              </TYPE.body>
+            </PoolHeading>
+            <PoolHeading width={1 / 3} align="center">
+              <TYPE.body fontSize={20} fontWeight={500}>
+                {positionValue ? `$${positionValue.toFixed(0, { groupSeparator: ',' })}` : ''}
               </TYPE.body>
             </PoolHeading>
           </RowBetween>

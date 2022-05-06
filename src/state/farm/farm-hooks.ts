@@ -305,26 +305,6 @@ export function useCalculateAPR(poolEmissionPerSecond?: CurrencyAmount<Token>, f
       : JSBI.BigInt(0)
 
   return apr
-
-  // const emissionTokenPrice = useUSDCPrice(poolEmissionPerSecond?.currency)
-
-  // // console.log('emissionTokenPrice', emissionTokenPrice, poolEmissionPerSecond?.currency.name)
-  // const emissionAmount =
-  //   poolEmissionPerSecond?.currency && onePercentOfPool
-  //     ? CurrencyAmount.fromRawAmount(poolEmissionPerSecond?.currency, onePercentOfPool.multiply(2).quotient)
-  //     : undefined
-  // const usdValueOfStakedLP = useUSDCValue(emissionAmount)
-  // // console.log('usdValueOfStakedLP', usdValueOfStakedLP?.toSignificant())
-
-  // const apr =
-  //   usdValueOfStakedLP &&
-  //   hypotheticalEmissionPerYear &&
-  //   emissionTokenPrice &&
-  //   usdValueOfStakedLP.greaterThan(JSBI.BigInt(0))
-  //     ? JSBI.divide(emissionTokenPrice?.quote(hypotheticalEmissionPerYear).quotient, usdValueOfStakedLP.quotient)
-  //     : JSBI.BigInt(0)
-
-  // return apr
 }
 
 export interface MinichefRawPoolInfo {

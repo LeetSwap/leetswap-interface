@@ -82,6 +82,7 @@ export function FarmTableHeader() {
       <FarmTableHeaderText>TVL</FarmTableHeaderText>
       <FarmTableHeaderText>Rewards (per Week)</FarmTableHeaderText>
       <FarmTableHeaderText>APR</FarmTableHeaderText>
+      <FarmTableHeaderText>Your Deposit</FarmTableHeaderText>
     </FarmTableHeaderContainer>
   )
 }
@@ -94,6 +95,7 @@ type TableRowProps = {
   primaryEmissionPerSecond?: CurrencyAmount<Token>
   secondaryEmissionPerSecond?: CurrencyAmount<Token>
   totalAPR?: JSBI
+  positionValue?: CurrencyAmount<Token>
 }
 
 const PoolPair = styled(AutoColumn)`
@@ -101,7 +103,7 @@ const PoolPair = styled(AutoColumn)`
   justify-content: start;
   align-items: center;
   color: ${({ theme }: { theme: DefaultTheme }) => theme.primary1};
-  width: 25%;
+  width: 20%;
 `
 
 const TVL = styled(AutoColumn)`
@@ -109,7 +111,7 @@ const TVL = styled(AutoColumn)`
   text-align: right;
   text-decoration: none;
   padding-right: 24px;
-  width: 25%;
+  width: 20%;
 `
 
 const PoolRow = styled(Link)`
@@ -150,7 +152,7 @@ const EmissionText = styled.span`
 `
 
 const RowColumn = styled.div`
-  width: 25%;
+  width: 20%;
   text-align: right;
   justify-content: flex-end;
 `
@@ -163,6 +165,7 @@ export function FarmTableRow({
   primaryEmissionPerSecond,
   secondaryEmissionPerSecond,
   totalAPR,
+  positionValue,
 }: TableRowProps) {
   return (
     <PoolRow to={`/farm/${poolId}`}>
@@ -206,6 +209,10 @@ export function FarmTableRow({
           )}
         </RowColumn>
         <RowColumn>{totalAPR && JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${totalAPR.toString()}%` : '-'}</RowColumn>
+        <RowColumn>
+          {' '}
+          {positionValue?.greaterThan(0) ? `$${positionValue.toFixed(0, { groupSeparator: ',' })}` : ''}
+        </RowColumn>
       </AutoRow>
       <HRDark />
     </PoolRow>

@@ -25,6 +25,8 @@ import styled from 'styled-components'
 import { Tux } from '../../components/farm/TuxBanner'
 import { FarmHeading } from '../../components/farm/FarmHeading'
 import { HRDark } from '../../components/HR/HR'
+import { CurrencyAmount } from 'sdk-core/entities'
+import { useUSDCValue } from 'hooks/useUSDCPrice'
 
 const FarmListContainer = styled.div`
   max-width: 1080px;
@@ -58,16 +60,35 @@ function PoolRow({
   poolId,
   // pendingAmount,
   rewarderAddress,
-  // stakedRawAmount,
+  stakedRawAmount,
   poolEmissionAmount,
 }: PoolProps) {
-  const { totalPoolStaked, pair } = usePairTokens(lpTokenAddress)
+  const { totalPoolStaked, pair, lpToken } = usePairTokens(lpTokenAddress)
   const { rewardPerSecondAmount } = useRewardInfos(poolId, rewarderAddress)
 
   const tvl = useFarmTVL(pair ?? undefined, totalPoolStaked)
   const primaryAPR = useCalculateAPR(poolEmissionAmount, tvl)
   const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, tvl)
   const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
+
+  const stakedAmount = lpToken ? CurrencyAmount.fromRawAmount(lpToken, stakedRawAmount || 0) : undefined
+
+  const [token0Deposited, token1Deposited] =
+    !!pair &&
+    !!totalPoolStaked &&
+    !!stakedAmount &&
+    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+    JSBI.greaterThanOrEqual(totalPoolStaked.quotient, stakedAmount.quotient)
+      ? [
+          pair.getLiquidityValue(pair.token0, totalPoolStaked, stakedAmount, false),
+          pair.getLiquidityValue(pair.token1, totalPoolStaked, stakedAmount, false),
+        ]
+      : [undefined, undefined]
+
+  const token0Value = useUSDCValue(token0Deposited)
+  const token1Value = useUSDCValue(token1Deposited)
+
+  const positionValue = token0Value?.multiply(2) || token1Value?.multiply(2)
 
   return (
     <>
@@ -79,6 +100,7 @@ function PoolRow({
         primaryEmissionPerSecond={poolEmissionAmount}
         secondaryEmissionPerSecond={rewardPerSecondAmount}
         totalAPR={totalAPR}
+        positionValue={positionValue}
       />
     </>
   )
