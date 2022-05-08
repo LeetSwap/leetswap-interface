@@ -213,10 +213,14 @@ export class Pair {
       }
     }
 
-    return CurrencyAmount.fromRawAmount(
-      token,
-      JSBI.divide(JSBI.multiply(liquidity.quotient, this.reserveOf(token).quotient), totalSupplyAdjusted.quotient)
-    )
+    if (JSBI.equal(totalSupplyAdjusted.quotient, JSBI.BigInt('0'))) {
+      return CurrencyAmount.fromRawAmount(token, JSBI.BigInt('0'))
+    } else {
+      return CurrencyAmount.fromRawAmount(
+        token,
+        JSBI.divide(JSBI.multiply(liquidity.quotient, this.reserveOf(token).quotient), totalSupplyAdjusted.quotient)
+      )
+    }
   }
 }
 
