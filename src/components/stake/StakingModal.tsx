@@ -7,18 +7,19 @@ import { AutoColumn } from '../Column'
 import styled from 'styled-components/macro'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
-import { ButtonConfirmed, ButtonError } from '../Button'
+import { ButtonConfirmed, ButtonError, ButtonSecondary } from '../Button'
 import ProgressCircles from '../ProgressSteps'
 import CurrencyInputPanel from '../CurrencyInputPanel'
-import { Pair } from '@uniswap/v2-sdk'
-import { Token, CurrencyAmount } from '@uniswap/sdk-core'
+
+import { CurrencyAmount, Token } from 'sdk-core'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
-import { useMiniChef, usePairContract } from '../../hooks/useContract'
+import { useDiffusionBar } from '../../hooks/useContract'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
-import { StakingInfo, useDerivedStakeInfo } from '../../state/stake/hooks'
+import { useDerivedStakeInfo } from '../../state/stake/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
+import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -28,30 +29,18 @@ const ContentWrapper = styled(AutoColumn)`
 interface StakingModalProps {
   isOpen: boolean
   onDismiss: () => void
-  stakingInfo: Pick<StakingInfo, 'tokens' | 'stakedAmount'> & Partial<{ poolId: number; lpTokenAddress: string }>
-  userLiquidityUnstaked: CurrencyAmount<Token> | undefined
+  availableAmount?: CurrencyAmount<Token>
+  currencyToAdd?: Token
 }
 
-export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
+export default function StakingModal({ isOpen, onDismiss, availableAmount, currencyToAdd }: StakingModalProps) {
   const { library, account } = useActiveWeb3React()
+
+  const { addToken, success: success } = useAddTokenToMetamask(currencyToAdd)
 
   // track and parse user input
   const [typedValue, setTypedValue] = useState('')
-  const { parsedAmount, error } = useDerivedStakeInfo(
-    typedValue,
-    stakingInfo.stakedAmount?.currency,
-    userLiquidityUnstaked
-  )
-  // const parsedAmountWrapped = wrappedCurrencyAmount(parsedAmount, chainId)
-
-  // let hypotheticalRewardRate: CurrencyAmount<Token> = CurrencyAmount.fromRawAmount(stakingInfo.rewardRate.currency, '0')
-  // if (parsedAmountWrapped?.greaterThan('0')) {
-  //   hypotheticalRewardRate = stakingInfo.getHypotheticalRewardRate(
-  //     stakingInfo.stakedAmount.add(parsedAmountWrapped),
-  //     stakingInfo.totalStakedAmount.add(parsedAmountWrapped),
-  //     stakingInfo.totalRewardRate
-  //   )
-  // }
+  const { parsedAmount, error } = useDerivedStakeInfo(typedValue, availableAmount?.currency, availableAmount)
 
   // state for pending and submitted txn views
   const addTransaction = useTransactionAdder()
@@ -63,32 +52,21 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     onDismiss()
   }, [onDismiss])
 
-  // pair contract for this token to be staked
-  const dummyPair = new Pair(
-    CurrencyAmount.fromRawAmount(stakingInfo.tokens[0], '0'),
-    CurrencyAmount.fromRawAmount(stakingInfo.tokens[1], '0')
-  )
-  const pairContract = usePairContract(dummyPair.liquidityToken.address)
-
   // approval data for stake
   const deadline = useTransactionDeadline()
 
-  const miniChef = useMiniChef()
-  const [approval, approveCallback] = useApproveCallback(parsedAmount, miniChef?.address)
+  const diffusionBar = useDiffusionBar()
+  const [approval, approveCallback] = useApproveCallback(parsedAmount, diffusionBar?.address)
 
   async function onStake() {
     setAttempting(true)
-    if (miniChef && parsedAmount && deadline && account && typeof stakingInfo.poolId === 'number') {
+
+    if (diffusionBar && parsedAmount && deadline && account) {
       if (approval === ApprovalState.APPROVED) {
-        //@MH: Not 100 percent sure if this is how the amount is determined
         try {
-          const response = await miniChef?.deposit(
-            stakingInfo.poolId,
-            `0x${parsedAmount.quotient.toString(16)}`,
-            account
-          )
+          const response = await diffusionBar.enter(`0x${parsedAmount.quotient.toString(16)}`)
           addTransaction(response, {
-            summary: 'Deposit liquidity',
+            summary: 'Stake Diffusion',
           })
           setHash(response.hash)
         } catch (e: any) {
@@ -108,14 +86,14 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   }, [])
 
   // used for max input button
-  const maxAmountInput = maxAmountSpend(userLiquidityUnstaked)
+  const maxAmountInput = maxAmountSpend(availableAmount)
   const atMaxAmount = Boolean(maxAmountInput && parsedAmount?.equalTo(maxAmountInput))
   const handleMax = useCallback(() => {
     maxAmountInput && onUserInput(maxAmountInput.toExact())
   }, [maxAmountInput, onUserInput])
 
   async function onAttemptToApprove() {
-    if (!pairContract || !library || !deadline) throw new Error('missing dependencies')
+    if (!library || !deadline) throw new Error('missing dependencies')
     if (!parsedAmount) throw new Error('missing liquidity amount')
 
     await approveCallback()
@@ -126,7 +104,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {!attempting && !hash && (
         <ContentWrapper gap="lg">
           <RowBetween>
-            <TYPE.mediumHeader>Deposit</TYPE.mediumHeader>
+            <TYPE.mediumHeader>Stake</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
@@ -134,23 +112,11 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             onUserInput={onUserInput}
             onMax={handleMax}
             showMaxButton={!atMaxAmount}
-            currency={stakingInfo.stakedAmount.currency}
-            pair={dummyPair}
+            currency={availableAmount?.currency}
             label={''}
-            customBalanceText={'Available to deposit: '}
-            id="stake-liquidity-token"
+            customBalanceText={'Available to stake: '}
+            id="stake-diffusion-token"
           />
-          {/* 
-          <HypotheticalRewardRate dim={!hypotheticalRewardRate.greaterThan('0')}>
-            <div>
-              <TYPE.black fontWeight={600}>Weekly Rewards</TYPE.black>
-            </div>
-
-            <TYPE.black>
-              {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
-              UNI / week
-            </TYPE.black>
-          </HypotheticalRewardRate> */}
 
           <RowBetween>
             <ButtonConfirmed
@@ -175,8 +141,8 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Depositing Liquidity</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} DIFF-LP</TYPE.body>
+            <TYPE.largeHeader>Staking</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} DIFF</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
@@ -184,10 +150,18 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Deposited {parsedAmount?.toSignificant(4)} DIFF-LP</TYPE.body>
+            <TYPE.body fontSize={20}>Staked {parsedAmount?.toSignificant(4)} DIFF</TYPE.body>
+            <AddXDiffButton addToken={addToken} success={success} />
           </AutoColumn>
         </SubmittedView>
       )}
     </Modal>
   )
+}
+
+function AddXDiffButton({ addToken, success }: { addToken: () => void; success?: boolean }) {
+  if (success) {
+    return <ButtonSecondary disabled>Added to Metamask</ButtonSecondary>
+  }
+  return <ButtonSecondary onClick={addToken}>Add xDIFF to Metamask</ButtonSecondary>
 }

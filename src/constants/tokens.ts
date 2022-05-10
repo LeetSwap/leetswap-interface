@@ -3,7 +3,7 @@ import { Token } from '@uniswap/sdk-core'
 import { WEVMOS, Evmos } from './native-token'
 
 import { ChainId } from 'constants/chains'
-import { TESTNET } from './periphery'
+import { MAINNET, TESTNET } from './periphery'
 
 export { WEVMOS, Evmos }
 
@@ -81,7 +81,13 @@ export const DIFFUSION = makeToken('Diffusion', 'DIFF', 18, {
   [ChainId.MAINNET]: '0x3f75ceabCDfed1aCa03257Dc6Bdc0408E2b4b026',
   [ChainId.TESTNET]: TESTNET.diffusion || '0x067eC87844fBD73eDa4a1059F30039584586e09d',
   // Minichef Main Reward
-  [ChainId.RINKEBY]: '0x655dfdd82cb10dc7fb931fd85d69887756b922fd ',
+  [ChainId.RINKEBY]: '0x655dfdd82cb10dc7fb931fd85d69887756b922fd',
+})
+
+export const XDIFFUSION = makeToken('xDiffusion', 'XDIFF', 18, {
+  [ChainId.MAINNET]: MAINNET.diffusionbar,
+  [ChainId.TESTNET]: TESTNET.diffusionbar,
+  [ChainId.RINKEBY]: /*@TODO: WRONG */ '0x655dfdd82cb10dc7fb931fd85d69887756b922fd',
 })
 
 function makeToken(name: string, symbol: string, decimals: number, addresses: Record<ChainId, string>) {

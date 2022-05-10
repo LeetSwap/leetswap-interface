@@ -35,6 +35,12 @@ export const AIRDROP_ADDRESS = {
   [ChainId.RINKEBY]: '',
 }
 
+export const DIFFUSION_BAR_ADDRESS = {
+  [ChainId.MAINNET]: MAINNET.diffusionbar,
+  [ChainId.TESTNET]: TESTNET.diffusionbar,
+  [ChainId.RINKEBY]: '0x9AC19677BD6B1a3ba046C33f4D2f1952cA0e9a13',
+}
+
 // Used but ultimately not ours
 export const WETH9_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.weth9,

@@ -17,21 +17,15 @@ import { useActiveWeb3React } from '../../hooks/web3'
 import { useV2Pairs } from '../../hooks/useV2Pairs'
 import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
 import { Dots } from '../../components/swap/styleds'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/farm/styled'
+
 import { useStakingInfo } from '../../state/stake/hooks'
 import { BIG_INT_ZERO } from '../../constants/misc'
 import { Pair } from '@uniswap/v2-sdk'
+import { InfoCard } from 'components/InfoCard'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
   width: 100%;
-`
-
-const VoteCard = styled(DataCard)`
-  /* background: radial-gradient(76.02% 75.41% at 1.84% 0%, #27ae60 0%, #000000 100%); */
-  overflow: hidden;
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
 `
 
 const TitleRow = styled(RowBetween)`
@@ -130,23 +124,10 @@ export default function Pool() {
     <>
       <PageWrapper>
         <SwapPoolTabs active={'pool'} />
-        <VoteCard>
-          <CardBGImage />
-          <CardSection>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <TYPE.white fontWeight={600}>Liquidity provider rewards</TYPE.white>
-              </RowBetween>
-              <RowBetween>
-                <TYPE.white fontSize={14}>
-                  {`Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
-                </TYPE.white>
-              </RowBetween>
-            </AutoColumn>
-          </CardSection>
-          <CardBGImage />
-          <CardNoise />
-        </VoteCard>
+        <InfoCard
+          title="Liquidity provider rewards"
+          description={`Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
+        />
 
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="md" style={{ width: '100%' }}>

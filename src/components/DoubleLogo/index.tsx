@@ -1,7 +1,7 @@
 import { Currency } from '@uniswap/sdk-core'
+import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
 import React from 'react'
 import styled from 'styled-components/macro'
-import CurrencyLogo from '../CurrencyLogo'
 
 const Wrapper = styled.div<{ margin: boolean; sizeraw: number }>`
   position: relative;
@@ -17,10 +17,10 @@ export interface DoubleCurrencyLogoProps {
   currency1?: Currency
 }
 
-const HigherLogo = styled(CurrencyLogo)`
+const HigherLogo = styled(CurrencyLogoFromList)`
   z-index: 2;
 `
-const CoveredLogo = styled(CurrencyLogo)<{ sizeraw: number }>`
+const CoveredLogo = styled(CurrencyLogoFromList)<{ sizeraw: number }>`
   position: absolute;
   left: ${({ sizeraw }) => '-' + (sizeraw / 2).toString() + 'px'} !important;
 `

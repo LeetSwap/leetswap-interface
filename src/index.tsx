@@ -26,22 +26,24 @@ if (!!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false
 
   window.ethereum.request?.({ method: 'eth_requestAccounts' })
-  window.ethereum.request?.({
-    method: 'wallet_addEthereumChain',
-    params: [
-      {
-        chainId: '0x2329',
-        chainName: 'EVMOS',
-        nativeCurrency: {
-          name: 'EVMOS',
-          symbol: 'EVMOS',
-          decimals: 18,
+  if (window.location.hostname !== 'localhost') {
+    window.ethereum.request?.({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x2329',
+          chainName: 'EVMOS',
+          nativeCurrency: {
+            name: 'EVMOS',
+            symbol: 'EVMOS',
+            decimals: 18,
+          },
+          rpcUrls: ['https://evmos-rpc2.binary.host'],
+          blockExplorerUrls: ['https://evm.evmos.org'],
         },
-        rpcUrls: ['https://evmos-rpc2.binary.host'],
-        blockExplorerUrls: ['https://evm.evmos.org'],
-      },
-    ],
-  })
+      ],
+    })
+  }
 }
 
 const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
