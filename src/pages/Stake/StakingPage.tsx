@@ -1,20 +1,16 @@
-import { ButtonPrimary } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import { InfoCard } from 'components/InfoCard'
-import StakingModal from 'components/stake/StakingModal'
-import UnstakingModal from 'components/stake/UnstakingModal'
+
 import styled from 'styled-components'
 
-import { DIFFUSION, XDIFFUSION } from 'constants/tokens'
-import { useActiveWeb3React } from 'hooks/web3'
-import React, { useState } from 'react'
-import { useTokenBalance } from 'state/wallet/hooks'
+import React from 'react'
+
 import { PotionIcon } from '../../components/Potions/Potions'
 import { TYPE } from '../../theme'
-import { AutoRow, RowBetween } from '../../components/Row'
-import { CurrencyLogoFromList } from '../../components/CurrencyLogo/CurrencyLogoFromList'
-import { HRDark } from '../../components/HR/HR'
+
 import TuxImg from '../../assets/images/tux2.png'
+
+import { StakingBalance } from 'components/stake/StakingBalance'
 
 const Tux = styled.img`
   position: absolute;
@@ -50,40 +46,7 @@ const Heading = styled.div`
 //   font-size: 22px;
 // `
 
-const BalanceRow = styled(RowBetween)`
-  background: ${({ theme }) =>
-    `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
-  border-radius: 8px;
-  padding: 3% 10%;
-  font-size: 22px;
-`
-
-const BalanceColumn = styled(AutoColumn)`
-  width: 100%;
-`
-
-const TokenLogo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const ButtonRow = styled(AutoRow)`
-  width: 50%;
-`
-
 export function StakingPage() {
-  const { account, chainId } = useActiveWeb3React()
-  const token = chainId ? DIFFUSION[chainId] : undefined
-  const xToken = chainId ? XDIFFUSION[chainId] : undefined
-  const diffusionBalance = useTokenBalance(account ?? undefined, token)
-  const xdiffBalance = useTokenBalance(account ?? undefined, xToken)
-
-  const [stakingModalOpen, setStakingModalOpen] = useState(false)
-  const [unstakeModalOpen, setUnstakeModalOpen] = useState(false)
-
   return (
     <>
       <PageWrapper>
@@ -99,73 +62,8 @@ export function StakingPage() {
 
           ${`\n`} Your xDIFF is continuously compounding, when you unstake you will receive all the originally deposited DIFF and any additional from fees and daily Diffusion holders rewards`}
           />
-
-          {/*<APYRow>*/}
-          {/*  <AutoColumn justify={'start'}>Staking APY</AutoColumn>*/}
-          {/*  <AutoColumn justify={`end`}>18.5%</AutoColumn>*/}
-          {/*</APYRow>*/}
-
-          <BalanceRow>
-            <BalanceColumn justify={`stretch`}>
-              <RowBetween>
-                <AutoColumn justify={'start'}>
-                  <TYPE.largeHeader color={'primary1'} marginBottom={`15px`}>
-                    Your Balances
-                  </TYPE.largeHeader>
-                </AutoColumn>
-              </RowBetween>
-              <HRDark />
-              <RowBetween>
-                <AutoColumn justify={'start'}>
-                  <TokenLogo>
-                    <CurrencyLogoFromList currency={token ?? undefined} size={'24px'} />
-                    <TYPE.body fontSize={20} fontWeight={500} margin={'10px'}>
-                      DIFF
-                    </TYPE.body>
-                  </TokenLogo>
-                </AutoColumn>
-                <AutoColumn justify={'end'}>{diffusionBalance?.toSignificant()}</AutoColumn>
-              </RowBetween>
-              <HRDark />
-              <RowBetween>
-                <AutoColumn justify={'start'}>
-                  <TokenLogo>
-                    <CurrencyLogoFromList currency={xToken ?? undefined} size={'24px'} />
-                    <TYPE.body fontSize={20} fontWeight={500} margin={'10px'}>
-                      xDIFF
-                    </TYPE.body>
-                  </TokenLogo>
-                </AutoColumn>
-
-                <AutoColumn justify={'end'}>{xdiffBalance?.toSignificant()}</AutoColumn>
-              </RowBetween>
-            </BalanceColumn>
-          </BalanceRow>
-
-          <ButtonRow justify={'space-between'}>
-            <AutoColumn justify={'stretch'}>
-              <ButtonPrimary padding="8px" borderRadius="8px" width="140px" onClick={() => setStakingModalOpen(true)}>
-                Stake
-              </ButtonPrimary>
-            </AutoColumn>
-            <AutoColumn justify={'stretch'}>
-              <ButtonPrimary padding="8px" borderRadius="8px" width="140px" onClick={() => setUnstakeModalOpen(true)}>
-                Unstake
-              </ButtonPrimary>
-            </AutoColumn>
-          </ButtonRow>
+          <StakingBalance />
         </AutoColumn>
-        <StakingModal
-          isOpen={stakingModalOpen}
-          onDismiss={() => setStakingModalOpen(false)}
-          availableAmount={diffusionBalance}
-          currencyToAdd={xToken}
-        />
-        <UnstakingModal
-          isOpen={unstakeModalOpen}
-          onDismiss={() => setUnstakeModalOpen(false)}
-          availableAmount={xdiffBalance}
-        />
       </PageWrapper>
     </>
   )
