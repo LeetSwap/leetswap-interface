@@ -156,7 +156,7 @@ export default function Menu() {
             <Code size={14} />
             <div>Code</div>
           </MenuItem>
-          <MenuItem href="https://discord.gg/2Df4XDkcFC ">
+          <MenuItem href="https://discord.gg/2Df4XDkcFC">
             <MessageCircle size={14} />
             <div>Discord</div>
           </MenuItem>
