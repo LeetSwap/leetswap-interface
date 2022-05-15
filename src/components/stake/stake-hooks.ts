@@ -26,14 +26,16 @@ export function useEarnedDiff(xDiffBalance?: CurrencyAmount<Currency>) {
 export function useStakingAPY() {
   const { chainId } = useActiveWeb3React()
 
-  const yearlyEmission = chainId ? CurrencyAmount.fromRawAmount(DIFFUSION[chainId], YEARLY_EMITTED_DIFF) : undefined
+  const yearlyEmission = chainId
+    ? CurrencyAmount.fromRawAmount(DIFFUSION[chainId], YEARLY_EMITTED_DIFF).multiply(JSBI.BigInt(10 ** 18))
+    : undefined
 
   console.log('yearlyEmission', yearlyEmission?.toSignificant())
 
   const totalXDiff = useTotalSupply(chainId ? XDIFFUSION[chainId] : undefined)
   console.log('TotalXDiff', totalXDiff?.toSignificant())
   if (yearlyEmission && totalXDiff && JSBI.greaterThan(totalXDiff.quotient, JSBI.BigInt('0'))) {
-    return JSBI.divide(yearlyEmission.quotient, totalXDiff.quotient)
+    return JSBI.divide(JSBI.multiply(yearlyEmission.quotient, JSBI.BigInt(100)), totalXDiff.quotient)
   }
   return undefined
 }

@@ -10,7 +10,7 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
 import { AutoRow, RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/farm/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage, DataRow } from '../../components/farm/styled'
 import { ButtonPrimary } from '../../components/Button'
 import StakingModal from '../../components/farm/StakingModal'
 import UnstakingModal from '../../components/farm/UnstakingModal'
@@ -20,7 +20,7 @@ import { CountUp } from 'use-count-up'
 
 import { currencyId } from '../../utils/currencyId'
 import usePrevious from '../../hooks/usePrevious'
-import { BIG_INT_ZERO, BIG_INT_SECONDS_IN_WEEK } from '../../constants/misc'
+import { BIG_INT_ZERO } from '../../constants/misc'
 import {
   usePairTokens,
   useRewardInfos,
@@ -30,10 +30,11 @@ import {
   useFarmTVL,
 } from 'state/farm/farm-hooks'
 import { PotionIcon4 } from '../../components/Potions/Potions'
-import { Box } from 'rebass/styled-components'
+
 import { HRDark } from '../../components/HR/HR'
-import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
+
 import { useUSDCValue } from 'hooks/useUSDCPrice'
+import { FarmYield } from 'components/farm/FarmYield'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -65,20 +66,6 @@ const StyledBottomCard = styled(DataCard)<{ dim: any }>`
   z-index: 1;
 `
 
-const PoolData = styled(DataCard)`
-  background: ${({ theme }) =>
-    `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
-  padding: 1.5rem 7rem;
-  z-index: 1;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex-direction: column;
-    gap: 12px;
-      padding: 1.5rem 1.5rem;
-  `};
-`
-
 const VoteCard = styled(DataCard)`
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 35%, ${theme.darkTransparent} 100%);`};
@@ -87,29 +74,10 @@ const VoteCard = styled(DataCard)`
   box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
 `
 
-const DataRow = styled(RowBetween)`
-  justify-content: center;
-  gap: 12px;
-
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex-direction: column;
-    gap: 12px;
-  `};
-`
-
 const Heading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
-
-const PoolHeading = styled(Box)<{ align?: string }>`
-  text-align: ${({ align }) => align && align};
-`
-
-const RewardRate = styled(Box)<{ align?: string }>`
-  text-align: ${({ align }) => align && align};
-  margin-top: 4%;
 `
 
 export default function Manage({ match: { params } }: RouteComponentProps<{ poolId?: string }>) {
@@ -182,6 +150,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
     }
   }, [lpTokenAddress, pendingAmount, poolId, stakedAmount, token0, token1])
 
+  console.log(totalPoolStaked?.toSignificant())
   return (
     <PageWrapper gap="lg" justify="center">
       <AutoRow justify={'space-between'}>
@@ -194,67 +163,14 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
         <DoubleCurrencyLogo currency0={token1 ?? undefined} currency1={token0 ?? undefined} size={48} margin={true} />
       </AutoRow>
 
-      <DataRow style={{ gap: '24px' }}>
-        <PoolData>
-          <RowBetween>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.mediumHeader color={'primary1'}>Total deposits</TYPE.mediumHeader>
-            </PoolHeading>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.mediumHeader color={'primary1'}>APR</TYPE.mediumHeader>
-            </PoolHeading>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.mediumHeader color={'primary1'}>Your Deposit</TYPE.mediumHeader>
-            </PoolHeading>
-          </RowBetween>
-          <HRDark />
-          <RowBetween>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.body fontSize={20} fontWeight={500}>
-                {valueOfTotalStakedAmountInUSDC
-                  ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-                  : `${totalPoolStaked?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} DIFF - LP`}
-              </TYPE.body>
-            </PoolHeading>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.body fontSize={20} fontWeight={500}>
-                {JSBI.GT(totalAPR, JSBI.BigInt(0)) ? `${totalAPR.toString()}%` : '-'}
-              </TYPE.body>
-            </PoolHeading>
-            <PoolHeading width={1 / 3} align="center">
-              <TYPE.body fontSize={20} fontWeight={500}>
-                {positionValue ? `$${positionValue.toFixed(0, { groupSeparator: ',' })}` : ''}
-              </TYPE.body>
-            </PoolHeading>
-          </RowBetween>
-          <CardNoise />
-          <RowBetween>
-            <RewardRate width={1 / 1} align="left">
-              <AutoColumn justify={'start'}>
-                <Heading>
-                  <CurrencyLogoFromList currency={poolEmissionAmount?.currency ?? undefined} size={'24px'} />
-                  <TYPE.body fontWeight={500} margin={'5px'}>
-                    {poolEmissionAmount?.multiply(BIG_INT_SECONDS_IN_WEEK)?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-                    <span style={{ color: '#27D2EA' }}> {` ${poolEmissionAmount?.currency.symbol || ''}`}</span>
-                    <span> / week</span>
-                  </TYPE.body>
-                </Heading>
-                {rewardPerSecondAmount && (
-                  <Heading>
-                    <CurrencyLogoFromList currency={rewardPerSecondAmount.currency ?? undefined} size={'24px'} />
-                    <TYPE.body fontWeight={500} margin={'5px'}>
-                      {rewardPerSecondAmount?.multiply(BIG_INT_SECONDS_IN_WEEK)?.toFixed(0, { groupSeparator: ',' }) ??
-                        '-'}
-                      <span style={{ color: '#27D2EA' }}>{` ${rewardPerSecondAmount?.currency.symbol || ''}`}</span>
-                      <span> / week</span>
-                    </TYPE.body>
-                  </Heading>
-                )}
-              </AutoColumn>
-            </RewardRate>
-          </RowBetween>
-        </PoolData>
-      </DataRow>
+      <FarmYield
+        apr={totalAPR}
+        primaryEmissionPerSecond={poolEmissionAmount}
+        secondaryEmissionPerSecond={rewardPerSecondAmount}
+        // totalDeposits={totalPoolStaked}
+        totalDepositsInUSD={valueOfTotalStakedAmountInUSDC}
+        yourDepositsInUSD={positionValue}
+      />
 
       {showAddLiquidityButton && (
         <VoteCard>

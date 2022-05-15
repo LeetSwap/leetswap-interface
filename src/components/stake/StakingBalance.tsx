@@ -14,53 +14,61 @@ import { AutoRow, RowBetween } from '../../components/Row'
 import { CurrencyLogoFromList } from '../../components/CurrencyLogo/CurrencyLogoFromList'
 import { HRDark } from '../../components/HR/HR'
 
-import { useEarnedDiff } from 'components/stake/stake-hooks'
+import { useEarnedDiff, useStakingAPY } from 'components/stake/stake-hooks'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import { CurrencyAmount } from 'sdk-core/entities'
+import { useUSDCValue } from '../../hooks/useUSDCPrice'
+import { FarmYield } from '../farm/FarmYield'
+import JSBI from 'jsbi'
+import { CountUp } from 'use-count-up'
+import QuestionHelper from '../QuestionHelper'
+import { Glow } from '../../pages/AppBody'
+
+const TokenAndUSDCBalance = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 export function StakingBalance() {
   const { account, chainId } = useActiveWeb3React()
   const token = chainId ? DIFFUSION[chainId] : undefined
   const xToken = chainId ? XDIFFUSION[chainId] : undefined
   const diffusionBalance = useTokenBalance(account ?? undefined, token)
+  const diffusionUSDCValue = useUSDCValue(diffusionBalance)
   const xdiffBalance = useTokenBalance(account ?? undefined, xToken)
   const earnedDiff = useEarnedDiff(xdiffBalance)
+  const earnedDiffUSDCValue = useUSDCValue(earnedDiff)
+  const xDiffContractBalance = useTokenBalance(chainId ? XDIFFUSION[chainId].address : undefined, token)
+  const xDiffContractUSDCBalance = useUSDCValue(xDiffContractBalance)
+  const emission = token ? CurrencyAmount.fromRawAmount(token, 62500e18) : undefined
+
+  const emissionPerSecond = token ? CurrencyAmount.fromRawAmount(token, 0.72337962963e18) : undefined
+
+  const apr =
+    emission && xDiffContractBalance
+      ? emission
+          ?.divide(xDiffContractBalance ? xDiffContractBalance : JSBI.BigInt(1))
+          .multiply(100)
+          .multiply(365).quotient
+      : JSBI.BigInt(0)
 
   const ratio = useEarnedDiff(xToken ? CurrencyAmount.fromRawAmount(xToken, 10 ** xToken.decimals) : undefined)
-  // const apy = useStakingAPY()
+  const apy = useStakingAPY()
 
   const [stakingModalOpen, setStakingModalOpen] = useState(false)
   const [unstakeModalOpen, setUnstakeModalOpen] = useState(false)
+  console.log(apy)
   return (
     <>
-      {/*<APYRow>*/}
-      {/*  <AutoColumn justify={'start'}>Staking APY</AutoColumn>*/}
-      {/*  <AutoColumn justify={`end`}>18.5%</AutoColumn>*/}
-      {/*</APYRow>*/}
-
-      <BalanceRow>
-        <BalanceColumn justify={`stretch`}>
-          <RowBetween>
-            <AutoColumn justify={'start'}>
-              <TYPE.largeHeader color={'primary1'} marginBottom={`15px`}>
-                Ratio
-              </TYPE.largeHeader>
-            </AutoColumn>
-          </RowBetween>
-          <HRDark />
-          <RowBetween>
-            <AutoColumn justify={'start'}>
-              <TokenLogo>
-                <DoubleCurrencyLogo currency0={xToken} currency1={token} size={24} />
-                <TYPE.body fontSize={20} fontWeight={500} margin={'10px'}>
-                  DIFF / xDIFF
-                </TYPE.body>
-              </TokenLogo>
-            </AutoColumn>
-            <AutoColumn justify={'end'}>{ratio?.toSignificant()}</AutoColumn>
-          </RowBetween>
-        </BalanceColumn>
-      </BalanceRow>
+      <FarmYield
+        apr={apr}
+        totalDeposits={xDiffContractBalance}
+        totalDepositsInUSD={xDiffContractUSDCBalance}
+        yourDeposits={earnedDiff}
+        yourDepositsInUSD={earnedDiffUSDCValue}
+        primaryEmissionPerSecond={emissionPerSecond}
+        emissionTimeframe={'daily'}
+      />
 
       <BalanceRow>
         <BalanceColumn justify={`stretch`}>
@@ -68,6 +76,32 @@ export function StakingBalance() {
             <AutoColumn justify={'start'}>
               <TYPE.largeHeader color={'primary1'} marginBottom={`15px`}>
                 Your Balances
+              </TYPE.largeHeader>
+            </AutoColumn>
+            <AutoColumn justify={'end'}>
+              <TYPE.largeHeader color={'primary1'} marginBottom={`10px`}>
+                <TokenLogo>
+                  <DoubleCurrencyLogo currency0={xToken} currency1={token} size={16} />
+                  <TYPE.body fontSize={16} fontWeight={500} margin={'10px'}>
+                    DIFF / xDIFF Ratio:{' '}
+                    <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '7px' }}>
+                      {ratio ? (
+                        <CountUp
+                          key={ratio?.toSignificant()}
+                          isCounting
+                          decimalPlaces={4}
+                          start={0}
+                          end={parseFloat(ratio?.toSignificant())}
+                          thousandsSeparator={','}
+                          duration={2}
+                        />
+                      ) : (
+                        `     `
+                      )}
+                    </span>
+                  </TYPE.body>
+                  <QuestionHelper text={`Unstaking 1 xDIFF will earn ${ratio?.toSignificant()} DIFF`} />
+                </TokenLogo>
               </TYPE.largeHeader>
             </AutoColumn>
           </RowBetween>
@@ -81,7 +115,39 @@ export function StakingBalance() {
                 </TYPE.body>
               </TokenLogo>
             </AutoColumn>
-            <AutoColumn justify={'end'}>{diffusionBalance?.toSignificant()}</AutoColumn>
+            <AutoColumn justify={'end'}>
+              <TokenAndUSDCBalance>
+                {diffusionBalance?.toSignificant() ? (
+                  <CountUp
+                    key={diffusionBalance?.toSignificant()}
+                    isCounting
+                    decimalPlaces={4}
+                    start={0}
+                    end={parseFloat(diffusionBalance?.toSignificant())}
+                    thousandsSeparator={','}
+                    duration={2}
+                  />
+                ) : (
+                  <></>
+                )}
+                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                  <span>$</span>
+                  {diffusionUSDCValue ? (
+                    <CountUp
+                      key={diffusionUSDCValue?.toFixed(0)}
+                      isCounting
+                      decimalPlaces={4}
+                      start={0}
+                      end={parseFloat(diffusionUSDCValue?.toFixed(2))}
+                      thousandsSeparator={','}
+                      duration={2}
+                    />
+                  ) : (
+                    `     `
+                  )}
+                </span>
+              </TokenAndUSDCBalance>
+            </AutoColumn>
           </RowBetween>
           <HRDark />
           <RowBetween>
@@ -94,8 +160,41 @@ export function StakingBalance() {
               </TokenLogo>
             </AutoColumn>
 
-            <AutoColumn justify={'end'}>{xdiffBalance?.toSignificant()}</AutoColumn>
+            <AutoColumn justify={'end'}>
+              <TokenAndUSDCBalance>
+                {xdiffBalance ? (
+                  <CountUp
+                    key={xdiffBalance?.toFixed(0)}
+                    isCounting
+                    decimalPlaces={4}
+                    start={0}
+                    end={parseFloat(xdiffBalance?.toFixed(2))}
+                    thousandsSeparator={','}
+                    duration={2}
+                  />
+                ) : (
+                  `     `
+                )}
+                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                  <span>$</span>
+                  {earnedDiffUSDCValue ? (
+                    <CountUp
+                      key={earnedDiffUSDCValue?.toFixed(0)}
+                      isCounting
+                      decimalPlaces={4}
+                      start={0}
+                      end={parseFloat(earnedDiffUSDCValue?.toFixed(2))}
+                      thousandsSeparator={','}
+                      duration={2}
+                    />
+                  ) : (
+                    `     `
+                  )}
+                </span>
+              </TokenAndUSDCBalance>
+            </AutoColumn>
           </RowBetween>
+          <HRDark />
           <RowBetween>
             <AutoColumn justify={'start'}>
               <TokenLogo>
@@ -103,10 +202,47 @@ export function StakingBalance() {
                 <TYPE.body fontSize={20} fontWeight={500} margin={'10px'}>
                   Staked DIFF
                 </TYPE.body>
+                <QuestionHelper
+                  text={`${earnedDiff?.toFixed(
+                    2
+                  )} DIFF is available upon unstaking ${xdiffBalance?.toSignificant()} xDIFF.`}
+                />
               </TokenLogo>
             </AutoColumn>
 
-            <AutoColumn justify={'end'}>{earnedDiff?.toSignificant()}</AutoColumn>
+            <AutoColumn justify={'end'}>
+              <TokenAndUSDCBalance>
+                {earnedDiff ? (
+                  <CountUp
+                    key={earnedDiff?.toFixed(0)}
+                    isCounting
+                    decimalPlaces={4}
+                    start={0}
+                    end={parseFloat(earnedDiff?.toFixed(2))}
+                    thousandsSeparator={','}
+                    duration={2}
+                  />
+                ) : (
+                  `     `
+                )}
+                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                  <span>$</span>
+                  {earnedDiffUSDCValue ? (
+                    <CountUp
+                      key={earnedDiffUSDCValue?.toFixed(0)}
+                      isCounting
+                      decimalPlaces={4}
+                      start={0}
+                      end={parseFloat(earnedDiffUSDCValue?.toFixed(2))}
+                      thousandsSeparator={','}
+                      duration={2}
+                    />
+                  ) : (
+                    `     `
+                  )}
+                </span>
+              </TokenAndUSDCBalance>
+            </AutoColumn>
           </RowBetween>
         </BalanceColumn>
       </BalanceRow>
@@ -157,8 +293,10 @@ const BalanceRow = styled(RowBetween)`
   border: 1px solid rgba(12, 92, 146, 0.7);
   box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
   border-radius: 8px;
-  padding: 3% 10%;
+  padding: 2% 5%;
   font-size: 22px;
+  backdrop-filter: blur(4px) saturate(150%);
+  ${Glow}
 `
 
 const BalanceColumn = styled(AutoColumn)`

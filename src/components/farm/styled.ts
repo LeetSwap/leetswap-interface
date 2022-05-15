@@ -4,6 +4,8 @@ import { AutoColumn } from '../Column'
 import dBanner from '../../assets/images/diffusion-banner.png'
 
 import noise from '../../assets/images/noise.png'
+import { RowBetween } from 'components/Row'
+import { Glow } from '../../pages/AppBody'
 
 export const TextBox = styled.div`
   display: flex;
@@ -65,4 +67,17 @@ export const Break = styled.div`
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
   height: 1px;
+`
+
+export const DataRow = styled(RowBetween)`
+  justify-content: center;
+  gap: 12px;
+  backdrop-filter: blur(4px) saturate(150%);
+  ${Glow}
+  border-radius: 8px;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    gap: 12px;
+  `};
 `
