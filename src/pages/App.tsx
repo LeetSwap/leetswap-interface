@@ -21,6 +21,7 @@ import { ThemedBackground } from '../theme'
 
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { StakingPage } from './Stake/StakingPage'
+import { DisclaimerModal } from 'components/DisclaimerModal'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -64,6 +65,7 @@ export default function App() {
         <Route component={DarkModeQueryParamReader} />
         <Route component={ApeModeQueryParamReader} />
         <AppWrapper>
+          <DisclaimerModal />
           <HeaderWrapper>
             <Header />
           </HeaderWrapper>

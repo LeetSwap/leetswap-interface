@@ -82,6 +82,7 @@ Cypress.Commands.overwrite('visit', (original, url, options) => {
     onBeforeLoad(win) {
       options && options.onBeforeLoad && options.onBeforeLoad(win)
       win.localStorage.clear()
+      win.localStorage.setItem('diff:disclaimer-accepted', 'true')
       // Current testnet rpc
       const provider = new JsonRpcProvider('https://eth.bd.evmos.dev:8545', CHAIN_ID)
       const signer = new Wallet(TEST_PRIVATE_KEY, provider)

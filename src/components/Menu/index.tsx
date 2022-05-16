@@ -4,6 +4,7 @@ import {
   Code,
   Info,
   MessageCircle,
+  FileText,
   // PieChart
 } from 'react-feather'
 import { Link } from 'react-router-dom'
@@ -14,7 +15,6 @@ import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
 
 import { ExternalLink } from '../../theme'
-import { AirdropButton } from './AirdropButton'
 
 export enum FlyoutAlignment {
   LEFT = 'LEFT',
@@ -143,12 +143,11 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout>
-          <AirdropButton />
           <MenuItem href="https://diffusion.fi/">
             <Info size={14} />
             <div>About</div>
           </MenuItem>
-          <MenuItem href="https://diffusion.gitbook.io/untitled/GXx8KsOHCFNEcZgOpj0b/">
+          <MenuItem href="https://diffusion.gitbook.io/docs/GXx8KsOHCFNEcZgOpj0b/">
             <BookOpen size={14} />
             <div>Docs</div>
           </MenuItem>
@@ -159,6 +158,10 @@ export default function Menu() {
           <MenuItem href="https://discord.gg/2Df4XDkcFC">
             <MessageCircle size={14} />
             <div>Discord</div>
+          </MenuItem>
+          <MenuItem href="https://diffusion.gitbook.io/docs/GXx8KsOHCFNEcZgOpj0b/legal">
+            <FileText size={14} />
+            <div>Legal & Privacy</div>
           </MenuItem>
         </MenuFlyout>
       )}

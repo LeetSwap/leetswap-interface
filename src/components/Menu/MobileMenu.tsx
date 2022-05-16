@@ -9,7 +9,6 @@ import { usePopper } from 'react-popper'
 import { NavLink, useLocation } from 'react-router-dom'
 import { BridgeMenu } from './BridgeMenu'
 import { useTranslation } from 'react-i18next'
-import { AirdropButton } from './AirdropButton'
 
 const activeClassName = 'ACTIVE'
 
@@ -131,7 +130,6 @@ export function MobileMenu() {
           >
             {t('Farm')}
           </StyledNavLink>
-          <AirdropButton />
           <BridgeMenu />
         </Menu>
       )}
