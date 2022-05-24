@@ -10,7 +10,7 @@ import JSBI from 'jsbi'
 import { useMemo } from 'react'
 import { BigintIsh } from 'sdk-core/constants'
 import { Currency, CurrencyAmount, Token } from 'sdk-core/entities'
-import { useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
+import { NEVER_RELOAD, useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { isTruthy } from 'utils/isTruthy'
 import { Pair } from 'v2-sdk/entities'
@@ -20,8 +20,8 @@ export function usePairTokens(pairAddress?: string) {
 
   const minichef = useMiniChef()
   const pairContract = usePairContract(pairAddress)
-  const token0CallAddress = useSingleCallResult(pairContract, 'token0')
-  const token1CallAddress = useSingleCallResult(pairContract, 'token1')
+  const token0CallAddress = useSingleCallResult(pairContract, 'token0', [], NEVER_RELOAD)
+  const token1CallAddress = useSingleCallResult(pairContract, 'token1', [], NEVER_RELOAD)
   const token0 = useToken(token0CallAddress.result?.[0])
   const token1 = useToken(token1CallAddress.result?.[0])
   const lpToken = useToken(pairAddress)
@@ -43,7 +43,7 @@ export function usePools() {
   const { account, chainId } = useActiveWeb3React()
   const minichefContract = useMiniChef()
 
-  const poolLength = useSingleCallResult(minichefContract, 'poolLength')
+  const poolLength = useSingleCallResult(minichefContract, 'poolLength', [], { blocksPerFetch: 25 })
 
   const poolLengthAmount = (poolLength?.result?.pools as BigNumber) || BigNumber.from(0)
   const poolIndizes = new Array(poolLengthAmount.toNumber()).fill('').map((_, id) => id)
@@ -51,36 +51,44 @@ export function usePools() {
   const poolInfos = useSingleContractMultipleData(
     minichefContract,
     'poolInfo',
-    poolIndizes.map((id) => [id])
+    poolIndizes.map((id) => [id]),
+    { blocksPerFetch: 26 }
   )
   const lpTokens = useSingleContractMultipleData(
     minichefContract,
     'lpToken',
-    poolIndizes.map((id) => [id])
+    poolIndizes.map((id) => [id]),
+    { blocksPerFetch: 27 }
   )
 
   const rewarders = useSingleContractMultipleData(
     minichefContract,
     'rewarder',
-    poolIndizes.map((id) => [id])
+    poolIndizes.map((id) => [id]),
+    { blocksPerFetch: 28 }
   )
 
   const userInfos = useSingleContractMultipleData(
     minichefContract,
     'userInfo',
-    poolIndizes.map((id) => [id, account ?? undefined])
+    poolIndizes.map((id) => [id, account ?? undefined]),
+    { blocksPerFetch: 29 }
   )
 
-  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond')
+  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond', [], {
+    blocksPerFetch: 22,
+  })
   const diffusionPerSecond = diffusionPerSecondResponse.result?.[0]
     ? JSBI.BigInt(diffusionPerSecondResponse.result[0].toString())
     : JSBI.BigInt(0)
 
-  const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint')
+  const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint', [], { blocksPerFetch: 4 })
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
 
   const pendingArguments = account ? poolIndizes.map((pid) => [pid, account]) : []
-  const pendingDiffusions = useSingleContractMultipleData(minichefContract, 'pendingDiffusion', pendingArguments)
+  const pendingDiffusions = useSingleContractMultipleData(minichefContract, 'pendingDiffusion', pendingArguments, {
+    blocksPerFetch: 4,
+  })
 
   const pools: MinichefRawPoolInfo[] = useMemo(() => {
     return poolIndizes
@@ -161,19 +169,23 @@ export function useFarmTVL(pair?: Pair, totalAmountStaked?: CurrencyAmount<Curre
 export function usePool(poolId: number) {
   const { account, chainId } = useActiveWeb3React()
   const minichefContract = useMiniChef()
-  const poolInfos = useSingleCallResult(minichefContract, 'poolInfo', [poolId])
-  const lpTokens = useSingleCallResult(minichefContract, 'lpToken', [poolId])
+  const poolInfos = useSingleCallResult(minichefContract, 'poolInfo', [poolId], { blocksPerFetch: 20 })
+  const lpTokens = useSingleCallResult(minichefContract, 'lpToken', [poolId], { blocksPerFetch: 19 })
 
-  const rewarders = useSingleCallResult(minichefContract, 'rewarder', [poolId])
+  const rewarders = useSingleCallResult(minichefContract, 'rewarder', [poolId], { blocksPerFetch: 22 })
 
-  const userInfos = useSingleCallResult(minichefContract, 'userInfo', [poolId, account ?? undefined])
+  const userInfos = useSingleCallResult(minichefContract, 'userInfo', [poolId, account ?? undefined], {
+    blocksPerFetch: 21,
+  })
 
-  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond')
+  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond', [], {
+    blocksPerFetch: 18,
+  })
   const diffusionPerSecond = diffusionPerSecondResponse.result?.[0]
     ? JSBI.BigInt(diffusionPerSecondResponse.result[0].toString())
     : JSBI.BigInt(0)
 
-  const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint')
+  const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint', [], { blocksPerFetch: 19 })
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
   const pendingDiffusions = useSingleCallResult(minichefContract, 'pendingDiffusion', [poolId, account ?? undefined])
 
