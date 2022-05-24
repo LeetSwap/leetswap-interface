@@ -2,8 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components/macro'
 
 export const Glow = css`
-  animation: glow 10s ease-in-out infinite;
-  -webkit-animation: glow 10s ease-in-out infinite;
+  // animation: glow 10s ease-in-out infinite;
+  // -webkit-animation: glow 10s ease-in-out infinite;
 
   @keyframes glow {
     0% {

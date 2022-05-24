@@ -12,7 +12,7 @@ const VoteCard = styled(DataCard)`
   box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
   white-space: pre-line;
   backdrop-filter: blur(4px) saturate(150%);
-  ${Glow}
+  // ${Glow}
 `
 
 export function InfoCard({ title, description }: { title: string; description: string }) {
