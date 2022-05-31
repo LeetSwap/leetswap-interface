@@ -58,7 +58,7 @@ export function StakingPage() {
         <AutoColumn gap="lg" justify="center">
           <InfoCard
             title="Staking rewards"
-            description={`For every swap on the exchange, 0.05% of the 0.30% swap fees are distributed as DIFF proportional to your share of the staking pool.  Additionally, daily Diffusion holder rewards from inflation are deposited into this pool. When your DIFF is staked you receive xDIFF.
+            description={`For every swap on the exchange, half of 0.05% of the 0.30% swap fees are distributed as DIFF proportional to your share of the staking pool.  Additionally, daily Diffusion holder rewards from inflation are deposited into this pool. When your DIFF is staked you receive xDIFF.
 
           ${`\n`} Your xDIFF is continuously compounding, when you unstake you will receive all the originally deposited DIFF and any additional from fees and daily Diffusion holders rewards`}
           />
