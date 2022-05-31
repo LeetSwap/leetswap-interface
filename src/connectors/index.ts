@@ -44,7 +44,7 @@ export const walletconnect = new WalletConnectConnector({
   supportedChainIds: SUPPORTED_CHAIN_IDS,
   rpc: {
     9000: 'https://eth.bd.evmos.dev:8545',
-    9001: 'https://eth.bd.evmos.org:8545',
+    9001: 'https://evmos-rpc2.binary.host',
   },
   // bridge: WALLETCONNECT_BRIDGE_URL,
   qrcode: true,

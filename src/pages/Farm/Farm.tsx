@@ -9,6 +9,7 @@ import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
+import CurrencyLogo from 'components/CurrencyLogo'
 import { AutoRow, RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage, DataRow } from '../../components/farm/styled'
 import { ButtonPrimary } from '../../components/Button'
@@ -239,6 +240,20 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                 </TYPE.white>
                 <TYPE.white>
                   DIFF-LP {token0?.symbol}-{token1?.symbol}
+                </TYPE.white>
+              </RowBetween>
+              <RowBetween style={{ alignItems: 'baseline' }}>
+                <TYPE.white>Underlying {token0Deposited?.currency.symbol}</TYPE.white>
+                <TYPE.white>
+                  {token0Deposited?.toSignificant(6) ?? '-'}
+                  <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={token0Deposited?.currency} />
+                </TYPE.white>
+              </RowBetween>
+              <RowBetween style={{ alignItems: 'baseline' }}>
+                <TYPE.white>Underlying {token1Deposited?.currency.symbol}</TYPE.white>
+                <TYPE.white>
+                  {token1Deposited?.toSignificant(6) ?? '-'}
+                  <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={token1Deposited?.currency} />
                 </TYPE.white>
               </RowBetween>
             </AutoColumn>

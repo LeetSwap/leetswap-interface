@@ -5,6 +5,7 @@ import { useComplexRewarderTime, useMiniChef, usePairContract } from 'hooks/useC
 import { useTotalSupply } from 'hooks/useTotalSupply'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { useV2Pair } from 'hooks/useV2Pairs'
+
 import { useActiveWeb3React } from 'hooks/web3'
 import JSBI from 'jsbi'
 import { useMemo } from 'react'
@@ -26,6 +27,7 @@ export function usePairTokens(pairAddress?: string) {
   const token1 = useToken(token1CallAddress.result?.[0])
   const lpToken = useToken(pairAddress)
   const availableLPAmount = useTokenBalance(account ?? undefined, lpToken ?? undefined)
+
   const totalPoolStaked = useTokenBalance(minichef?.address, lpToken ?? undefined)
   const [, pair] = useV2Pair(token0 ?? undefined, token1 ?? undefined)
 

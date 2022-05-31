@@ -75,7 +75,7 @@ export function DisclaimerModal() {
                 onChange={() => setConfirmed(!confirmed)}
               />
               <TYPE.body ml="10px" fontSize="16px" fontWeight={500}>
-                I understand the risks and would like tot proceed
+                I understand the risks and would like to proceed
               </TYPE.body>
             </div>
           </RowBetween>
