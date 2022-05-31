@@ -45,7 +45,10 @@ function getTokenComparator(balances: {
 }
 
 function getPositionOnList(t: WrappedTokenInfo) {
-  return t.list.tokens.map((t) => t.address).indexOf(t.address)
+  if (t.list) {
+    return t.list.tokens.map((t) => t.address).indexOf(t.address)
+  }
+  return 0
 }
 
 export function useTokenComparator(inverted: boolean): (tokenA: Token, tokenB: Token) => number {
