@@ -5,6 +5,14 @@ export const Glow = css`
   // animation: glow 10s ease-in-out infinite;
   // -webkit-animation: glow 10s ease-in-out infinite;
 
+  //box-shadow: 0 0 20px rgba(39, 210, 234, 0.1), 0 0 30px rgba(39, 210, 234, 0.1), 0 0 40px rgba(39, 210, 234, 0.1),
+  //  0 0 50px rgba(39, 210, 234, 0.1), 0 0 60px rgba(39, 210, 234, 0.1), 0 0 70px rgba(39, 210, 234, 0.1),
+  //  0 0 80px rgba(39, 210, 234, 0.1);
+
+  box-shadow: 0 0 10px rgba(39, 210, 234, 0.1), 0 0 15px rgba(39, 210, 234, 0.1), 0 0 20px rgba(39, 210, 234, 0.1),
+    0 0 25px rgba(39, 210, 234, 0.1), 0 0 30px rgba(39, 210, 234, 0.1), 0 0 45px rgba(39, 210, 234, 0.1),
+    0 0 40px rgba(39, 210, 234, 0.1);
+
   @keyframes glow {
     0% {
       box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 8px rgba(39, 210, 234, 0.1), 0 0 10px rgba(39, 210, 234, 0.1),

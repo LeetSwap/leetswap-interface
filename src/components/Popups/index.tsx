@@ -4,6 +4,7 @@ import { useActivePopups } from '../../state/application/hooks'
 import { AutoColumn } from '../Column'
 import PopupItem from './PopupItem'
 import { useURLWarningVisible } from '../../state/user/hooks'
+import { Glow } from '../../pages/AppBody'
 
 const MobilePopupWrapper = styled.div<{ height: string | number }>`
   position: relative;
@@ -38,9 +39,12 @@ const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean }>`
   width: 100%;
   z-index: 3;
 
+  backdrop-filter: blur(4px) brightness(50%) saturate(150%);
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none;
   `};
+  border-radius: 8px;
+  ${Glow}
 `
 
 export default function Popups() {

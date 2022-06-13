@@ -245,7 +245,13 @@ html,
 body {
   margin: 0;
   padding: 0;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+
 
  a {
    color: ${colors(false).blue1}; 

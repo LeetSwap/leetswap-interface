@@ -102,7 +102,15 @@ export function MobileMenu() {
   return (
     <div ref={node as any}>
       <StyledBridgeButton onClick={toggle} isActive={open} ref={setReferenceElement as any}>
-        {location.pathname.startsWith('/swap') ? 'Swap' : location.pathname.startsWith('/pool') ? 'Pool' : 'Farm'}
+        {location.pathname.startsWith('/swap')
+          ? 'Swap'
+          : location.pathname.startsWith('/pool')
+          ? 'Pool'
+          : location.pathname.startsWith('/farm')
+          ? 'Farm'
+          : location.pathname.startsWith('/stake')
+          ? 'Stake'
+          : 'Stake'}
       </StyledBridgeButton>
 
       {open && (
@@ -129,6 +137,9 @@ export function MobileMenu() {
             isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/farm')}
           >
             {t('Farm')}
+          </StyledNavLink>
+          <StyledNavLink id={`stake-nav-link`} to={'/stake'}>
+            {t('Stake')}
           </StyledNavLink>
           <BridgeMenu />
         </Menu>

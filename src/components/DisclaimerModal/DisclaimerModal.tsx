@@ -28,6 +28,8 @@ export function DisclaimerModal() {
       <Wrapper
         css={`
           overflow: scroll;
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
         `}
       >
         <ContentWrapper gap="lg">

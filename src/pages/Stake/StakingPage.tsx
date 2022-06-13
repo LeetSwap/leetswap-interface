@@ -16,7 +16,7 @@ const Tux = styled.img`
   position: absolute;
   height: 250px;
   margin-top: 45%;
-  margin-left: 47%;
+  margin-left: 50%;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none
   `};
@@ -26,13 +26,14 @@ const Tux = styled.img`
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
   width: 100%;
+  margin-top: -5%;
 `
 
 const Heading = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
 `
 
 // const APYRow = styled(RowBetween)`

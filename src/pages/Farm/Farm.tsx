@@ -11,7 +11,7 @@ import { TYPE } from '../../theme'
 
 import CurrencyLogo from 'components/CurrencyLogo'
 import { AutoRow, RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage, DataRow } from '../../components/farm/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage, DataButtonRow } from '../../components/farm/styled'
 import { ButtonPrimary } from '../../components/Button'
 import StakingModal from '../../components/farm/StakingModal'
 import UnstakingModal from '../../components/farm/UnstakingModal'
@@ -36,6 +36,7 @@ import { HRDark } from '../../components/HR/HR'
 
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { FarmYield } from 'components/farm/FarmYield'
+import { Glow } from '../AppBody'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -53,6 +54,7 @@ const BottomSection = styled(AutoColumn)`
   border-radius: 8px;
   width: 100%;
   position: relative;
+  ${Glow}
 `
 
 const StyledBottomCard = styled(DataCard)<{ dim: any }>`
@@ -150,8 +152,6 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
       lpTokenAddress,
     }
   }, [lpTokenAddress, pendingAmount, poolId, stakedAmount, token0, token1])
-
-  console.log(totalPoolStaked?.toSignificant())
   return (
     <PageWrapper gap="lg" justify="center">
       <AutoRow justify={'space-between'}>
@@ -297,9 +297,9 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
         </TYPE.main>
 
         {!showAddLiquidityButton && (
-          <DataRow style={{ marginBottom: '1rem' }}>
+          <DataButtonRow style={{ marginBottom: '1rem' }}>
             {stakingInfo && (
-              <ButtonPrimary padding="8px" borderRadius="8px" width="160px" onClick={handleDepositClick}>
+              <ButtonPrimary padding="8px" borderRadius="8px" width="360px" onClick={handleDepositClick}>
                 {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit Diffusion LP Tokens'}
               </ButtonPrimary>
             )}
@@ -316,7 +316,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                 </ButtonPrimary>
               </>
             )}
-          </DataRow>
+          </DataButtonRow>
         )}
         {!userLiquidityUnstaked || userLiquidityUnstaked.equalTo('0') ? null : (
           <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} Diffusion LP tokens available</TYPE.main>

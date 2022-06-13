@@ -23,6 +23,7 @@ import JSBI from 'jsbi'
 import { CountUp } from 'use-count-up'
 import QuestionHelper from '../QuestionHelper'
 import { Glow } from '../../pages/AppBody'
+import usePrevious from '../../hooks/usePrevious'
 
 const TokenAndUSDCBalance = styled.div`
   display: flex;
@@ -53,7 +54,23 @@ export function StakingBalance() {
       : JSBI.BigInt(0)
 
   const ratio = useEarnedDiff(xToken ? CurrencyAmount.fromRawAmount(xToken, 10 ** xToken.decimals) : undefined)
+  const ratioPrevious = usePrevious(parseFloat(ratio ? ratio?.toSignificant() : '0'))
   const apy = useStakingAPY()
+
+  const countUpDiffusionBalance = diffusionBalance?.toSignificant() ?? '0'
+  const countUpDiffusionBalancePrevious = usePrevious(countUpDiffusionBalance) ?? '0'
+
+  const countUpDiffusionBalanceUSDC = diffusionUSDCValue?.toSignificant() ?? '0'
+  const countUpDiffusionBalanceUSDCPrevious = usePrevious(countUpDiffusionBalanceUSDC) ?? '0'
+
+  const countUpXDiffBalance = xdiffBalance?.toSignificant() ?? '0'
+  const countUpXDiffBalancePrevious = usePrevious(countUpXDiffBalance) ?? '0'
+
+  const countUpEarnedDiffBalanceUSDC = earnedDiffUSDCValue?.toSignificant() ?? '0'
+  const countUpEarnedDiffBalanceUSDCPrevious = usePrevious(countUpEarnedDiffBalanceUSDC) ?? '0'
+
+  const countUpEarnedDiffBalance = earnedDiff?.toSignificant() ?? '0'
+  const countUpEarnedDiffBalancePrevious = usePrevious(countUpEarnedDiffBalance) ?? '0'
 
   const [stakingModalOpen, setStakingModalOpen] = useState(false)
   const [unstakeModalOpen, setUnstakeModalOpen] = useState(false)
@@ -90,10 +107,10 @@ export function StakingBalance() {
                           key={ratio?.toSignificant()}
                           isCounting
                           decimalPlaces={4}
-                          start={0}
+                          start={ratioPrevious}
                           end={parseFloat(ratio?.toSignificant())}
                           thousandsSeparator={','}
-                          duration={2}
+                          duration={1}
                         />
                       ) : (
                         `     `
@@ -122,10 +139,10 @@ export function StakingBalance() {
                     key={diffusionBalance?.toSignificant()}
                     isCounting
                     decimalPlaces={4}
-                    start={0}
-                    end={parseFloat(diffusionBalance?.toSignificant())}
+                    start={parseFloat(countUpDiffusionBalancePrevious)}
+                    end={parseFloat(countUpDiffusionBalance)}
                     thousandsSeparator={','}
-                    duration={2}
+                    duration={1}
                   />
                 ) : (
                   <></>
@@ -136,11 +153,11 @@ export function StakingBalance() {
                     <CountUp
                       key={diffusionUSDCValue?.toFixed(0)}
                       isCounting
-                      decimalPlaces={4}
-                      start={0}
-                      end={parseFloat(diffusionUSDCValue?.toFixed(2))}
+                      decimalPlaces={2}
+                      start={parseFloat(countUpDiffusionBalanceUSDCPrevious)}
+                      end={parseFloat(countUpDiffusionBalanceUSDC)}
                       thousandsSeparator={','}
-                      duration={2}
+                      duration={1}
                     />
                   ) : (
                     `     `
@@ -167,10 +184,10 @@ export function StakingBalance() {
                     key={xdiffBalance?.toFixed(0)}
                     isCounting
                     decimalPlaces={4}
-                    start={0}
-                    end={parseFloat(xdiffBalance?.toFixed(2))}
+                    start={parseFloat(countUpXDiffBalancePrevious)}
+                    end={parseFloat(countUpXDiffBalance)}
                     thousandsSeparator={','}
-                    duration={2}
+                    duration={1}
                   />
                 ) : (
                   `     `
@@ -181,11 +198,11 @@ export function StakingBalance() {
                     <CountUp
                       key={earnedDiffUSDCValue?.toFixed(0)}
                       isCounting
-                      decimalPlaces={4}
-                      start={0}
-                      end={parseFloat(earnedDiffUSDCValue?.toFixed(2))}
+                      decimalPlaces={2}
+                      start={parseFloat(countUpEarnedDiffBalanceUSDCPrevious)}
+                      end={parseFloat(countUpEarnedDiffBalanceUSDC)}
                       thousandsSeparator={','}
-                      duration={2}
+                      duration={1}
                     />
                   ) : (
                     `     `
@@ -217,10 +234,10 @@ export function StakingBalance() {
                     key={earnedDiff?.toFixed(0)}
                     isCounting
                     decimalPlaces={4}
-                    start={0}
-                    end={parseFloat(earnedDiff?.toFixed(2))}
+                    start={parseFloat(countUpEarnedDiffBalancePrevious)}
+                    end={parseFloat(countUpEarnedDiffBalance)}
                     thousandsSeparator={','}
-                    duration={2}
+                    duration={1}
                   />
                 ) : (
                   `     `
@@ -231,11 +248,11 @@ export function StakingBalance() {
                     <CountUp
                       key={earnedDiffUSDCValue?.toFixed(0)}
                       isCounting
-                      decimalPlaces={4}
-                      start={0}
-                      end={parseFloat(earnedDiffUSDCValue?.toFixed(2))}
+                      decimalPlaces={2}
+                      start={parseFloat(countUpEarnedDiffBalanceUSDCPrevious)}
+                      end={parseFloat(countUpEarnedDiffBalanceUSDC)}
                       thousandsSeparator={','}
-                      duration={2}
+                      duration={1}
                     />
                   ) : (
                     `     `

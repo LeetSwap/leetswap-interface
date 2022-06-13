@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import { HRDark } from '../HR/HR'
 import Column, { AutoColumn } from '../Column'
 import { AutoRow } from '../Row'
+import { Glow } from '../../pages/AppBody'
 
 const FarmContainer = styled(Column)`
   max-width: 1080px;
@@ -30,6 +31,7 @@ const FarmContainer = styled(Column)`
   border: 1px solid rgba(12, 92, 146, 0.7);
   box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
   border-radius: 8px;
+  ${Glow}
 `
 
 export function FarmTable({ children }: { children?: React.ReactNode }) {

@@ -12,6 +12,7 @@ import { CurrencyAmount, Token } from 'sdk-core/entities'
 import JSBI from 'jsbi'
 import { BIG_INT_SECONDS_IN_WEEK, BIG_INT_SECONDS_IN_DAY } from 'constants/misc'
 import { CountUp } from 'use-count-up'
+import usePrevious from '../../hooks/usePrevious'
 
 interface FarmYieldProps {
   totalDeposits?: CurrencyAmount<Token>
@@ -38,9 +39,25 @@ export function FarmYield({
 }: FarmYieldProps) {
   const multiplier = emissionTimeframe === 'weekly' ? BIG_INT_SECONDS_IN_WEEK : BIG_INT_SECONDS_IN_DAY
 
+  const countUpTotalDeposits = totalDeposits?.toFixed(6) ?? '0'
+  const countUpTotalDepositsPrevious = usePrevious(countUpTotalDeposits) ?? '0'
+
+  const countUpTotalDepositsUSD = totalDepositsInUSD?.toFixed(6) ?? '0'
+  const countUpTotalDepositsUSDPrevious = usePrevious(countUpTotalDepositsUSD) ?? '0'
+
+  const countUpYourDeposits = yourDeposits?.toFixed(6) ?? '0'
+  const countUpYourDepositsPrevious = usePrevious(countUpYourDeposits) ?? '0'
+
+  const countUpYourDepositsUSD = yourDepositsInUSD?.toFixed(6) ?? '0'
+  const countUpYourDepositsUSDPrevious = usePrevious(countUpYourDepositsUSD) ?? '0'
+
+  const countUpAPR = apr ? apr.toString() : '0'
+  const countUpAPRPrevious = usePrevious(countUpAPR) ?? '0'
+
   const primaryEmissionPerSecondCountUp = primaryEmissionPerSecond
     ?.multiply(multiplier)
     ?.toFixed(0, { groupSeparator: '' })
+  const primaryEmissionPerSecondCountUpPrevious = usePrevious(primaryEmissionPerSecondCountUp) ?? '0'
   return (
     <DataRow style={{ gap: '24px' }}>
       <PoolData>
@@ -66,10 +83,10 @@ export function FarmYield({
                     key={totalDeposits.toFixed(0)}
                     isCounting
                     decimalPlaces={2}
-                    start={0}
-                    end={parseFloat(totalDeposits.toFixed(2))}
+                    start={parseFloat(countUpTotalDepositsPrevious)}
+                    end={parseFloat(countUpTotalDeposits)}
                     thousandsSeparator={','}
-                    duration={2}
+                    duration={1}
                   />
                 ) : (
                   <></>
@@ -89,10 +106,10 @@ export function FarmYield({
                   key={totalDepositsInUSD.toFixed(0)}
                   isCounting
                   decimalPlaces={2}
-                  start={0}
-                  end={parseFloat(totalDepositsInUSD.toFixed(2))}
+                  start={parseFloat(countUpTotalDepositsUSDPrevious)}
+                  end={parseFloat(countUpTotalDepositsUSD)}
                   thousandsSeparator={','}
-                  duration={2}
+                  duration={1}
                 />
               ) : (
                 <></>
@@ -106,10 +123,10 @@ export function FarmYield({
                   key={yourDeposits.toFixed(0)}
                   isCounting
                   decimalPlaces={2}
-                  start={0}
-                  end={parseFloat(yourDeposits.toFixed(2))}
+                  start={parseFloat(countUpYourDepositsPrevious)}
+                  end={parseFloat(countUpYourDeposits)}
                   thousandsSeparator={','}
-                  duration={2}
+                  duration={1}
                 />
               ) : (
                 <></>
@@ -126,10 +143,10 @@ export function FarmYield({
                   key={yourDepositsInUSD.toFixed(0)}
                   isCounting
                   decimalPlaces={2}
-                  start={0}
-                  end={parseFloat(yourDepositsInUSD.toFixed(2))}
+                  start={parseFloat(countUpYourDepositsUSDPrevious)}
+                  end={parseFloat(countUpYourDepositsUSD)}
                   thousandsSeparator={','}
-                  duration={2}
+                  duration={1}
                 />
               ) : (
                 <></>
@@ -144,10 +161,10 @@ export function FarmYield({
                     key={apr.toString()}
                     isCounting
                     decimalPlaces={0}
-                    start={0}
-                    end={parseFloat(apr.toString())}
+                    start={parseFloat(countUpAPRPrevious)}
+                    end={parseFloat(countUpAPR)}
                     thousandsSeparator={','}
-                    duration={2}
+                    duration={1}
                   />
                 ) : (
                   <></>
@@ -180,10 +197,10 @@ export function FarmYield({
                       key={primaryEmissionPerSecondCountUp}
                       isCounting
                       decimalPlaces={0}
-                      start={0}
+                      start={parseFloat(primaryEmissionPerSecondCountUpPrevious)}
                       end={parseFloat(primaryEmissionPerSecondCountUp)}
                       thousandsSeparator={','}
-                      duration={2}
+                      duration={1}
                     />
                   ) : (
                     <></>

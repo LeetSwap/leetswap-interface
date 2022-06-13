@@ -20,6 +20,7 @@ import { useDerivedStakeInfo } from '../../state/stake/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
 import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
+import Confetti from 'react-confetti'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -32,6 +33,10 @@ interface StakingModalProps {
   availableAmount?: CurrencyAmount<Token>
   currencyToAdd?: Token
 }
+
+const ConfettiZ = styled(Confetti)`
+  z-index: 5;
+`
 
 export default function StakingModal({ isOpen, onDismiss, availableAmount, currencyToAdd }: StakingModalProps) {
   const { library, account } = useActiveWeb3React()
@@ -148,6 +153,24 @@ export default function StakingModal({ isOpen, onDismiss, availableAmount, curre
       )}
       {attempting && hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
+          <ConfettiZ
+            colors={['#27D2EA', '#25CBE5', '#1dacc2', '#2a8d9c', '#22646ea', '#0C5C92']}
+            recycle={false}
+            width={1920}
+            height={1480}
+            numberOfPieces={200}
+            drawShape={(ctx) => {
+              ctx.beginPath()
+              for (let i = 0; i < 22; i++) {
+                const angle = 0.35 * i
+                const x = (0.2 + 1.5 * angle) * Math.cos(angle)
+                const y = (0.2 + 1.5 * angle) * Math.sin(angle)
+                ctx.lineTo(x, y)
+              }
+              ctx.stroke()
+              ctx.closePath()
+            }}
+          />
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
             <TYPE.body fontSize={20}>Staked {parsedAmount?.toSignificant(4)} DIFF</TYPE.body>

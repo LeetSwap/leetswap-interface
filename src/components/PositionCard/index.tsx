@@ -28,6 +28,7 @@ import { RowBetween, RowFixed, AutoRow } from '../Row'
 import { Dots } from '../swap/styleds'
 import { BIG_INT_ZERO } from '../../constants/misc'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
+import { Glow } from '../../pages/AppBody'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -49,6 +50,7 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   overflow: hidden;
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent2} 0%, ${theme.secondary1_10} 50%, ${theme.darkTransparent2} 100%);`};
+  ${Glow}
 `
 
 interface PositionCardProps {

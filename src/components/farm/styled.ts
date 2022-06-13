@@ -73,7 +73,18 @@ export const DataRow = styled(RowBetween)`
   justify-content: center;
   gap: 12px;
   backdrop-filter: blur(4px) saturate(150%);
+  border-radius: 8px;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    gap: 12px;
+  `};
   ${Glow}
+`
+
+export const DataButtonRow = styled(RowBetween)`
+  justify-content: center;
+  gap: 12px;
   border-radius: 8px;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`

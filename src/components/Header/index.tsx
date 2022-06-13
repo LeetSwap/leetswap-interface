@@ -6,10 +6,9 @@ import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
 
-import Logo from '../../assets/logo'
+// import Logo from '../../assets/logo'
 
 import { useActiveWeb3React } from '../../hooks/web3'
-import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
 import { BridgeMenu } from '../Menu/BridgeMenu'
 import { MobileMenu } from '../Menu/MobileMenu'
@@ -25,6 +24,11 @@ import Web3Status from '../Web3Status'
 // import UniBalanceContent from './UniBalanceContent'
 import { ChainId } from 'constants/chains'
 import { AirdropMenu } from '../Menu/AirdropMenu'
+import DiffusionLogo from '../../assets/svg/logo.svg'
+
+const Logo = styled.img`
+  height: 30px;
+`
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
   display: grid;
@@ -293,7 +297,6 @@ export default function Header() {
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   // const [isDark] = useDarkModeManager()
-  const [darkMode] = useDarkModeManager()
 
   // const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
 
@@ -306,7 +309,7 @@ export default function Header() {
       </Modal> */}
       <HeaderRow>
         <Title href=".">
-          <Logo height="24px" fill={darkMode ? 'white' : 'black'} />
+          <Logo src={DiffusionLogo} />
         </Title>
       </HeaderRow>
       <HideSmall>

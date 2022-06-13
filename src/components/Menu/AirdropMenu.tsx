@@ -20,6 +20,10 @@ const StyledAirdropButton = styled.div<{ isActive?: boolean }>`
   font-weight: 500;
   padding: 8px 12px;
 
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    display: none
+  `};
+
   ${({ isActive }) =>
     isActive &&
     css`
