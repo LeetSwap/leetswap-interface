@@ -59,8 +59,9 @@ export function DisclaimerModal() {
                 KIND. The Diffusion protocol is not owned by anyone, it is run by smart contracts deployed on the Evmos
                 blockchain. No developer or entity involved in creating the Diffusion protocol will be liable for any
                 claims or damages whatsoever associated with your use, inability to use, or your interaction with other
-                users of, the Uniswap protocol, including any direct, indirect, incidental, special, exemplary, punitive
-                or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
+                users of, the Diffusion protocol, including any direct, indirect, incidental, special, exemplary,
+                punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of
+                value.
               </p>
             </div>
           </RowBetween>
