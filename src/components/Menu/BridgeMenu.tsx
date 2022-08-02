@@ -70,11 +70,11 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          <MenuItem href="https://app.nomad.xyz/">
-            <div>
-              Nomad <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
+          {/*<MenuItem href="https://app.nomad.xyz/">*/}
+          {/*  <div>*/}
+          {/*    Nomad <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>*/}
+          {/*  </div>*/}
+          {/*</MenuItem>*/}
           <MenuItem href="https://bridge.connext.network/">
             <div>
               Connext <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
