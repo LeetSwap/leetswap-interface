@@ -41,6 +41,8 @@ export function usePairTokens(pairAddress?: string) {
   }
 }
 
+export const NOMAD_POOLS: number[] = [0, 2, 3]
+
 export function usePools() {
   const { account, chainId } = useActiveWeb3React()
   const minichefContract = useMiniChef()
@@ -48,7 +50,8 @@ export function usePools() {
   const poolLength = useSingleCallResult(minichefContract, 'poolLength', [], { blocksPerFetch: 25 })
 
   const poolLengthAmount = (poolLength?.result?.pools as BigNumber) || BigNumber.from(0)
-  const poolIndizes = new Array(poolLengthAmount.toNumber()).fill('').map((_, id) => id)
+  const allIndizes = new Array(poolLengthAmount.toNumber()).fill('').map((_, id) => id)
+  const poolIndizes = allIndizes //.filter((a) => !NOMAD_POOLS.includes(a))
 
   const poolInfos = useSingleContractMultipleData(
     minichefContract,

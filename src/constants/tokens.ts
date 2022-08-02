@@ -23,7 +23,13 @@ export const WETH = {
 }
 
 export const WBTC = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xF80699Dc594e00aE7bA200c7533a07C1604A106D', 8, 'WBTC', 'Wrapped BTC'),
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0xF80699Dc594e00aE7bA200c7533a07C1604A106D',
+    8,
+    'madWBTC',
+    'Wrapped BTC'
+  ),
 }
 
 export const DAI = {
@@ -31,27 +37,33 @@ export const DAI = {
     ChainId.MAINNET,
     '0x63743ACF2c7cfee65A5E356A4C4A005b586fC7AA',
     18,
-    'DAI',
+    'madDAI',
     'Dai Stablecoin'
   ),
 }
 
 export const USDC = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x51e44FfaD5C2B122C8b635671FCC8139dc636E82', 6, 'USDC', 'USD Coin'),
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x51e44FfaD5C2B122C8b635671FCC8139dc636E82', 6, 'madUSDC', 'USD Coin'),
   [ChainId.TESTNET]: new Token(ChainId.TESTNET, TESTNET.mockUSDC, 18, 'MUSDC', 'Mock USDC'),
   [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0xB2E91f27a9766bFD925D66D88B78D2cE64a846b6', 18, 'MUSDC', 'Mock USDC'),
 }
 
 export const TETHER = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x7FF4a56B32ee13D7D4D405887E0eA37d61Ed919e', 6, 'USDT', 'Tether USD'),
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x7FF4a56B32ee13D7D4D405887E0eA37d61Ed919e',
+    6,
+    'madUSDT',
+    'Tether USD'
+  ),
 }
 
 export const FRAX = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x28eC4B29657959F4A5052B41079fe32919Ec3Bd3', 18, 'FRAX', 'FRAX'),
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x28eC4B29657959F4A5052B41079fe32919Ec3Bd3', 18, 'madFRAX', 'FRAX'),
 }
 
 export const FXS = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xd0ec216A38F199B0229AE668a96c3Cd9F9f118A6', 18, 'FXS', 'FXS'),
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xd0ec216A38F199B0229AE668a96c3Cd9F9f118A6', 18, 'madFXS', 'FXS'),
 }
 
 /**

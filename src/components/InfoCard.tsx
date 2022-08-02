@@ -15,9 +15,17 @@ const VoteCard = styled(DataCard)`
   // ${Glow}
 `
 
-export function InfoCard({ title, description }: { title: string; description: string }) {
+export function InfoCard({
+  title,
+  description,
+  style,
+}: {
+  title: string
+  description: string | React.ReactNode
+  style?: any
+}) {
   return (
-    <VoteCard>
+    <VoteCard style={style}>
       <CardBGImage />
       <CardSection>
         <AutoColumn gap="md">

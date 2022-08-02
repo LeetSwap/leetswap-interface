@@ -29,6 +29,7 @@ import {
   useOwnWeeklyEmission,
   useCalculateAPR,
   useFarmTVL,
+  NOMAD_POOLS,
 } from 'state/farm/farm-hooks'
 import { PotionIcon4 } from '../../components/Potions/Potions'
 
@@ -37,6 +38,7 @@ import { HRDark } from '../../components/HR/HR'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { FarmYield } from 'components/farm/FarmYield'
 import { Glow } from '../AppBody'
+import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -100,7 +102,8 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = availableLPAmount
-  const showAddLiquidityButton = Boolean(stakedAmount?.equalTo('0') && userLiquidityUnstaked?.equalTo('0'))
+  const isNomad = NOMAD_POOLS.includes(poolId)
+  const showAddLiquidityButton = Boolean(stakedAmount?.equalTo('0') && userLiquidityUnstaked?.equalTo('0')) && !isNomad
 
   // toggle for staking modal and unstaking modal
   const [showStakingModal, setShowStakingModal] = useState(false)
@@ -163,6 +166,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
         </Heading>
         <DoubleCurrencyLogo currency0={token1 ?? undefined} currency1={token0 ?? undefined} size={48} margin={true} />
       </AutoRow>
+      {NOMAD_POOLS.includes(poolId) && <NomadWarningBanner />}
 
       <FarmYield
         apr={totalAPR}
@@ -298,7 +302,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
 
         {!showAddLiquidityButton && (
           <DataButtonRow style={{ marginBottom: '1rem' }}>
-            {stakingInfo && (
+            {stakingInfo && !isNomad && (
               <ButtonPrimary padding="8px" borderRadius="8px" width="360px" onClick={handleDepositClick}>
                 {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit Diffusion LP Tokens'}
               </ButtonPrimary>
