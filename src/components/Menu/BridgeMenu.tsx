@@ -80,7 +80,7 @@ export function BridgeMenu() {
               Connext <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
-          <MenuItem href="https://spacestation.zone/">
+          <MenuItem href="https://bridge.blockscape.network/">
             <div>
               Gravity Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
