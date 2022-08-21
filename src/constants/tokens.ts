@@ -43,7 +43,13 @@ export const DAI = {
 }
 
 export const USDC = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x51e44FfaD5C2B122C8b635671FCC8139dc636E82', 6, 'madUSDC', 'USD Coin'),
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+    6,
+    'gUSDC',
+    'Gravity USDC'
+  ),
   [ChainId.TESTNET]: new Token(ChainId.TESTNET, TESTNET.mockUSDC, 18, 'MUSDC', 'Mock USDC'),
   [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0xB2E91f27a9766bFD925D66D88B78D2cE64a846b6', 18, 'MUSDC', 'Mock USDC'),
 }
