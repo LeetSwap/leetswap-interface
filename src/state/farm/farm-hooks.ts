@@ -237,7 +237,11 @@ export function usePool(poolId: number) {
 export function useRewardInfos(pid: number, rewardContractAddress?: string) {
   const { account } = useActiveWeb3React()
   const rewarderContract = useComplexRewarderTime(rewardContractAddress)
-  const pendingTokens = useSingleCallResult(rewarderContract, 'pendingTokens', [pid, account ?? undefined, 0])
+  const pendingTokens = useSingleCallResult(rewarderContract, 'pendingTokens', [
+    pid,
+    account ?? '0x0000000000000000000000000000000000000000',
+    0,
+  ])
   const rewardToken = useToken(pendingTokens?.result?.rewardTokens[0])
   const rewardPerSecondResponse = useSingleCallResult(rewarderContract, 'rewardPerSecond')
 
@@ -247,11 +251,23 @@ export function useRewardInfos(pid: number, rewardContractAddress?: string) {
   const totalAllocationResponse = useSingleCallResult(rewarderContract, 'totalAllocPoint')
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
 
+  console.log('PoolId', pid)
+  // console.log('Account', account)
+  // console.log('RewarderContract', rewardContractAddress)
+  // console.log('RewardPerSecondResponse', rewardPerSecondResponse)
+  // console.log('pendingTokens', pendingTokens)
+  // console.log('poolInfo', poolInfos)
+
   const rewardPerSecondAmount = useMemo(() => {
     if (!rewardToken) {
+      console.log('No RewardToken')
       return undefined
     }
+
     const totalRewardPerSecond: JSBI = JSBI.BigInt(rewardPerSecondResponse.result?.[0].toString() || 0)
+    // console.log('poolInfo?.allocPoint', poolInfo?.allocPoint, 'totalAllocation', totalAllocation)
+    // console.log('totalAllocation.gt(0)', totalAllocation?.gt(0))
+    // console.log('totalRewardPerSecond', totalRewardPerSecond)
     const poolEmissionPerSecond =
       poolInfo?.allocPoint && totalAllocation && totalAllocation.gt(0) && totalRewardPerSecond
         ? JSBI.divide(
@@ -259,9 +275,11 @@ export function useRewardInfos(pid: number, rewardContractAddress?: string) {
             JSBI.BigInt(totalAllocation.toString())
           )
         : JSBI.BigInt(0)
-
+    console.log('Emission', totalRewardPerSecond.toString(), poolInfo.allocPoint.toString())
     return CurrencyAmount.fromRawAmount(rewardToken, poolEmissionPerSecond)
   }, [poolInfo?.allocPoint, rewardPerSecondResponse.result, rewardToken, totalAllocation])
+
+  console.log('Significant', rewardPerSecondAmount?.multiply(1000000000000).toSignificant())
 
   const pendingAmount = useMemo(() => {
     if (!rewardToken) {
