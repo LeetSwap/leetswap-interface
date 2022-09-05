@@ -9,40 +9,31 @@ export { WEVMOS, Evmos }
 
 export const EVMOS = Evmos.onChain(ChainId.MAINNET)
 
-/** ---------- NOMAD TOKENS
- * https://docs.nomad.xyz/bridge/domains.html#milkomeda-c1
- * ----------- */
-export const WETH = {
+/**
+ * Grav Tokens (from tokenlist)
+ */
+
+export const GRAV = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
-    '0x5842C5532b61aCF3227679a8b1BD0242a41752f2',
+    '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd',
     18,
-    'WETH',
-    'Wrapped Ether'
+    'GRAV',
+    'Graviton - channel-8'
   ),
 }
 
-export const WBTC = {
+export const gWETH = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
-    '0xF80699Dc594e00aE7bA200c7533a07C1604A106D',
-    8,
-    'madWBTC',
-    'Wrapped BTC'
-  ),
-}
-
-export const DAI = {
-  [ChainId.MAINNET]: new Token(
-    ChainId.MAINNET,
-    '0x63743ACF2c7cfee65A5E356A4C4A005b586fC7AA',
+    '0xc03345448969Dd8C00e9E4A85d2d9722d093aF8E',
     18,
-    'madDAI',
-    'Dai Stablecoin'
+    'gWETH',
+    'Wrapped Ether - Gravity'
   ),
 }
 
-export const USDC = {
+export const gUSDC = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
     '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
@@ -54,13 +45,90 @@ export const USDC = {
   [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0xB2E91f27a9766bFD925D66D88B78D2cE64a846b6', 18, 'MUSDC', 'Mock USDC'),
 }
 
+export const USDC = gUSDC
+
+export const gWBTC = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x1d54ecb8583ca25895c512a8308389ffd581f9c9',
+    8,
+    'gWBTC',
+    'Wrapped BTC - Gravity'
+  ),
+}
+
+export const gDAI = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75',
+    18,
+    'gDAI',
+    'Wrapped DAI - Gravity'
+  ),
+}
+
+export const gUSDT = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0xeceeefcee421d8062ef8d6b4d814efe4dc898265',
+    6,
+    'gUSDT',
+    'USDT - Gravity'
+  ),
+}
+
+/** ---------- NOMAD TOKENS
+ * https://docs.nomad.xyz/bridge/domains.html#milkomeda-c1
+ * ----------- */
+export const madWETH = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x5842C5532b61aCF3227679a8b1BD0242a41752f2',
+    18,
+    'WETH',
+    'Wrapped Ether - Nomad'
+  ),
+}
+
+export const madWBTC = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0xF80699Dc594e00aE7bA200c7533a07C1604A106D',
+    8,
+    'madWBTC',
+    'Wrapped BTC - Nomad'
+  ),
+}
+
+export const madDAI = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x63743ACF2c7cfee65A5E356A4C4A005b586fC7AA',
+    18,
+    'madDAI',
+    'Dai Stablecoin - Nomad'
+  ),
+}
+
+export const madUSDC = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x51e44FfaD5C2B122C8b635671FCC8139dc636E82',
+    6,
+    'madUSDC',
+    'USD Coin - Nomad'
+  ),
+  [ChainId.TESTNET]: new Token(ChainId.TESTNET, TESTNET.mockUSDC, 18, 'MUSDC', 'Mock USDC'),
+  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0xB2E91f27a9766bFD925D66D88B78D2cE64a846b6', 18, 'MUSDC', 'Mock USDC'),
+}
+
 export const TETHER = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
     '0x7FF4a56B32ee13D7D4D405887E0eA37d61Ed919e',
     6,
     'madUSDT',
-    'Tether USD'
+    'Tether USD - Nomad'
   ),
 }
 
@@ -84,11 +152,15 @@ export const ATOM = {
 }
 
 export const MEVMOS = makeToken('EVMOS', 'MEVMOS', 18, {
-  //@TODO: FIX MAINNET
-  [ChainId.MAINNET]: '0xFCd2Ce20ef8ed3D43Ab4f8C2dA13bbF1C6d9512F',
+  /**
+   * THis is just some mock token
+   * Dont use for main net
+   */
+  [ChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
   [ChainId.TESTNET]: TESTNET.mockEVMOS,
   [ChainId.RINKEBY]: '0xDfbBc5573024984ddac30BbE632fa3DAA821aBaD',
-})
+} as any)
+
 export const OSMOSIS = makeToken('Osmosis', 'OSMOSIS', 18, {
   //@TODO: FIX MAINNET
   [ChainId.MAINNET]: '0x067eC87844fBD73eDa4a1059F30039584586e09d',
