@@ -181,8 +181,45 @@ export default function WalletModal({
     }
 
     connector &&
-      activate(connector, undefined, true).catch((error) => {
+      activate(connector, undefined, true).catch(async (error) => {
         if (error instanceof UnsupportedChainIdError) {
+          // Lets try to switch to the correct chain.
+          const provider = await connector.getProvider()
+          if (provider === window.ethereum) {
+            try {
+              await provider.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x2329' }],
+              })
+            } catch (switchError: any) {
+              if (switchError.code === 4902) {
+                try {
+                  await provider.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
+                      {
+                        chainId: '0x2329',
+                        chainName: 'EVMOS',
+                        nativeCurrency: {
+                          name: 'EVMOS',
+                          symbol: 'EVMOS',
+                          decimals: 18,
+                        },
+                        rpcUrls: [
+                          // 'https://evmos-rpc2.binary.host'
+                          'https://eth.bd.evmos.org:8545',
+                        ],
+                        blockExplorerUrls: ['https://evm.evmos.org'],
+                      },
+                    ],
+                  })
+                } catch (e: any) {
+                  console.error(e)
+                }
+              }
+            }
+          }
+
           activate(connector) // a little janky...can't use setError because the connector isn't set
         } else {
           setPendingError(true)
