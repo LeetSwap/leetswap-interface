@@ -159,7 +159,7 @@ export default function Menu() {
             <MessageCircle size={14} />
             <div>Discord</div>
           </MenuItem>
-          <MenuItem href="https://diffusion.gitbook.io/docs/GXx8KsOHCFNEcZgOpj0b/legal">
+          <MenuItem href="https://docs.diffusion.fi/docs/diffusion-beyond/legal">
             <FileText size={14} />
             <div>Legal & Privacy</div>
           </MenuItem>
