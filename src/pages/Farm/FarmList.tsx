@@ -23,11 +23,12 @@ import {
 
 import styled from 'styled-components'
 import { Tux } from '../../components/farm/TuxBanner'
-import { FarmHeading } from '../../components/farm/FarmHeading'
+
 import { HRDark } from '../../components/HR/HR'
 import { CurrencyAmount } from 'sdk-core/entities'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
+import { HeadingWithPotion } from 'components/Heading/HeadingWithPotion'
 
 const FarmListContainer = styled.div`
   max-width: 1080px;
@@ -41,7 +42,7 @@ export function FarmListPage() {
     <FarmListContainer>
       <Tux />
       <NomadWarningBanner />
-      <FarmHeading />
+      <HeadingWithPotion heading="Farm" description="Earn fees and rewards by depositing and staking your LP tokens." />
       {/* {pools.map((pool) => pool.lpTokenAddress && <Pool key={pool.lpTokenAddress} {...pool} />).filter(isTruthy)} */}
       <FarmTable>
         {pools.map((pool) => (
@@ -55,9 +56,9 @@ export function FarmListPage() {
   )
 }
 
-type PoolProps = MinichefRawPoolInfo
+export type PoolProps = MinichefRawPoolInfo
 
-function PoolRow({
+export function PoolRow({
   lpTokenAddress,
   poolId,
   // pendingAmount,

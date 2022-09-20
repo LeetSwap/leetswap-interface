@@ -25,7 +25,7 @@ import QuestionHelper from '../QuestionHelper'
 import { Glow } from '../../pages/AppBody'
 import usePrevious from '../../hooks/usePrevious'
 
-const TokenAndUSDCBalance = styled.div`
+export const TokenAndUSDCBalance = styled.div`
   display: flex;
   align-items: center;
 `
@@ -320,7 +320,7 @@ const BalanceColumn = styled(AutoColumn)`
   width: 100%;
 `
 
-const TokenLogo = styled.div`
+export const TokenLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -100,7 +100,7 @@ type TableRowProps = {
   positionValue?: CurrencyAmount<Token>
 }
 
-const PoolPair = styled(AutoColumn)`
+export const PoolPair = styled(AutoColumn)`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -116,7 +116,7 @@ const TVL = styled(AutoColumn)`
   width: 20%;
 `
 
-const PoolRow = styled(Link)`
+export const PoolRow = styled(Link)`
   text-decoration: none;
   border-radius: 10px;
   border: 1px solid transparent;
@@ -142,18 +142,18 @@ const PoolRow = styled(Link)`
   margin-top: 2%;
 `
 
-const Emission = styled(AutoColumn)`
+export const Emission = styled(AutoColumn)`
   display: flex;
   justify-content: end;
   align-items: center;
   padding-top: 8px;
 `
 
-const EmissionText = styled.span`
+export const EmissionText = styled.span`
   padding-right: 10px;
 `
 
-const RowColumn = styled.div`
+export const RowColumn = styled.div`
   width: 20%;
   text-align: right;
   justify-content: flex-end;

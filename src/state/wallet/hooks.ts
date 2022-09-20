@@ -12,6 +12,7 @@ import { useTotalUniEarned } from '../stake/hooks'
 import { Interface } from '@ethersproject/abi'
 import ERC20ABI from 'abis/erc20.json'
 import { Erc20Interface } from 'abis/types/Erc20'
+
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.
  */

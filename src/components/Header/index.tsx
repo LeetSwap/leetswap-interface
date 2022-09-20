@@ -330,7 +330,13 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-
+          <StyledNavLink
+            id={`assets-nav-link`}
+            to={'/assets'}
+            isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/assets')}
+          >
+            {t('Assets')}
+          </StyledNavLink>
           <StyledNavLink
             id={`farm-nav-link`}
             to={'/farm'}

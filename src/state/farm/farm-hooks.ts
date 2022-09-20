@@ -251,7 +251,7 @@ export function useRewardInfos(pid: number, rewardContractAddress?: string) {
   const totalAllocationResponse = useSingleCallResult(rewarderContract, 'totalAllocPoint')
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
 
-  console.log('PoolId', pid)
+  // console.log('PoolId', pid)
   // console.log('Account', account)
   // console.log('RewarderContract', rewardContractAddress)
   // console.log('RewardPerSecondResponse', rewardPerSecondResponse)
@@ -260,7 +260,7 @@ export function useRewardInfos(pid: number, rewardContractAddress?: string) {
 
   const rewardPerSecondAmount = useMemo(() => {
     if (!rewardToken) {
-      console.log('No RewardToken')
+      // console.log('No RewardToken')
       return undefined
     }
 
@@ -275,11 +275,11 @@ export function useRewardInfos(pid: number, rewardContractAddress?: string) {
             JSBI.BigInt(totalAllocation.toString())
           )
         : JSBI.BigInt(0)
-    console.log('Emission', totalRewardPerSecond.toString(), poolInfo.allocPoint.toString())
+    // console.log('Emission', totalRewardPerSecond.toString(), poolInfo.allocPoint.toString())
     return CurrencyAmount.fromRawAmount(rewardToken, poolEmissionPerSecond)
   }, [poolInfo?.allocPoint, rewardPerSecondResponse.result, rewardToken, totalAllocation])
 
-  console.log('Significant', rewardPerSecondAmount?.multiply(1000000000000).toSignificant())
+  // console.log('Significant', rewardPerSecondAmount?.multiply(1000000000000).toSignificant())
 
   const pendingAmount = useMemo(() => {
     if (!rewardToken) {
