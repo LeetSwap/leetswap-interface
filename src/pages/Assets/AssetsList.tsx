@@ -136,7 +136,8 @@ export const AssetsListPage = () => {
 
   const tokensWithBalance = useMemo(() => {
     return (
-      Object.values(tokenBalances)
+      [ethBalance, ...Object.values(tokenBalances)]
+        .filter(isTruthy)
         .filter((a) => a && a.greaterThan(0))
         // remove XDIFF
         .filter((a) => {
@@ -147,11 +148,11 @@ export const AssetsListPage = () => {
           if (!xDiff) {
             return true
           }
-          return xDiff.address !== a?.currency.address
+          return xDiff.address !== a?.currency.wrapped.address
         })
         .filter(isTruthy)
     )
-  }, [chainId, tokenBalances])
+  }, [chainId, tokenBalances, ethBalance])
 
   return (
     <AssetContextProvider>

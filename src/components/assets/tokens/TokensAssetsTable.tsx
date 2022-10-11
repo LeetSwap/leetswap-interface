@@ -1,4 +1,4 @@
-import { CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { BreakLineComponent, currencyKey, isBreakLine } from 'components/SearchModal/CurrencyList'
 
 import React, { useCallback, useRef, useContext } from 'react'
@@ -16,7 +16,7 @@ const TokensAssetsTable = ({
   sumOfBalances,
   isBalancesLoading,
 }: {
-  currencyAmountsWithBalance: CurrencyAmount<Token>[]
+  currencyAmountsWithBalance: CurrencyAmount<Token | Currency>[]
   sumOfBalances: number
   isBalancesLoading: boolean
 }) => {
