@@ -85,6 +85,11 @@ export function BridgeMenu() {
               Gravity Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
+          <MenuItem href="https://satellite.money/">
+            <div>
+              Axelar Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
           <MenuItem href="https://cbridge.celer.network/">
             <div>
               Celer <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
