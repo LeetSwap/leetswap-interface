@@ -46,10 +46,7 @@ export function FarmListPage() {
       {/* {pools.map((pool) => pool.lpTokenAddress && <Pool key={pool.lpTokenAddress} {...pool} />).filter(isTruthy)} */}
       <FarmTable>
         {pools.map((pool) => (
-          <Fragment key={pool.poolId}>
-            <HRDark />
-            <PoolRow {...pool} />
-          </Fragment>
+          <PoolRow {...pool} key={pool.poolId} />
         ))}
       </FarmTable>
     </FarmListContainer>
@@ -93,8 +90,16 @@ export function PoolRow({
 
   const positionValue = token0Value?.multiply(2) || token1Value?.multiply(2)
 
+  const isActive =
+    positionValue?.greaterThan(0) || poolEmissionAmount?.greaterThan(0) || rewardPerSecondAmount?.greaterThan(0)
+
+  if (!isActive) {
+    return null
+  }
+
   return (
     <>
+      <HRDark />
       <FarmTableRow
         pair={pair ?? undefined}
         poolId={poolId}

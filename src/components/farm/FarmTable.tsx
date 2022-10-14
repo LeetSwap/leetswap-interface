@@ -197,7 +197,7 @@ export function FarmTableRow({
               title={secondaryEmissionPerSecond?.currency.symbol}
             />
           </Emission>
-          {secondaryEmissionPerSecond && (
+          {secondaryEmissionPerSecond && secondaryEmissionPerSecond.greaterThan(0) && (
             <Emission>
               <EmissionText>
                 {secondaryEmissionPerSecond?.multiply(BIG_INT_SECONDS_IN_WEEK)?.toFixed(0, { groupSeparator: ',' }) ??

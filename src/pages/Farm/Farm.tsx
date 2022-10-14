@@ -284,7 +284,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
               }
             />
             <HRDark />
-            {rewardPerSecondAmount && (
+            {rewardPerSecondAmount && rewardPerSecondAmount.greaterThan(0) && (
               <RewardRow
                 pendingAmount={pendingRewardAmount ?? undefined}
                 ownWeeklyEmission={ownSecondaryWeeklyEmission}

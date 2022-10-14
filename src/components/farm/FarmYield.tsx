@@ -209,7 +209,7 @@ export function FarmYield({
                   <span> / {emissionTimeframe === 'weekly' ? 'week' : 'day'}</span>
                 </TYPE.body>
               </Heading>
-              {secondaryEmissionPerSecond && (
+              {secondaryEmissionPerSecond && secondaryEmissionPerSecond.greaterThan(0) && (
                 <Heading>
                   <CurrencyLogoFromList currency={secondaryEmissionPerSecond.currency ?? undefined} size={'24px'} />
                   <TYPE.body fontWeight={500} margin={'5px'}>
