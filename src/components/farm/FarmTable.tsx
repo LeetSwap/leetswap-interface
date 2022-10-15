@@ -13,6 +13,7 @@ import { HRDark } from '../HR/HR'
 import Column, { AutoColumn } from '../Column'
 import { AutoRow } from '../Row'
 import { Glow } from '../../pages/AppBody'
+import { unwrappedToken } from 'utils/wrappedCurrency'
 
 const FarmContainer = styled(Column)`
   max-width: 1080px;
@@ -169,17 +170,20 @@ export function FarmTableRow({
   totalAPR,
   positionValue,
 }: TableRowProps) {
+  const currency0 = pair?.token0 ? unwrappedToken(pair.token0) : undefined
+  const currency1 = pair?.token1 ? unwrappedToken(pair.token1) : undefined
+
   return (
     <PoolRow to={`/farm/${poolId}`}>
       <AutoRow gap="0%" justify={'space-between'}>
         <PoolPair>
-          <DoubleCurrencyLogo currency0={pair?.token1} currency1={pair?.token0} size={36} />
+          <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} />
           <span
             css={`
               margin-left: 10px;
             `}
           >
-            {pair?.token0.symbol}/{pair?.token1.symbol}
+            {currency0?.symbol}/{currency1?.symbol}
           </span>
         </PoolPair>
         <TVL>

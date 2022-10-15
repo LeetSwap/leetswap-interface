@@ -27,7 +27,6 @@ export function usePairTokens(pairAddress?: string) {
   const token1 = useToken(token1CallAddress.result?.[0])
   const lpToken = useToken(pairAddress)
   const availableLPAmount = useTokenBalance(account ?? undefined, lpToken ?? undefined)
-
   const totalPoolStaked = useTokenBalance(minichef?.address, lpToken ?? undefined)
   const [, pair] = useV2Pair(token0 ?? undefined, token1 ?? undefined)
 

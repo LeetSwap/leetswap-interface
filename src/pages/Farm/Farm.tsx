@@ -39,6 +39,8 @@ import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { FarmYield } from 'components/farm/FarmYield'
 import { Glow } from '../AppBody'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
+import { unwrappedToken } from 'utils/wrappedCurrency'
+import { useTotalSupply } from 'hooks/useTotalSupply'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -95,6 +97,10 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
   const { token0, token1, availableLPAmount, lpToken, totalPoolStaked, pair } = usePairTokens(lpTokenAddress)
   const { pendingAmount: pendingRewardAmount, rewardPerSecondAmount } = useRewardInfos(poolId, rewarderAddress)
   const stakedAmount = lpToken ? CurrencyAmount.fromRawAmount(lpToken, stakedRawAmount || 0) : undefined
+  const totalPoolTokens = useTotalSupply(lpToken ?? undefined)
+
+  const currency0 = token0 ? unwrappedToken(token0) : token0
+  const currency1 = token1 ? unwrappedToken(token1) : token1
 
   const ownPrimaryWeeklyEmission = useOwnWeeklyEmission(poolEmissionAmount, stakedAmount, totalPoolStaked)
 
@@ -117,13 +123,13 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
-    !!totalPoolStaked &&
+    !!totalPoolTokens &&
     !!stakedAmount &&
     // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolStaked.quotient, stakedAmount.quotient)
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, stakedAmount.quotient)
       ? [
-          pair.getLiquidityValue(pair.token0, totalPoolStaked, stakedAmount, false),
-          pair.getLiquidityValue(pair.token1, totalPoolStaked, stakedAmount, false),
+          pair.getLiquidityValue(pair.token0, totalPoolTokens, stakedAmount, false),
+          pair.getLiquidityValue(pair.token1, totalPoolTokens, stakedAmount, false),
         ]
       : [undefined, undefined]
 
@@ -161,10 +167,15 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
         <Heading>
           <PotionIcon4 width={60} height={60} />
           <TYPE.largeHeader style={{ margin: 0 }}>
-            {token0?.symbol}-{token1?.symbol} Liquidity Mining
+            {currency0?.symbol}-{currency1?.symbol} Liquidity Mining
           </TYPE.largeHeader>
         </Heading>
-        <DoubleCurrencyLogo currency0={token1 ?? undefined} currency1={token0 ?? undefined} size={48} margin={true} />
+        <DoubleCurrencyLogo
+          currency0={currency0 ?? undefined}
+          currency1={currency1 ?? undefined}
+          size={48}
+          margin={true}
+        />
       </AutoRow>
       {NOMAD_POOLS.includes(poolId) && <NomadWarningBanner />}
 
@@ -198,7 +209,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                 as={Link}
                 to={`/add/v2/${token0 && currencyId(token0)}/${token1 && currencyId(token1)}`}
               >
-                {`Add ${token0?.symbol}-${token1?.symbol} liquidity`}
+                {`Add ${currency0?.symbol}-${currency1?.symbol} liquidity`}
               </ButtonPrimary>
             </AutoColumn>
           </CardSection>
@@ -243,7 +254,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                   {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                 </TYPE.white>
                 <TYPE.white>
-                  DIFF-LP {token0?.symbol}-{token1?.symbol}
+                  DIFF-LP {currency0?.symbol}-{currency1?.symbol}
                 </TYPE.white>
               </RowBetween>
               <RowBetween style={{ alignItems: 'baseline' }}>

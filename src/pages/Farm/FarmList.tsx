@@ -29,6 +29,7 @@ import { CurrencyAmount } from 'sdk-core/entities'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
 import { HeadingWithPotion } from 'components/Heading/HeadingWithPotion'
+import { useTotalSupply } from 'hooks/useTotalSupply'
 
 const FarmListContainer = styled.div`
   max-width: 1080px;
@@ -72,16 +73,17 @@ export function PoolRow({
   const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
 
   const stakedAmount = lpToken ? CurrencyAmount.fromRawAmount(lpToken, stakedRawAmount || 0) : undefined
+  const totalPoolTokens = useTotalSupply(lpToken ?? undefined)
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
-    !!totalPoolStaked &&
+    !!totalPoolTokens &&
     !!stakedAmount &&
     // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolStaked.quotient, stakedAmount.quotient)
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, stakedAmount.quotient)
       ? [
-          pair.getLiquidityValue(pair.token0, totalPoolStaked, stakedAmount, false),
-          pair.getLiquidityValue(pair.token1, totalPoolStaked, stakedAmount, false),
+          pair.getLiquidityValue(pair.token0, totalPoolTokens, stakedAmount, false),
+          pair.getLiquidityValue(pair.token1, totalPoolTokens, stakedAmount, false),
         ]
       : [undefined, undefined]
 
