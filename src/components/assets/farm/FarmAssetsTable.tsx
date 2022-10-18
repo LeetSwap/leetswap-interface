@@ -3,13 +3,13 @@
 // import { useActiveWeb3React } from 'hooks/web3'
 // import { PoolRow } from 'pages/Farm/FarmList'
 import React, { Fragment } from 'react'
-import { usePools } from 'state/farm/farm-hooks'
+import { MinichefRawPoolInfo, usePools } from 'state/farm/farm-hooks'
 // import { useTokenBalance } from 'state/wallet/hooks'
 import { AssetsContainer, AssetsTableHeaderContainer, AssetsTableHeaderText } from '../AssetsTable'
 import FarmAssetRow from './FarmAssetRow'
 
 const FarmAssetsTable = () => {
-  const pools = usePools()
+  const { pools } = usePools()
 
   return (
     <AssetsContainer>
@@ -19,7 +19,7 @@ const FarmAssetsTable = () => {
         <AssetsTableHeaderText>Farm Reward</AssetsTableHeaderText>
         <AssetsTableHeaderText>Position Value</AssetsTableHeaderText>
       </AssetsTableHeaderContainer>
-      {pools.map((pool) => (
+      {pools.map((pool: MinichefRawPoolInfo) => (
         <Fragment key={pool.poolId}>
           <FarmAssetRow {...pool} />
         </Fragment>
