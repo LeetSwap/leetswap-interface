@@ -23,33 +23,6 @@ import { useActiveWeb3React } from 'hooks/web3'
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
-if (!!window.ethereum) {
-  window.ethereum.autoRefreshOnNetworkChange = false
-
-  window.ethereum.request?.({ method: 'eth_requestAccounts' })
-  // if (window.location.hostname !== 'localhost') {
-  //   window.ethereum.request?.({
-  //     method: 'wallet_addEthereumChain',
-  //     params: [
-  //       {
-  //         chainId: '0x2329',
-  //         chainName: 'EVMOS',
-  //         nativeCurrency: {
-  //           name: 'EVMOS',
-  //           symbol: 'EVMOS',
-  //           decimals: 18,
-  //         },
-  //         rpcUrls: [
-  //           // 'https://evmos-rpc2.binary.host'
-  //           'https://eth.bd.evmos.org:8545',
-  //         ],
-  //         blockExplorerUrls: ['https://evm.evmos.org'],
-  //       },
-  //     ],
-  //   })
-  // }
-}
-
 const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
 if (typeof GOOGLE_ANALYTICS_ID === 'string') {
   ReactGA.initialize(GOOGLE_ANALYTICS_ID, {
