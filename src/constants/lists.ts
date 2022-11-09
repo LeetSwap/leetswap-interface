@@ -1,7 +1,6 @@
 // used to mark unsupported tokens, these are hosted lists of unsupported tokens
 
-const DIFFUSION_LIST = 'https://raw.githubusercontent.com/diffusion-fi/tokenlist/main/src/tokenlist.json'
-const DIFFUSION_COMMUNITY_LIST = 'https://raw.githubusercontent.com/diffusion-fi/tokenlist/main/src/community-list.json'
+const CANTODEX_LIST = 'https://raw.githubusercontent.com/LeetSwap/tokenlist/master/src/tokenlist.json'
 // const COMPOUND_LIST = 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json'
 // const UMA_LIST = 'https://umaproject.org/uma.tokenlist.json'
 // const AAVE_LIST = 'tokenlist.aave.eth'
@@ -22,10 +21,9 @@ export const UNSUPPORTED_LIST_URLS: string[] = []
 
 // lower index == higher priority for token import
 export const DEFAULT_LIST_OF_LISTS: string[] = [
-  DIFFUSION_LIST,
-  DIFFUSION_COMMUNITY_LIST,
+  CANTODEX_LIST,
   ...UNSUPPORTED_LIST_URLS, // need to load unsupported tokens as well
 ]
 
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [DIFFUSION_LIST]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = [CANTODEX_LIST]
