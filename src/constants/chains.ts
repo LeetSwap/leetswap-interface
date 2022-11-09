@@ -1,7 +1,6 @@
 export enum ChainId {
-  MAINNET = 9001,
-  TESTNET = 9000,
-  RINKEBY = 4,
+  MAINNET = 7700,
+  TESTNET = 740,
 }
 
 export const NETWORK_URLS: {
