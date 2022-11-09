@@ -4,48 +4,44 @@ import { MAINNET, TESTNET } from './periphery'
 
 // Actively Deployed by us
 
-export const V2_FATORY_ADDRESS = {
-  // Unit Tests
-  [1]: '0xBB86C1332f54afb6509CB599BF88980f7b389403',
+export const V2_FACTORY_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.factory,
   [ChainId.TESTNET]: TESTNET.factory,
-  [ChainId.RINKEBY]: '0xcF5ef8d007a616066e5eaEa0916592374a0F478D',
 }
 export const MULTICALL2_ADDRESSES = {
   [ChainId.MAINNET]: MAINNET.multicall2,
   [ChainId.TESTNET]: TESTNET.multicall2,
-  [ChainId.RINKEBY]: '0xb65823dAdB4EA34C4779F937339C34B6775Ed4E1',
 }
 
 export const V2_ROUTER_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.router,
   [ChainId.TESTNET]: TESTNET.router,
-  [ChainId.RINKEBY]: '0x638771E1eE3c85242D811e9eEd89C71A4F8F4F73',
 }
 
 export const MINICHEF_V2_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.minichef,
   [ChainId.TESTNET]: TESTNET.miniChef,
-  [ChainId.RINKEBY]: '0xFCd2Ce20ef8ed3D43Ab4f8C2dA13bbF1C6d9512F',
 }
 
 export const AIRDROP_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.airdrop,
   [ChainId.TESTNET]: TESTNET.airdrop,
-  [ChainId.RINKEBY]: '',
 }
 
 export const DIFFUSION_BAR_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.diffusionbar,
   [ChainId.TESTNET]: TESTNET.diffusionbar,
-  [ChainId.RINKEBY]: '0x9AC19677BD6B1a3ba046C33f4D2f1952cA0e9a13',
 }
 
 // Used but ultimately not ours
 export const WETH9_ADDRESS = {
   [ChainId.MAINNET]: MAINNET.weth9,
   [ChainId.TESTNET]: TESTNET.weth9,
-  [ChainId.RINKEBY]: '0xc778417E063141139Fce010982780140Aa0cD5Ab',
+}
+
+export const STABLE_PAIR_ADDRESSES = {
+  [ChainId.MAINNET]: MAINNET.stablePairs,
+  [ChainId.TESTNET]: TESTNET.stablePairs,
 }
 
 /**
