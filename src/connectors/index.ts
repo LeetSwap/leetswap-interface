@@ -43,9 +43,8 @@ export const injected = new InjectedConnector({
 export const walletconnect = new WalletConnectConnector({
   supportedChainIds: SUPPORTED_CHAIN_IDS,
   rpc: {
-    9000: 'https://eth.bd.evmos.dev:8545',
-    // 9001: 'https://evmos-rpc2.binary.host',
-    9001: 'https://eth.bd.evmos.org:8545',
+    [ChainId.MAINNET]: NETWORK_URLS[ChainId.MAINNET],
+    [ChainId.TESTNET]: NETWORK_URLS[ChainId.TESTNET],
   },
   // bridge: WALLETCONNECT_BRIDGE_URL,
   qrcode: true,
