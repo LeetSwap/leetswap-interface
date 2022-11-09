@@ -1,9 +1,8 @@
 import { ChainId } from 'constants/chains'
 
 const EXPLORER_PREFIXES: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: 'evm.evmos.org',
-  [ChainId.TESTNET]: 'evm.evmos.dev',
-  [ChainId.RINKEBY]: 'rinkeby.etherscan.io',
+  [ChainId.MAINNET]: 'evm.explorer.canto.io',
+  [ChainId.TESTNET]: 'evm.explorer.canto-testnet.com',
 }
 
 export enum ExplorerDataType {
