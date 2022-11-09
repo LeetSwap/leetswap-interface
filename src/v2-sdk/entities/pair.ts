@@ -6,7 +6,7 @@ import { getCreate2Address } from '@ethersproject/address'
 
 import { INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
-import { V2_FATORY_ADDRESS } from 'constants/addresses'
+import { STABLE_PAIR_ADDRESSES, V2_FACTORY_ADDRESS } from 'constants/addresses'
 import { ChainId } from 'constants/chains'
 
 export const computePairAddress = ({
@@ -19,11 +19,20 @@ export const computePairAddress = ({
   tokenB: Token
 }): string => {
   const [token0, token1] = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
-  return getCreate2Address(
+  const stablePairAddress = getCreate2Address(
     factoryAddress,
-    keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])]),
+    keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0.address, token1.address, true])]),
     INIT_CODE_HASH
   )
+  if (STABLE_PAIR_ADDRESSES[tokenA.chainId as ChainId].includes(stablePairAddress)) {
+    return stablePairAddress
+  }
+  const volatilePairAddress = getCreate2Address(
+    factoryAddress,
+    keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0.address, token1.address, false])]),
+    INIT_CODE_HASH
+  )
+  return volatilePairAddress
 }
 
 export class Pair {
@@ -31,7 +40,7 @@ export class Pair {
   private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>]
 
   public static getAddress(tokenA: Token, tokenB: Token): string {
-    const factoryAddress = V2_FATORY_ADDRESS[tokenA.chainId as ChainId]
+    const factoryAddress = V2_FACTORY_ADDRESS[tokenA.chainId as ChainId]
     return computePairAddress({ factoryAddress, tokenA, tokenB })
   }
 
@@ -117,7 +126,7 @@ export class Pair {
     }
     const inputReserve = this.reserveOf(inputAmount.currency)
     const outputReserve = this.reserveOf(inputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
-    const inputAmountWithFee = JSBI.multiply(inputAmount.quotient, _997)
+    const inputAmountWithFee = JSBI.multiply(inputAmount.quotient, _1000)
     const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.quotient)
     const denominator = JSBI.add(JSBI.multiply(inputReserve.quotient, _1000), inputAmountWithFee)
     const outputAmount = CurrencyAmount.fromRawAmount(
@@ -143,7 +152,7 @@ export class Pair {
     const outputReserve = this.reserveOf(outputAmount.currency)
     const inputReserve = this.reserveOf(outputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
     const numerator = JSBI.multiply(JSBI.multiply(inputReserve.quotient, outputAmount.quotient), _1000)
-    const denominator = JSBI.multiply(JSBI.subtract(outputReserve.quotient, outputAmount.quotient), _997)
+    const denominator = JSBI.multiply(JSBI.subtract(outputReserve.quotient, outputAmount.quotient), _1000)
     const inputAmount = CurrencyAmount.fromRawAmount(
       outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
       JSBI.add(JSBI.divide(numerator, denominator), ONE)
@@ -231,9 +240,18 @@ declare global {
 }
 window.$getPairAddress = (chainId: ChainId, a: string, b: string) => {
   const [token0, token1] = a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a] // does safety checks
-  return getCreate2Address(
-    V2_FATORY_ADDRESS[chainId],
-    keccak256(['bytes'], [pack(['address', 'address'], [token0, token1])]),
+  const stablePairAddress = getCreate2Address(
+    V2_FACTORY_ADDRESS[chainId],
+    keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0, token1, true])]),
     INIT_CODE_HASH
   )
+  if (STABLE_PAIR_ADDRESSES[chainId].includes(stablePairAddress)) {
+    return stablePairAddress
+  }
+  const volatilePairAddress = getCreate2Address(
+    V2_FACTORY_ADDRESS[chainId],
+    keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0, token1, false])]),
+    INIT_CODE_HASH
+  )
+  return volatilePairAddress
 }
