@@ -22,8 +22,11 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
+    "indent": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
