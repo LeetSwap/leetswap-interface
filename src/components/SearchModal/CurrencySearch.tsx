@@ -6,7 +6,7 @@ import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { useAllTokens, useToken, useIsUserAddedToken, useSearchInactiveTokenLists } from '../../hooks/Tokens'
-import { Evmos } from '../../constants/tokens'
+import { Canto } from '../../constants/tokens'
 import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
 import { isAddress } from '../../utils'
 import Column from '../Column'
@@ -111,7 +111,7 @@ export function CurrencySearch({
   const filteredSortedTokensWithETH: Currency[] = useMemo(() => {
     const s = debouncedQuery.toLowerCase().trim()
     if (['c', 'ca', 'can', 'cant', 'canto'].includes(s)) {
-      return [Evmos.onChain(chainId || ChainId.MAINNET), ...filteredSortedTokens]
+      return [Canto.onChain(chainId || ChainId.MAINNET), ...filteredSortedTokens]
     }
     return filteredSortedTokens
   }, [chainId, debouncedQuery, filteredSortedTokens])
@@ -143,7 +143,7 @@ export function CurrencySearch({
       if (e.key === 'Enter') {
         const s = debouncedQuery.toLowerCase().trim()
         if (s === 'canto' && chainId) {
-          handleCurrencySelect(Evmos.onChain(chainId))
+          handleCurrencySelect(Canto.onChain(chainId))
         } else if (filteredSortedTokensWithETH.length > 0) {
           if (
             filteredSortedTokensWithETH[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||

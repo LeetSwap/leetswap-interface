@@ -5,7 +5,7 @@ import { useTransactionAdder } from '../state/transactions/hooks'
 import { useCurrencyBalance } from '../state/wallet/hooks'
 import { useActiveWeb3React } from './web3'
 import { useWETHContract } from './useContract'
-import { WEVMOS } from 'constants/tokens'
+import { WCANTO } from 'constants/tokens'
 
 export enum WrapType {
   NOT_APPLICABLE,
@@ -38,7 +38,7 @@ export default function useWrapCallback(
     const hasInputAmount = Boolean(inputAmount?.greaterThan('0'))
     const sufficientBalance = inputAmount && balance && !balance.lessThan(inputAmount)
 
-    if (inputCurrency.isNative && currencyEquals(WEVMOS[chainId], outputCurrency)) {
+    if (inputCurrency.isNative && currencyEquals(WCANTO[chainId], outputCurrency)) {
       return {
         wrapType: WrapType.WRAP,
         execute:
@@ -46,7 +46,7 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.deposit({ value: `0x${inputAmount.quotient.toString(16)}` })
-                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} EVMOS to WEVMOS` })
+                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} CANTO to WCANTO` })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
@@ -58,7 +58,7 @@ export default function useWrapCallback(
           ? 'Insufficient CANTO balance'
           : 'Enter CANTO amount',
       }
-    } else if (currencyEquals(WEVMOS[chainId], inputCurrency) && outputCurrency.isNative) {
+    } else if (currencyEquals(WCANTO[chainId], inputCurrency) && outputCurrency.isNative) {
       return {
         wrapType: WrapType.UNWRAP,
         execute:

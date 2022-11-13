@@ -20,7 +20,7 @@ import { useAllTokens } from 'hooks/Tokens'
 
 import { useTokenComparator } from 'components/SearchModal/sorting'
 
-import { Evmos, XDIFFUSION } from 'constants/tokens'
+import { Canto, XDIFFUSION } from 'constants/tokens'
 import { ChainId } from 'constants/chains'
 import { useCurrencyBalance, useTokenBalancesWithLoadingIndicator } from 'state/wallet/hooks'
 import { toV2LiquidityToken, useTrackedTokenPairs } from 'state/user/hooks'
@@ -57,7 +57,7 @@ export const AssetsListPage = () => {
   }, [allTokens, tokenComparator])
 
   const [tokenBalances, balancesLoading] = useTokenBalancesWithLoadingIndicator(account ?? undefined, sortedTokens)
-  const ethBalance = useCurrencyBalance(account ?? undefined, Evmos.onChain(chainId || ChainId.MAINNET) as Currency)
+  const ethBalance = useCurrencyBalance(account ?? undefined, Canto.onChain(chainId || ChainId.MAINNET) as Currency)
   const sumOfTokenBalances = [ethBalance, ...Object.values(tokenBalances)].reduce((acc, curr) => {
     if (curr?.greaterThan(0)) {
       return parseFloat(curr?.toSignificant()) + acc

@@ -1,17 +1,17 @@
 import { CONTRACTS } from './contracts'
-const { MEVMOS, MUSDC, MATOM } = CONTRACTS
+const { MCANTO, MUSDC, MATOM } = CONTRACTS
 
 describe('Remove Liquidity', () => {
   it('Native remove', () => {
-    cy.visit(`/remove/v2/EVMOS/${MUSDC}`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'EVMOS')
+    cy.visit(`/remove/v2/CANTO/${MUSDC}`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'CANTO')
     cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MUSDC')
   })
 
   it('Native remove swap order', () => {
-    cy.visit(`/remove/v2/${MUSDC}/EVMOS`)
+    cy.visit(`/remove/v2/${MUSDC}/CANTO`)
     cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'MUSDC')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'EVMOS')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'CANTO')
   })
 
   it('loads the two correct tokens', () => {
@@ -20,16 +20,16 @@ describe('Remove Liquidity', () => {
     cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MATOM')
   })
 
-  it('does not crash if WEVMOS is duplicated', () => {
-    cy.visit(`/remove/v2/${MEVMOS}/${MEVMOS}`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'MEVMOS')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MEVMOS')
+  it('does not crash if WCANTO is duplicated', () => {
+    cy.visit(`/remove/v2/${MCANTO}/${MCANTO}`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'MCANTO')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MCANTO')
   })
 
-  it('does not crash if EVMOS is duplicated', () => {
-    cy.visit(`/remove/v2/EVMOS/EVMOS`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'EVMOS')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'EVMOS')
+  it('does not crash if CANTO is duplicated', () => {
+    cy.visit(`/remove/v2/CANTO/CANTO`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'CANTO')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'CANTO')
   })
 
   it.skip('token not in storage is loaded', () => {

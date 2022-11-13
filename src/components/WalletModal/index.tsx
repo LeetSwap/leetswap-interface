@@ -206,7 +206,7 @@ export default function WalletModal({
                           decimals: 18,
                         },
                         rpcUrls: [
-                          // 'https://evmos-rpc2.binary.host'
+                          // 'https://canto-rpc2.binary.host'
                           'https://canto.slingshot.finance',
                         ],
                         blockExplorerUrls: ['https://evm.explorer.canto.io'],
