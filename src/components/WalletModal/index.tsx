@@ -199,17 +199,17 @@ export default function WalletModal({
                     params: [
                       {
                         chainId: '0x2329',
-                        chainName: 'EVMOS',
+                        chainName: 'CANTO',
                         nativeCurrency: {
-                          name: 'EVMOS',
-                          symbol: 'EVMOS',
+                          name: 'CANTO',
+                          symbol: 'CANTO',
                           decimals: 18,
                         },
                         rpcUrls: [
                           // 'https://evmos-rpc2.binary.host'
-                          'https://eth.bd.evmos.org:8545',
+                          'https://canto.slingshot.finance',
                         ],
-                        blockExplorerUrls: ['https://evm.evmos.org'],
+                        blockExplorerUrls: ['https://evm.explorer.canto.io'],
                       },
                     ],
                   })
@@ -330,7 +330,7 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Evmos network.</h5>
+              <h5>Please connect to a CANTO network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}

@@ -55,8 +55,8 @@ export default function useWrapCallback(
         inputError: sufficientBalance
           ? undefined
           : hasInputAmount
-          ? 'Insufficient EVMOS balance'
-          : 'Enter EVMOS amount',
+          ? 'Insufficient CANTO balance'
+          : 'Enter CANTO amount',
       }
     } else if (currencyEquals(WEVMOS[chainId], inputCurrency) && outputCurrency.isNative) {
       return {
@@ -66,7 +66,7 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.withdraw(`0x${inputAmount.quotient.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WEVMOS to EVMOS` })
+                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} wCANTO to CANTO` })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }
@@ -75,8 +75,8 @@ export default function useWrapCallback(
         inputError: sufficientBalance
           ? undefined
           : hasInputAmount
-          ? 'Insufficient WEVMOS balance'
-          : 'Enter WEVMOS amount',
+          ? 'Insufficient wCANTO balance'
+          : 'Enter wCANTO amount',
       }
     } else {
       return NOT_APPLICABLE

@@ -24,7 +24,7 @@ import QuestionHelper from 'components/QuestionHelper'
 import useTheme from 'hooks/useTheme'
 
 export function currencyKey(currency: Currency | WrappedTokenInfo): string {
-  return currency.isToken ? currency.address : 'EVMOS'
+  return currency.isToken ? currency.address : 'CANTO'
 }
 
 const StyledBalanceText = styled(Text)`

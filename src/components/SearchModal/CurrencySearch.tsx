@@ -110,7 +110,7 @@ export function CurrencySearch({
 
   const filteredSortedTokensWithETH: Currency[] = useMemo(() => {
     const s = debouncedQuery.toLowerCase().trim()
-    if (['', 'p', 'ph', 'pho', 'phot', 'photo', 'photon', 'e', 'ev', 'evm', 'evmo', 'evmos'].includes(s)) {
+    if (['c', 'ca', 'can', 'cant', 'canto'].includes(s)) {
       return [Evmos.onChain(chainId || ChainId.MAINNET), ...filteredSortedTokens]
     }
     return filteredSortedTokens
@@ -142,7 +142,7 @@ export function CurrencySearch({
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
         const s = debouncedQuery.toLowerCase().trim()
-        if (s === 'evmos' && chainId) {
+        if (s === 'canto' && chainId) {
           handleCurrencySelect(Evmos.onChain(chainId))
         } else if (filteredSortedTokensWithETH.length > 0) {
           if (

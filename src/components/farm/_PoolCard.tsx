@@ -137,7 +137,7 @@ export default function PoolCard({ stakingInfo }: PoolCardProps) {
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDC
               ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} EVMOS`}
+              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} CANTO`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
