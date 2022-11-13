@@ -119,6 +119,14 @@ export class Pair {
     return token.equals(this.token0) ? this.reserve0 : this.reserve1
   }
 
+  public getB (x:number, y:number, a:number):number {
+    return -(2**(1/3) * (3 * a**4 + 12 * a**3 * x + 18 * a**2 * x**2 + 12 * a * x**3 + 3 * x**4))/(3 * (a + x) * (-27 * a**2 * x**3 * y - 27 * a**2 * x * y**3 + Math.sqrt((-27 * a**2 * x**3 * y - 27 * a**2 * x * y**3 - 54 * a * x**4 * y - 54 * a * x**2 * y**3 - 27 * x**5 * y - 27 * x**3 * y**3)**2 + 4 * (3 * a**4 + 12 * a**3 * x + 18 * a**2 * x**2 + 12 * a * x**3 + 3 * x**4)**3) - 54 * a * x**4 * y - 54 * a * x**2 * y**3 - 27 * x**5 * y - 27 * x**3 * y**3)**(1/3)) + (-27 * a**2 * x**3 * y - 27 * a**2 * x * y**3 + Math.sqrt((-27 * a**2 * x**3 * y - 27 * a**2 * x * y**3 - 54 * a * x**4 * y - 54 * a * x**2 * y**3 - 27 * x**5 * y - 27 * x**3 * y**3)**2 + 4 * (3 * a**4 + 12 * a**3 * x + 18 * a**2 * x**2 + 12 * a * x**3 + 3 * x**4)**3) - 54 * a * x**4 * y - 54 * a * x**2 * y**3 - 27 * x**5 * y - 27 * x**3 * y**3)**(1/3)/(3 * 2**(1/3) * (a + x)) + (a * y + x * y)/(a + x)
+  }
+
+  public getA (x:number, y:number, b:number):number {
+    return (-27 * b**2 * x**3 * y - 27 * b**2 * x * y**3 + Math.sqrt((-27 * b**2 * x**3 * y - 27 * b**2 * x * y**3 + 54 * b * x**3 * y**2 + 54 * b * x * y**4 - 27 * x**3 * y**3 - 27 * x * y**5)**2 + 4 * (3 * b**4 - 12 * b**3 * y + 18 * b**2 * y**2 - 12 * b * y**3 + 3 * y**4)**3) + 54 * b * x**3 * y**2 + 54 * b * x * y**4 - 27 * x**3 * y**3 - 27 * x * y**5)**(1/3)/(3 * 2**(1/3) * (b - y)) - (2**(1/3) * (3 * b**4 - 12 * b**3 * y + 18 * b**2 * y**2 - 12 * b * y**3 + 3 * y**4))/(3 * (b - y) * (-27 * b**2 * x**3 * y - 27 * b**2 * x * y**3 + Math.sqrt((-27 * b**2 * x**3 * y - 27 * b**2 * x * y**3 + 54 * b * x**3 * y**2 + 54 * b * x * y**4 - 27 * x**3 * y**3 - 27 * x * y**5)**2 + 4 * (3 * b**4 - 12 * b**3 * y + 18 * b**2 * y**2 - 12 * b * y**3 + 3 * y**4)**3) + 54 * b * x**3 * y**2 + 54 * b * x * y**4 - 27 * x**3 * y**3 - 27 * x * y**5)**(1/3)) - (b * x - x * y)/(b - y)
+  }
+  
   public getOutputAmount(inputAmount: CurrencyAmount<Token>): [CurrencyAmount<Token>, Pair] {
     invariant(this.involvesToken(inputAmount.currency), 'TOKEN')
     if (JSBI.equal(this.reserve0.quotient, ZERO) || JSBI.equal(this.reserve1.quotient, ZERO)) {
@@ -126,20 +134,43 @@ export class Pair {
     }
     const inputReserve = this.reserveOf(inputAmount.currency)
     const outputReserve = this.reserveOf(inputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
-    const inputAmountWithFee = JSBI.multiply(inputAmount.quotient, _1000)
-    const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.quotient)
-    const denominator = JSBI.add(JSBI.multiply(inputReserve.quotient, _1000), inputAmountWithFee)
-    const outputAmount = CurrencyAmount.fromRawAmount(
-      inputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-      JSBI.divide(numerator, denominator)
-    )
-    if (JSBI.equal(outputAmount.quotient, ZERO)) {
-      throw new InsufficientInputAmountError()
+    if (STABLE_PAIR_ADDRESSES[inputAmount.currency.chainId as ChainId].includes(this.liquidityToken.address)) {
+      const [iD, oD, asshole] = inputAmount.currency.equals(this.token0) 
+      ? [this.token0.decimals, this.token1.decimals, this.getB] 
+      : [this.token1.decimals, this.token0.decimals, this.getA]
+      const adjustedDecimals = inputAmount.currency.equals(this.token0) ? this.token1.decimals : this.token0.decimals
+      const bVal = JSBI.BigInt(Math.floor(
+        asshole(
+          parseFloat(inputReserve.toFixed(iD)), 
+          parseFloat(outputReserve.toFixed(oD)), 
+          parseFloat(inputAmount.toFixed(2))
+        )*(10**adjustedDecimals)
+      ))
+      const outputAmount = CurrencyAmount.fromRawAmount(
+        inputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
+        bVal
+      )
+      if (JSBI.equal(outputAmount.quotient, ZERO)) {
+        throw new InsufficientInputAmountError()
+      }
+      return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]      
+    } else {
+      const inputAmountWithFee = JSBI.multiply(inputAmount.quotient, _1000)
+      const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.quotient)
+      const denominator = JSBI.add(JSBI.multiply(inputReserve.quotient, _1000), inputAmountWithFee)
+      const outputAmount = CurrencyAmount.fromRawAmount(
+        inputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
+        JSBI.divide(numerator, denominator)
+      )
+      if (JSBI.equal(outputAmount.quotient, ZERO)) {
+        throw new InsufficientInputAmountError()
+      }
+      return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
     }
-    return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
   }
 
   public getInputAmount(outputAmount: CurrencyAmount<Token>): [CurrencyAmount<Token>, Pair] {
+    console.log(outputAmount.toFixed(2))
     invariant(this.involvesToken(outputAmount.currency), 'TOKEN')
     if (
       JSBI.equal(this.reserve0.quotient, ZERO) ||
@@ -148,16 +179,37 @@ export class Pair {
     ) {
       throw new InsufficientReservesError()
     }
-
     const outputReserve = this.reserveOf(outputAmount.currency)
     const inputReserve = this.reserveOf(outputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
-    const numerator = JSBI.multiply(JSBI.multiply(inputReserve.quotient, outputAmount.quotient), _1000)
-    const denominator = JSBI.multiply(JSBI.subtract(outputReserve.quotient, outputAmount.quotient), _1000)
-    const inputAmount = CurrencyAmount.fromRawAmount(
-      outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-      JSBI.add(JSBI.divide(numerator, denominator), ONE)
-    )
-    return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
+    if (STABLE_PAIR_ADDRESSES[outputAmount.currency.chainId as ChainId].includes(this.liquidityToken.address)) {
+      const [iD, oD, asshole] = !outputAmount.currency.equals(this.token0) 
+      ? [this.token0.decimals, this.token1.decimals, this.getB] 
+      : [this.token1.decimals, this.token0.decimals, this.getA]
+      const adjustedDecimals = outputAmount.currency.equals(this.token0) ? this.token1.decimals : this.token0.decimals
+      const bVal = JSBI.BigInt(Math.floor(
+        asshole(
+          parseFloat(inputReserve.toFixed(iD)), 
+          parseFloat(outputReserve.toFixed(oD)), 
+          parseFloat(outputAmount.toFixed(2))
+        )*(10**adjustedDecimals)
+      ))
+      const inputAmount = CurrencyAmount.fromRawAmount(
+        outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
+        bVal
+      )
+      if (JSBI.equal(outputAmount.quotient, ZERO)) {
+        throw new InsufficientInputAmountError()
+      }
+      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]      
+    } else {
+      const numerator = JSBI.multiply(JSBI.multiply(inputReserve.quotient, outputAmount.quotient), _1000)
+      const denominator = JSBI.multiply(JSBI.subtract(outputReserve.quotient, outputAmount.quotient), _1000)
+      const inputAmount = CurrencyAmount.fromRawAmount(
+        outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
+        JSBI.add(JSBI.divide(numerator, denominator), ONE)
+      )
+      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]        
+    }
   }
 
   public getLiquidityMinted(
