@@ -285,8 +285,8 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: Record<ChainId, string> = {
-  [ChainId.TESTNET]: 'Evmos Testnet',
-  [ChainId.MAINNET]: 'Evmos',
+  [ChainId.TESTNET]: 'Canto Testnet',
+  [ChainId.MAINNET]: 'Canto',
 }
 
 export default function Header() {

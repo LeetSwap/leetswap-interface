@@ -34,7 +34,7 @@ export function useSwapActionHandlers(): {
       dispatch(
         selectCurrency({
           field,
-          currencyId: currency.isToken ? currency.address : currency.isNative ? 'EVMOS' : '',
+          currencyId: currency.isToken ? currency.address : currency.isNative ? 'CANTO' : '',
         })
       )
     },
@@ -242,7 +242,7 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
   if (inputCurrency === '' && outputCurrency === '') {
     // default to ETH input
-    inputCurrency = 'EVMOS'
+    inputCurrency = 'CANTO'
   } else if (inputCurrency === outputCurrency) {
     // clear output if identical
     outputCurrency = ''

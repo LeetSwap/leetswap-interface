@@ -9,6 +9,8 @@ import { ButtonPrimary } from 'components/Button'
 
 const LS_KEY = 'diff:disclaimer-accepted'
 
+
+//TODO: Change disclaimer
 export function DisclaimerModal() {
   const [isOpen, setIsOpen] = useState(!localStorage.getItem(LS_KEY))
   const [confirmed, setConfirmed] = useState(false)
@@ -43,6 +45,7 @@ export function DisclaimerModal() {
               `}
             >
               <p>
+                
                 Diffusion Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
                 trade ERC-20 tokens on Evmos, the Cosmos EVM. Diffusion is a public, open-source or source-available
                 software including a set of smart contracts that are deployed on the Evmos Blockchain. Your use of the
