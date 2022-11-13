@@ -177,7 +177,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
           margin={true}
         />
       </AutoRow>
-      {NOMAD_POOLS.includes(poolId) && <NomadWarningBanner />}
+      {false && <NomadWarningBanner />}
 
       <FarmYield
         apr={totalAPR}
