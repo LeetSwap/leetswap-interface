@@ -1,13 +1,13 @@
 import { Token } from '@uniswap/sdk-core'
 
-import { WEVMOS, Evmos } from './native-token'
+import { WCANTO, Canto } from './native-token'
 
 import { ChainId } from 'constants/chains'
 import { MAINNET, TESTNET } from './periphery'
 
-export { WEVMOS, Evmos }
+export { WCANTO, Canto }
 
-export const EVMOS = Evmos.onChain(ChainId.MAINNET)
+export const CANTO = Canto.onChain(ChainId.MAINNET)
 
 /**
  * CantoDEX Tokens

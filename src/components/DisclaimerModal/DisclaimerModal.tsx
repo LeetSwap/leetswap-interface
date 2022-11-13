@@ -47,8 +47,8 @@ export function DisclaimerModal() {
               <p>
                 
                 Diffusion Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
-                trade ERC-20 tokens on Evmos, the Cosmos EVM. Diffusion is a public, open-source or source-available
-                software including a set of smart contracts that are deployed on the Evmos Blockchain. Your use of the
+                trade ERC-20 tokens on Canto, the Cosmos EVM. Diffusion is a public, open-source or source-available
+                software including a set of smart contracts that are deployed on the Canto Blockchain. Your use of the
                 Diffusion protocol involves various risks, including, but not limited to, losses while digital assets
                 are being supplied to the Diffusion protocol and losses due to the fluctuation of prices of tokens in a
                 trading pair or liquidity pool. Before using the Diffusion protocol, you should review the relevant
@@ -59,7 +59,7 @@ export function DisclaimerModal() {
               </p>
               <p>
                 THE Diffusion PROTOCOL IS PROVIDED &quot;AS IS&quot;, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY
-                KIND. The Diffusion protocol is not owned by anyone, it is run by smart contracts deployed on the Evmos
+                KIND. The Diffusion protocol is not owned by anyone, it is run by smart contracts deployed on the Canto
                 blockchain. No developer or entity involved in creating the Diffusion protocol will be liable for any
                 claims or damages whatsoever associated with your use, inability to use, or your interaction with other
                 users of, the Diffusion protocol, including any direct, indirect, incidental, special, exemplary,

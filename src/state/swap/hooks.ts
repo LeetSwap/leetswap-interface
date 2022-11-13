@@ -213,7 +213,7 @@ function parseCurrencyFromURLParameter(urlParam: any): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
-    if (urlParam.toUpperCase() === 'EVMOS') return 'EVMOS'
+    if (urlParam.toUpperCase() === 'CANTO') return 'CANTO'
   }
   return ''
 }

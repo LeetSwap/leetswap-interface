@@ -16,7 +16,7 @@ import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { AddRemoveTabs } from '../../components/NavigationTabs'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import Row, { RowBetween, RowFixed } from '../../components/Row'
-import { WEVMOS } from 'constants/tokens'
+import { WCANTO } from 'constants/tokens'
 
 import Slider from '../../components/Slider'
 import CurrencyLogo from '../../components/CurrencyLogo'
@@ -335,8 +335,8 @@ export default function RemoveLiquidity({
   const oneCurrencyIsETH = currencyA?.isNative || currencyB?.isNative
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(WEVMOS[chainId], currencyA)) ||
-        (currencyB && currencyEquals(WEVMOS[chainId], currencyB)))
+      ((currencyA && currencyEquals(WCANTO[chainId], currencyA)) ||
+        (currencyB && currencyEquals(WCANTO[chainId], currencyB)))
   )
 
   const handleSelectCurrencyA = useCallback(
@@ -475,8 +475,8 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsETH ? (
                           <StyledInternalLink
-                            to={`/remove/v2/${currencyA?.isNative ? WEVMOS[chainId].address : currencyIdA}/${
-                              currencyB?.isNative ? WEVMOS[chainId].address : currencyIdB
+                            to={`/remove/v2/${currencyA?.isNative ? WCANTO[chainId].address : currencyIdA}/${
+                              currencyB?.isNative ? WCANTO[chainId].address : currencyIdB
                             }`}
                           >
                             Receive wCANTO
@@ -484,8 +484,8 @@ export default function RemoveLiquidity({
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
                             to={`/remove/v2/${
-                              currencyA && currencyEquals(currencyA, WEVMOS[chainId]) ? 'CANTO' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WEVMOS[chainId]) ? 'CANTO' : currencyIdB}`}
+                              currencyA && currencyEquals(currencyA, WCANTO[chainId]) ? 'CANTO' : currencyIdA
+                            }/${currencyB && currencyEquals(currencyB, WCANTO[chainId]) ? 'CANTO' : currencyIdB}`}
                           >
                             Receive CANTO
                           </StyledInternalLink>
