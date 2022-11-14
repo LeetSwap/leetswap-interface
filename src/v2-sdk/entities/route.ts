@@ -45,8 +45,8 @@ export class Route<TInput extends Currency, TOutput extends Currency> {
       if (STABLE_PAIR_ADDRESSES[7700].includes(pair.liquidityToken.address)) {
         prices.push(
           this.path[i].equals(pair.token0)
-            ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient, true, pair)
-            : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.quotient, pair.reserve0.quotient, true, pair)
+            ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient, pair)
+            : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.quotient, pair.reserve0.quotient, pair)
         )
       } else {
         prices.push(
