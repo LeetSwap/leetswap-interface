@@ -20,14 +20,14 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
   public constructor(
     ...args:
       | [TBase, TQuote, BigintIsh, BigintIsh]
-      | [TBase, TQuote, BigintIsh, BigintIsh, boolean, Pair]
+      | [TBase, TQuote, BigintIsh, BigintIsh, Pair]
       | [{ baseAmount: CurrencyAmount<TBase>; quoteAmount: CurrencyAmount<TQuote> }]
   ) {
-    let baseCurrency: TBase, quoteCurrency: TQuote, denominator: BigintIsh, numerator: BigintIsh, isStable = false, pair: Pair | null = null
+    let baseCurrency: TBase, quoteCurrency: TQuote, denominator: BigintIsh, numerator: BigintIsh, pair: Pair | null = null
     if (args.length === 4) {
       ;[baseCurrency, quoteCurrency, denominator, numerator] = args
-    }  else if (args.length === 6) {
-      ;[baseCurrency, quoteCurrency, denominator, numerator, isStable, pair] = args
+    }  else if (args.length === 5) {
+      ;[baseCurrency, quoteCurrency, denominator, numerator, pair] = args
       let result
       if (baseCurrency.equals(pair.token0)) {
         result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**pair.token0.decimals)))[0].divide(JSBI.BigInt(10**pair.token0.decimals))
