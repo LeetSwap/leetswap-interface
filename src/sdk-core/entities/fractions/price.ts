@@ -5,6 +5,8 @@ import { BigintIsh, Rounding } from '../../constants'
 import { Currency } from '../currency'
 import { Fraction } from './fraction'
 import { CurrencyAmount } from './currencyAmount'
+import { Pair } from 'v2-sdk/entities'
+import { Token } from '../token'
 
 export class Price<TBase extends Currency, TQuote extends Currency> extends Fraction {
   public readonly baseCurrency: TBase // input i.e. denominator
@@ -18,12 +20,24 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
   public constructor(
     ...args:
       | [TBase, TQuote, BigintIsh, BigintIsh]
+      | [TBase, TQuote, BigintIsh, BigintIsh, boolean, Pair]
       | [{ baseAmount: CurrencyAmount<TBase>; quoteAmount: CurrencyAmount<TQuote> }]
   ) {
-    let baseCurrency: TBase, quoteCurrency: TQuote, denominator: BigintIsh, numerator: BigintIsh
-
+    let baseCurrency: TBase, quoteCurrency: TQuote, denominator: BigintIsh, numerator: BigintIsh, isStable = false, pair: Pair | null = null
     if (args.length === 4) {
       ;[baseCurrency, quoteCurrency, denominator, numerator] = args
+    }  else if (args.length === 6) {
+      ;[baseCurrency, quoteCurrency, denominator, numerator, isStable, pair] = args
+      let result
+      if (baseCurrency.equals(pair.token0)) {
+        result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**pair.token0.decimals)))[0].divide(JSBI.BigInt(10**pair.token0.decimals))
+      } else {
+        result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**pair.token1.decimals)))[0].divide(JSBI.BigInt(10**pair.token1.decimals))
+      }
+      if (result) {
+        denominator = result.denominator
+        numerator = result.numerator
+      }
     } else {
       const result = args[0].quoteAmount.divide(args[0].baseAmount)
       ;[baseCurrency, quoteCurrency, denominator, numerator] = [
