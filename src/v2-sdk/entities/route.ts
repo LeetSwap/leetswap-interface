@@ -2,6 +2,7 @@ import invariant from 'tiny-invariant'
 import { Currency, Price, Token } from '@uniswap/sdk-core'
 
 import { Pair } from './pair'
+import { STABLE_PAIR_ADDRESSES } from 'constants/addresses'
 
 export class Route<TInput extends Currency, TOutput extends Currency> {
   public readonly pairs: Pair[]
@@ -41,12 +42,21 @@ export class Route<TInput extends Currency, TOutput extends Currency> {
     if (this._midPrice !== null) return this._midPrice
     const prices: Price<Currency, Currency>[] = []
     for (const [i, pair] of this.pairs.entries()) {
-      prices.push(
-        this.path[i].equals(pair.token0)
-          ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient)
-          : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.quotient, pair.reserve0.quotient)
-      )
+      if (STABLE_PAIR_ADDRESSES[7700].includes(pair.liquidityToken.address)) {
+        prices.push(
+          this.path[i].equals(pair.token0)
+            ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient, true, pair)
+            : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.quotient, pair.reserve0.quotient, true, pair)
+        )
+      } else {
+        prices.push(
+          this.path[i].equals(pair.token0)
+            ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient)
+            : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.quotient, pair.reserve0.quotient)
+        )
+      }
     }
+    prices.forEach((item, index) => console.error(item.toFixed(2), this.pairs[index]))
     const reduced = prices.slice(1).reduce((accumulator, currentValue) => accumulator.multiply(currentValue), prices[0])
     return (this._midPrice = new Price(this.input, this.output, reduced.denominator, reduced.numerator))
   }
