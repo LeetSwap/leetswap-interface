@@ -6,6 +6,7 @@ export enum ChainId {
 export const NETWORK_URLS: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.MAINNET]: `https://canto.evm.chandrastation.com`,
+  // [ChainId.MAINNET]: `https://canto.evm.chandrastation.com`,
+  [ChainId.MAINNET]: `https://canto.slingshot.finance`,
   [ChainId.TESTNET]: `https://eth.plexnode.wtf`,
 }
