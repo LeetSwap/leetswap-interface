@@ -28,12 +28,7 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
       ;[baseCurrency, quoteCurrency, denominator, numerator] = args
     }  else if (args.length === 5) {
       ;[baseCurrency, quoteCurrency, denominator, numerator, pair] = args
-      let result
-      if (baseCurrency.equals(pair.token0)) {
-        result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**pair.token0.decimals)))[0].divide(JSBI.BigInt(10**pair.token0.decimals))
-      } else {
-        result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**pair.token1.decimals)))[0].divide(JSBI.BigInt(10**pair.token1.decimals))
-      }
+      const result = pair.getOutputAmount(CurrencyAmount.fromRawAmount(baseCurrency as Token, JSBI.BigInt(10**baseCurrency.decimals)))[0].divide(JSBI.BigInt(10**baseCurrency.decimals))
       if (result) {
         denominator = result.denominator
         numerator = result.numerator
