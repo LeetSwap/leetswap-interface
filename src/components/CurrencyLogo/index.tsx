@@ -1,7 +1,7 @@
 import { Currency } from '@uniswap/sdk-core'
 import React, { useMemo } from 'react'
 import styled from 'styled-components/macro'
-import NativeLogo from '../../assets/images/evmos-logo.png'
+import NativeLogo from '../../assets/images/canto-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/wrappedTokenInfo'
 import Logo from '../Logo'
