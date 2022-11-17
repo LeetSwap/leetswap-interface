@@ -135,15 +135,15 @@ export class Pair {
     const inputReserve = this.reserveOf(inputAmount.currency)
     const outputReserve = this.reserveOf(inputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
     if (STABLE_PAIR_ADDRESSES[inputAmount.currency.chainId as ChainId].includes(this.liquidityToken.address)) {
-      const [iD, oD, asshole] = inputAmount.currency.equals(this.token0) 
-      ? [this.token0.decimals, this.token1.decimals, this.getB] 
-      : [this.token1.decimals, this.token0.decimals, this.getA]
+      const [iD, oD, asshole] = inputAmount.currency.equals(this.token0)
+      ? [this.token0.decimals, this.token1.decimals, this.getB]
+      : [this.token1.decimals, this.token0.decimals, this.getB]
       const adjustedDecimals = inputAmount.currency.equals(this.token0) ? this.token1.decimals : this.token0.decimals
       const bVal = JSBI.BigInt(Math.floor(
         asshole(
-          parseFloat(inputReserve.toFixed(iD)), 
-          parseFloat(outputReserve.toFixed(oD)), 
-          parseFloat(inputAmount.toFixed(2))
+          parseFloat(inputReserve.toFixed(iD)),
+          parseFloat(outputReserve.toFixed(oD)),
+          parseFloat(inputAmount.toFixed(inputAmount.currency.decimals))
         )*(10**adjustedDecimals)
       ))
       const outputAmount = CurrencyAmount.fromRawAmount(
@@ -153,7 +153,7 @@ export class Pair {
       if (JSBI.equal(outputAmount.quotient, ZERO)) {
         throw new InsufficientInputAmountError()
       }
-      return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]      
+      return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
     } else {
       const inputAmountWithFee = JSBI.multiply(inputAmount.quotient, _1000)
       const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.quotient)
@@ -182,15 +182,15 @@ export class Pair {
     const outputReserve = this.reserveOf(outputAmount.currency)
     const inputReserve = this.reserveOf(outputAmount.currency.equals(this.token0) ? this.token1 : this.token0)
     if (STABLE_PAIR_ADDRESSES[outputAmount.currency.chainId as ChainId].includes(this.liquidityToken.address)) {
-      const [iD, oD, asshole] = !outputAmount.currency.equals(this.token0) 
-      ? [this.token0.decimals, this.token1.decimals, this.getB] 
+      const [iD, oD, asshole] = !outputAmount.currency.equals(this.token0)
+      ? [this.token0.decimals, this.token1.decimals, this.getA]
       : [this.token1.decimals, this.token0.decimals, this.getA]
       const adjustedDecimals = outputAmount.currency.equals(this.token0) ? this.token1.decimals : this.token0.decimals
       const bVal = JSBI.BigInt(Math.floor(
         asshole(
-          parseFloat(inputReserve.toFixed(iD)), 
-          parseFloat(outputReserve.toFixed(oD)), 
-          parseFloat(outputAmount.toFixed(2))
+          parseFloat(inputReserve.toFixed(iD)),
+          parseFloat(outputReserve.toFixed(oD)),
+          parseFloat(outputAmount.toFixed(outputAmount.currency.decimals))
         )*(10**adjustedDecimals)
       ))
       const inputAmount = CurrencyAmount.fromRawAmount(
@@ -200,7 +200,7 @@ export class Pair {
       if (JSBI.equal(outputAmount.quotient, ZERO)) {
         throw new InsufficientInputAmountError()
       }
-      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]      
+      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
     } else {
       const numerator = JSBI.multiply(JSBI.multiply(inputReserve.quotient, outputAmount.quotient), _1000)
       const denominator = JSBI.multiply(JSBI.subtract(outputReserve.quotient, outputAmount.quotient), _1000)
@@ -208,7 +208,7 @@ export class Pair {
         outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
         JSBI.add(JSBI.divide(numerator, denominator), ONE)
       )
-      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]        
+      return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
     }
   }
 
