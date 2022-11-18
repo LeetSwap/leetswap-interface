@@ -1,6 +1,6 @@
 {
-  "name": "@diffusion-fi/interface",
-  "description": "Diffusion Interface",
+  "name": "@leetswap/interface",
+  "description": "LeetSwap Interface",
   "homepage": ".",
   "private": true,
   "devDependencies": {

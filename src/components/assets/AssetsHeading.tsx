@@ -35,7 +35,7 @@ export const AssetsHeading = () => {
         <PotionIcon2 width={60} height={60} />
         <HeadingText>My Assets</HeadingText>
       </HeaderTextLine>
-      <DescriptionText>Overview of assets, liquidity-, farm- and staking positions Diffusion.</DescriptionText>
+      <DescriptionText>Overview of your tokens, and liquidity positions on LeetSwap.</DescriptionText>
       {/*<HR />*/}
     </AssetsHeadingContainer>
   )

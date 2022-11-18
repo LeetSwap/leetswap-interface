@@ -46,23 +46,23 @@ export function DisclaimerModal() {
             >
               <p>
                 
-                Diffusion Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
-                trade ERC-20 tokens on Canto, the Cosmos EVM. Diffusion is a public, open-source or source-available
+                LeetSwap Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
+                trade ERC-20 tokens on Canto. LeetSwap is a public, open-source or source-available
                 software including a set of smart contracts that are deployed on the Canto Blockchain. Your use of the
-                Diffusion protocol involves various risks, including, but not limited to, losses while digital assets
-                are being supplied to the Diffusion protocol and losses due to the fluctuation of prices of tokens in a
-                trading pair or liquidity pool. Before using the Diffusion protocol, you should review the relevant
-                documentation to make sure you understand how the Diffusion protocol works. Additionally, just as you
+                LeetSwap protocol involves various risks, including, but not limited to, losses while digital assets
+                are being supplied to the LeetSwap protocol and losses due to the fluctuation of prices of tokens in a
+                trading pair or liquidity pool. Before using the LeetSwap protocol, you should review the relevant
+                documentation to make sure you understand how the LeetSwap protocol works. Additionally, just as you
                 can access email email protocols such as SMTP through multiple email clients, you can access the
-                Diffusion protocol through dozens of web or mobile interfaces. You are responsible for doing your own
+                LeetSwap protocol through dozens of web or mobile interfaces. You are responsible for doing your own
                 diligence on those interfaces to understand the fees and risks they present.
               </p>
               <p>
-                THE Diffusion PROTOCOL IS PROVIDED &quot;AS IS&quot;, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY
-                KIND. The Diffusion protocol is not owned by anyone, it is run by smart contracts deployed on the Canto
-                blockchain. No developer or entity involved in creating the Diffusion protocol will be liable for any
+                THE LeetSwap PROTOCOL IS PROVIDED &quot;AS IS&quot;, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY
+                KIND. The LeetSwap protocol is not owned by anyone, it is run by smart contracts deployed on the Canto
+                blockchain. No developer or entity involved in creating the LeetSwap protocol will be liable for any
                 claims or damages whatsoever associated with your use, inability to use, or your interaction with other
-                users of, the Diffusion protocol, including any direct, indirect, incidental, special, exemplary,
+                users of, the LeetSwap protocol, including any direct, indirect, incidental, special, exemplary,
                 punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of
                 value.
               </p>
