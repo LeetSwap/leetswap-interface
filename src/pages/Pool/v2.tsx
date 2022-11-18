@@ -126,10 +126,10 @@ export default function Pool() {
       <PageWrapper>
         <SwapPoolTabs active={'pool'} />
         {false && <NomadWarningBanner style={{ marginBottom: 16 }} />}
-        <InfoCard
+        {/*<InfoCard
           title="Liquidity provider rewards"
           description={`Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
-        />
+        />*/}
 
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="md" style={{ width: '100%' }}>
