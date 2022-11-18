@@ -10,7 +10,7 @@ import JSBI from 'jsbi'
 // The amount is large enough to filter low liquidity pairs.
 // const usdcCurrencyAmount = CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 100_000e6)
 // @TODO: change back, but to bootstrap we dont have enought liquidity
-const usdcCurrencyAmount = CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 1e4)
+const usdcCurrencyAmount = CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 100e6)
 /**
  * Returns the price in USDC of the input currency
  * @param currency currency to compute the USDC price of
