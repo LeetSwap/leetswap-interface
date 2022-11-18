@@ -23,6 +23,7 @@
   ],
   "rules": {
     "indent": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "react/jsx-indent": "off",
     "react/jsx-indent-props": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
