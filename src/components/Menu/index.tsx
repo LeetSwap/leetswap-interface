@@ -143,25 +143,21 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout>
-          <MenuItem href="https://diffusion.fi/">
+          <MenuItem href="https://leetswap.finance/">
             <Info size={14} />
             <div>About</div>
           </MenuItem>
-          <MenuItem href="https://diffusion.gitbook.io/docs/GXx8KsOHCFNEcZgOpj0b/">
-            <BookOpen size={14} />
-            <div>Docs</div>
+          <MenuItem href="https://twitter.com/LeetSwap">
+            <MessageCircle size={14} />
+            <div>Twitter</div>
           </MenuItem>
-          <MenuItem href={CODE_LINK}>
-            <Code size={14} />
-            <div>Code</div>
-          </MenuItem>
-          <MenuItem href="https://discord.gg/2Df4XDkcFC">
+          <MenuItem href="https://discord.gg/me5UbZNxPB">
             <MessageCircle size={14} />
             <div>Discord</div>
           </MenuItem>
-          <MenuItem href="https://docs.diffusion.fi/docs/diffusion-beyond/legal">
-            <FileText size={14} />
-            <div>Legal & Privacy</div>
+          <MenuItem href="https://t.me/LeetSwap">
+            <MessageCircle size={14} />
+            <div>Telegram</div>
           </MenuItem>
         </MenuFlyout>
       )}

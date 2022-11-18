@@ -336,25 +336,7 @@ export default function Header() {
           >
             {t('Assets')}
           </StyledNavLink>
-          <StyledNavLink
-            id={`farm-nav-link`}
-            to={'/farm'}
-            isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/farm')}
-          >
-            {t('Farm')}
-          </StyledNavLink>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={'/stake'}
-            isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/stake')}
-          >
-            {t('Stake')}
-          </StyledNavLink>
           <BridgeMenu />
-          <StyledExternalLink id={`charts-nav-link`} href="https://info.diffusion.fi">
-            {t('Charts')}
-            <sup>↗</sup>
-          </StyledExternalLink>
         </HeaderLinks>
       </HideSmall>
       <HeaderControls>
