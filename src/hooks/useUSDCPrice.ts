@@ -11,7 +11,6 @@ import JSBI from 'jsbi'
 // const usdcCurrencyAmount = CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 100_000e6)
 // @TODO: change back, but to bootstrap we dont have enought liquidity
 const usdcCurrencyAmount = CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 1e4)
-const cantoCurrencyAmount = CurrencyAmount.fromRawAmount(NOTE[7700], 100e18)
 /**
  * Returns the price in USDC of the input currency
  * @param currency currency to compute the USDC price of
@@ -21,9 +20,7 @@ export default function useUSDCPrice(currency?: Currency): Price<Currency, Token
 
   const v2USDCTrade = useV2TradeExactOut(
     currency, chainId === ChainId.MAINNET 
-      ? currency && usdcCurrencyAmount.currency.equals(currency)
-        ? cantoCurrencyAmount
-        : usdcCurrencyAmount
+      ? usdcCurrencyAmount
       : undefined, 
       {
       maxHops: 4,
@@ -33,6 +30,10 @@ export default function useUSDCPrice(currency?: Currency): Price<Currency, Token
   return useMemo(() => {
     if (!currency || !chainId) {
       return undefined
+    }
+
+    if (chainId === ChainId.MAINNET && currency && usdcCurrencyAmount.currency.equals(currency)) {
+      return new Price(currency, USDC[chainId], JSBI.BigInt(1), JSBI.BigInt(1))
     }
 
     // return some fake price data for non-mainnet
