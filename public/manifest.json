@@ -1,7 +1,7 @@
 {
-  "background_color": "#fff",
+  "background_color": "#000",
   "display": "standalone",
-  "homepage_url": "https://app.diffusion.fi",
+  "homepage_url": "https://app.leetswap.finance",
   "icons": [
     {
       "src": "./images/192x192_App_Icon.png",
@@ -17,8 +17,8 @@
     }
   ],
   "orientation": "portrait",
-  "name": "Diffusion",
-  "short_name": "Diffusion",
+  "name": "LeetSwap Finance",
+  "short_name": "LeetSwap",
   "start_url": ".",
-  "theme_color": "#ff007a"
+  "theme_color": "#66ff66"
 }
