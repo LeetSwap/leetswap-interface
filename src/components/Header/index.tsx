@@ -23,11 +23,11 @@ import Web3Status from '../Web3Status'
 // import Modal from '../Modal'
 // import UniBalanceContent from './UniBalanceContent'
 import { ChainId } from 'constants/chains'
-import DiffusionLogo from '../../assets/svg/logo.svg'
+import LeetSwapLogo from '../../assets/svg/logo.svg'
 import { ExternalLink } from 'theme/components'
 
 const Logo = styled.img`
-  height: 30px;
+  height: 17px;
 `
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
@@ -308,7 +308,7 @@ export default function Header() {
       </Modal> */}
       <HeaderRow>
         <Title href=".">
-          <Logo src={DiffusionLogo} />
+          <Logo src={LeetSwapLogo} />
         </Title>
       </HeaderRow>
       <HideSmall>
