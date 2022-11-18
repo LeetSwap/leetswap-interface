@@ -34,7 +34,7 @@ export const HeadingWithPotion = ({ heading, description }: HeadingProps) => {
   return (
     <HeadingContainer>
       <HeaderTextLine>
-        <PotionIcon2 width={60} height={60} />
+        {/*<PotionIcon2 width={60} height={60} />*/}
         <HeadingText>{heading}</HeadingText>
       </HeaderTextLine>
       <DescriptionText>{description}</DescriptionText>

@@ -18,7 +18,7 @@ export default function SwapHeader({ allowedSlippage }: { allowedSlippage: Perce
     <StyledSwapHeader>
       <RowBetween>
         <RowFixed>
-          <PotionIcon4 width={40} height={40} />
+          {/*<PotionIcon4 width={40} height={40} />*/}
           <TYPE.black fontWeight={500} fontSize={24} style={{ marginRight: '8px' }}>
             Swap{' '}
           </TYPE.black>
