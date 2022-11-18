@@ -124,6 +124,6 @@ export const Pink = () => (
   </ButtonPink>
 )
 export const Secondary = () => <ButtonSecondary>Create Pair</ButtonSecondary>
-export const Gray = () => <ButtonGray>Diffusion</ButtonGray>
+export const Gray = () => <ButtonGray>LeetSwap</ButtonGray>
 export const Light = () => <ButtonLight>Connect Wallet</ButtonLight>
 export const Primary = () => <ButtonPrimary>Accept</ButtonPrimary>
