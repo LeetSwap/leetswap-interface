@@ -28,7 +28,7 @@ import TokenWarningModal from '../../components/TokenWarningModal'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { useAllTokens, useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
-import TuxImg from '../../assets/images/tux1.png'
+import TuxImg from '../../assets/images/logo-no-bg.png'
 
 import useENSAddress from '../../hooks/useENSAddress'
 import { useERC20PermitFromTrade, UseERC20PermitState } from '../../hooks/useERC20Permit'

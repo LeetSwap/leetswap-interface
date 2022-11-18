@@ -205,7 +205,7 @@ export function FarmYield({
                   ) : (
                     <></>
                   )}
-                  <span style={{ color: '#27D2EA' }}> {` ${primaryEmissionPerSecond?.currency.symbol || ''}`}</span>
+                  <span style={{ color: '#22c55e' }}> {` ${primaryEmissionPerSecond?.currency.symbol || ''}`}</span>
                   <span> / {emissionTimeframe === 'weekly' ? 'week' : 'day'}</span>
                 </TYPE.body>
               </Heading>
@@ -214,7 +214,7 @@ export function FarmYield({
                   <CurrencyLogoFromList currency={secondaryEmissionPerSecond.currency ?? undefined} size={'24px'} />
                   <TYPE.body fontWeight={500} margin={'5px'}>
                     {secondaryEmissionPerSecond?.multiply(multiplier)?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-                    <span style={{ color: '#27D2EA' }}>{` ${secondaryEmissionPerSecond?.currency.symbol || ''}`}</span>
+                    <span style={{ color: '#22c55e' }}>{` ${secondaryEmissionPerSecond?.currency.symbol || ''}`}</span>
                     <span> / {emissionTimeframe === 'weekly' ? 'week' : 'day'}</span>
                   </TYPE.body>
                 </Heading>
@@ -239,8 +239,8 @@ const RewardRate = styled(Box)<{ align?: string }>`
 const PoolData = styled(DataCard)`
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.3);
   padding: 1.5rem 5rem;
   z-index: 1;
   ${({ theme }) => theme.mediaWidth.upToSmall`

@@ -61,36 +61,36 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
 
     //primary colors
-    primary1: darkMode ? '#27D2EA' : '#27D2EA',
-    primary2: darkMode ? '#25CBE5' : '#25CBE5',
-    primary3: darkMode ? '#1dacc2' : '#1dacc2',
-    primary4: darkMode ? '#2a8d9c' : '#2a8d9c',
-    primary5: darkMode ? '#22646eae' : '#22646eae',
+    primary1: darkMode ? '#22c55e' : '#22c55e',
+    primary2: darkMode ? '#16a34a' : '#16a34a',
+    primary3: darkMode ? '#15803d' : '#15803d',
+    primary4: darkMode ? '#166534' : '#166534',
+    primary5: darkMode ? '#14532dae' : '#14532dae',
 
-    primary1_30: 'rgba(39, 210, 234, 0.5)',
-    primaryTransparent: 'rgba(39, 210, 234, 0.2)',
+    primary1_30: 'rgba(74, 222, 128, 0.5)', /* #27d2ea */
+    primaryTransparent: 'rgba(74, 222, 128, 0.2)', /* #27d2ea */
 
     // color text
-    primaryText1: darkMode ? '#27D2EA' : '#27D2EA',
+    primaryText1: darkMode ? '#22c55e' : '#22c55e',
 
     // secondary colors
-    secondary1: darkMode ? '#0C5C92' : '#0C5C92',
+    secondary1: darkMode ? '#14532d' : '#14532d',
     secondary2: darkMode ? '#17000b26' : '#F6DDE8',
     secondary3: darkMode ? '#17000b26' : '#FDEAF1',
 
-    secondary1_30: 'rgba(12, 92, 146, 0.3)',
-    secondary1_10: 'rgba(12, 92, 146, 0.1)',
+    secondary1_30: 'rgba(4, 76, 26, 0.3)',
+    secondary1_10: 'rgba(4, 76, 26, 0.1)',
 
-    dark0: 'rgba(16, 16, 18, 0.9)',
-    dark1: 'rgba(12,26,35,0.9)',
+    dark0: 'rgba(16, 16, 18, 0.9)', /* #101012 */
+    dark1: 'rgba(12,26,35,0.9)', /* #0c1a23 */
     //dark2: 'rgba(10,14,36, 0.9)',
-    dark2: 'rgba(9, 41, 70, 0.9)',
-    dark3: 'rgba(10,19,51, 1)',
-    dark4: 'rgba(14,28,67,1)',
+    dark2: '#14532d',
+    dark3: 'rgba(10,19,51, 1)', /* #0a1333 */
+    dark4: 'rgba(14,28,67,1)', /* #0e1c43 */
     dark5: 'transparent',
-    darkTransparent: 'rgba(16, 16, 18, 0.12)',
-    darkTransparent2: 'rgba(16, 16, 18, 0.32)',
-    darkTransparent3: 'rgba(16, 16, 18, 0.8)',
+    darkTransparent: 'rgba(16, 16, 18, 0.12)', /* #101012 */
+    darkTransparent2: 'rgba(16, 16, 18, 0.32)', /* #101012 */
+    darkTransparent3: 'rgba(16, 16, 18, 0.8)', /* #101012 */
 
     bgGradient: `linear-gradient(90deg, rgba(16, 16, 18, 0.9) 0%, rgba(10,14,36, 0.9) 35%, rgba(16, 16, 18, 0.9) 100%)`,
 
@@ -126,7 +126,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: darkMode ? '#000' : '#4ade80',
 
     // media queries
     mediaWidth: mediaWidthTemplates,
@@ -222,7 +222,7 @@ export const ThemedBackground = styled.div<{ backgroundColor?: string | undefine
     `radial-gradient(50% 50% at 50% 50%, ${
       backgroundColor ? backgroundColor : '#fc077d10'
     } 0%, rgba(255, 255, 255, 0) 100%)`}; */
-  background: transparent radial-gradient(closest-side at 50% 50%, #0c5e94 0%, #20212400 100%) 0% 0% no-repeat
+  background: transparent radial-gradient(closest-side at 50% 50%, #166534 0%, #20212400 100%) 0% 0% no-repeat
     padding-box;
   opacity: 0.6;
   transform: translateY(-100vh);

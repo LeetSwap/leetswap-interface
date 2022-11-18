@@ -50,7 +50,7 @@ const Container = styled.div<{ hideInput: boolean }>`
   :focus,
   :hover {
     border: 1px solid ${({ theme, hideInput }) => (hideInput ? ' transparent' : theme.primary1_30)};
-    box-shadow: 0 0 5px rgba(39, 210, 234, 0.15), 0 0 10px rgba(39, 210, 234, 0.3);
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.15), 0 0 10px rgba(74, 222, 128, 0.3);
   }
 `
 
@@ -66,7 +66,7 @@ const CurrencySelect = styled(ButtonGray)<{ selected: boolean; hideInput?: boole
   outline: none;
   cursor: pointer;
   user-select: none;
-  border: 1px solid ${({ selected, theme }) => (!selected ? '#24C5E0' ?? 'transparent' : theme.primaryTransparent)};
+  border: 1px solid ${({ selected, theme }) => (!selected ? '#22c55e' ?? 'transparent' : theme.primaryTransparent)};
   height: ${({ hideInput }) => (hideInput ? '2.8rem' : '2.4rem')};
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
   padding: 0 8px;

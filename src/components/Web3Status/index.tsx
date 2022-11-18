@@ -77,7 +77,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   ${({ faded }) =>
     faded &&
     css`
-      //box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+      //box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
       background: ${({ theme }) =>
         `linear-gradient(90deg, ${theme.dark0} 0%, ${theme.dark2} 35%, ${theme.dark0} 100%);`};
       border: 1px solid ${({ theme }) => theme.primary5};
@@ -92,8 +92,8 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
-  background-color: ${({ pending }) => (pending ? 'rgba(39, 210, 234, 0.25)' : `rgba(39, 210, 234, 0.05)`)};
-  border: 1px double ${({ pending, theme }) => (pending ? theme.primary1 : `rgba(39, 210, 234, 0.08)`)};
+  background-color: ${({ pending }) => (pending ? 'rgba(74, 222, 128, 0.25)' : `rgba(74, 222, 128, 0.05)`)};
+  border: 1px double ${({ pending, theme }) => (pending ? theme.primary1 : `rgba(74, 222, 128, 0.08)`)};
   color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
   font-weight: 500;
   :hover,

@@ -116,8 +116,8 @@ const HeaderRow = styled(RowFixed)`
 const HeaderLinks = styled(Row)`
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent2} 0%, ${theme.secondary1_10} 50%, ${theme.darkTransparent2} 100%);`};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.2), 0 0 7px rgba(39, 210, 234, 0.2);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.2), 0 0 7px rgba(74, 222, 128, 0.2);
   margin-left: 4%;
   width: fit-content;
   padding: 4px;
@@ -141,8 +141,8 @@ const AccountElement = styled.div<{ active: boolean }>`
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
-  border: 1px solid rgba(12, 92, 146, 0.3);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(4, 76, 26, 0.3);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
 
   :focus {
     border: 1px solid blue;
@@ -349,7 +349,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} <span style={{ color: '#27D2EA' }}>CANTO</span>
+                {userEthBalance?.toSignificant(4)} <span style={{ color: '#22c55e' }}>CANTO</span>
               </BalanceText>
             ) : null}
             <Web3Status />

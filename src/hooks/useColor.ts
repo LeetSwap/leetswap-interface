@@ -45,7 +45,7 @@ async function getColorFromUriPath(uri: string): Promise<string | null> {
 }
 
 export function useColor(token?: Token) {
-  const [color, setColor] = useState('#27D2EA')
+  const [color, setColor] = useState('#22c55e')
 
   useLayoutEffect(() => {
     let stale = false
@@ -60,7 +60,7 @@ export function useColor(token?: Token) {
 
     return () => {
       stale = true
-      setColor('#27D2EA')
+      setColor('#22c55e')
     }
   }, [token])
 
@@ -68,7 +68,7 @@ export function useColor(token?: Token) {
 }
 
 export function useListColor(listImageUri?: string) {
-  const [color, setColor] = useState('#27D2EA')
+  const [color, setColor] = useState('#22c55e')
 
   useLayoutEffect(() => {
     let stale = false
@@ -83,7 +83,7 @@ export function useListColor(listImageUri?: string) {
 
     return () => {
       stale = true
-      setColor('#27D2EA')
+      setColor('#22c55e')
     }
   }, [listImageUri])
 

@@ -101,7 +101,7 @@ export function StakingBalance() {
                   <DoubleCurrencyLogo currency0={xToken} currency1={token} size={16} />
                   <TYPE.body fontSize={16} fontWeight={500} margin={'10px'}>
                     DIFF / xDIFF Ratio:{' '}
-                    <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '7px' }}>
+                    <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '7px' }}>
                       {ratio ? (
                         <CountUp
                           key={ratio?.toSignificant()}
@@ -147,7 +147,7 @@ export function StakingBalance() {
                 ) : (
                   <></>
                 )}
-                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
                   {diffusionUSDCValue ? (
                     <CountUp
@@ -192,7 +192,7 @@ export function StakingBalance() {
                 ) : (
                   `     `
                 )}
-                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
                   {earnedDiffUSDCValue ? (
                     <CountUp
@@ -242,7 +242,7 @@ export function StakingBalance() {
                 ) : (
                   `     `
                 )}
-                <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
                   {earnedDiffUSDCValue ? (
                     <CountUp
@@ -307,8 +307,8 @@ export function StakingBalance() {
 const BalanceRow = styled(RowBetween)`
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.3);
   border-radius: 8px;
   padding: 2% 5%;
   font-size: 22px;

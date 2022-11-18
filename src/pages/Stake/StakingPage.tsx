@@ -39,8 +39,8 @@ const Heading = styled.div`
 // const APYRow = styled(RowBetween)`
 //   background: ${({ theme }) =>
 //     `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-//   border: 1px solid rgba(12, 92, 146, 0.7);
-//   box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
+//   border: 1px solid rgba(4, 76, 26, 0.7);
+//   box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.3);
 //   border-radius: 8px;
 //   padding: 2% 5%;
 //   width: 50%;

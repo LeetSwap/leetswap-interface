@@ -201,19 +201,19 @@ export const ButtonUNIGradient = styled(ButtonPrimary)`
 `
 
 export const ButtonOutlined = styled(Base)`
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.3);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.3);
   background-color: transparent;
   color: ${({ theme }) => theme.text1};
 
   &:focus {
-    box-shadow: 0 0 5px rgba(39, 210, 234, 0.5), 0 0 7px rgba(39, 210, 234, 0.8);
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5), 0 0 7px rgba(74, 222, 128, 0.8);
   }
   &:hover {
-    box-shadow: 0 0 5px rgba(39, 210, 234, 0.5), 0 0 7px rgba(39, 210, 234, 0.8);
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5), 0 0 7px rgba(74, 222, 128, 0.8);
   }
   &:active {
-    box-shadow: 0 0 5px rgba(39, 210, 234, 0.5), 0 0 7px rgba(39, 210, 234, 0.8);
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5), 0 0 7px rgba(74, 222, 128, 0.8);
   }
   &:disabled {
     opacity: 50%;

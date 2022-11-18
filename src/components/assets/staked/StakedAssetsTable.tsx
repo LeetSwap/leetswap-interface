@@ -126,7 +126,7 @@ const StakedAssetsTable = () => {
           <AutoColumn justify="end" style={{ width: '33%' }}>
             <TokenAndUSDCBalance>
               {' '}
-              <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+              <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
                 <span>$</span>
                 {earnedDiffUSDCValue ? (
                   <CountUp

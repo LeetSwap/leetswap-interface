@@ -250,7 +250,7 @@ export function useSwapCallback(
 
             const tradeVersion = getTradeVersion(trade)
 
-            const withVersion = tradeVersion === Version.v3 ? withRecipient : `${withRecipient} on ${tradeVersion}`
+            const withVersion = tradeVersion === Version.v3 ? withRecipient : `${withRecipient}`
 
             addTransaction(response, {
               summary: withVersion,
