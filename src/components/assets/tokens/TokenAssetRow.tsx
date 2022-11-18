@@ -52,7 +52,7 @@ const TokenAssetRow = ({
 
   const USDCValue = ({ amount }: { amount: CurrencyAmount<Currency> }) => {
     return (
-      <span style={{ color: '#27D2EA', fontSize: '14px', paddingLeft: '5px' }}>
+      <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
         <span>$</span>
         {amount ? <span>{amount.toSignificant(4, { groupSeparator: ',' })}</span> : `     `}
       </span>

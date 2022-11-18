@@ -86,8 +86,8 @@ const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
   align-items: center;
   padding: 1rem;
   border-radius: 12px;
-  border: 1px solid ${({ active, theme }) => (active ? '#24C5E0' ?? 'transparent' : theme.bg2)};
-  color: ${({ active }) => (active ? '#24C5E0' : 'white')};
+  border: 1px solid ${({ active, theme }) => (active ? '#22c55e' ?? 'transparent' : theme.bg2)};
+  color: ${({ active }) => (active ? '#22c55e' : 'white')};
 `
 
 function listUrlRowHTMLId(listUrl: string) {

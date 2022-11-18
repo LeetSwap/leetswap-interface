@@ -41,8 +41,8 @@ export const HoverCard = styled(Card)`
   }
 `
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
   background: ${({ theme }) => `linear-gradient(90deg, ${theme.dark0} 0%, ${theme.dark2} 35%, ${theme.dark0} 100%);`};
   /* background: ${({ theme, bgColor }) =>
     `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.bg3} 100%) `}; */
@@ -161,8 +161,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             <span role="img" aria-label="wizard-icon">
               ⭐️
             </span>{' '}
-            By adding liquidity you&apos;ll earn 0.25% of all trades on this pair proportional to your share of the
-            pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+            Add liquidity to receive LP tokens that can be staked in mining pools{' '}
           </TYPE.subHeader>
         </LightCard>
       )}

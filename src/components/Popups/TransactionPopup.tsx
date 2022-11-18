@@ -29,7 +29,7 @@ export default function TransactionPopup({
   return (
     <RowNoFlex>
       <Confetti
-        colors={['#27D2EA', '#25CBE5', '#1dacc2', '#2a8d9c', '#22646ea', '#0C5C92']}
+        colors={['#22c55e', '#16a34a', '#15803d', '#166534', '#14532da', '#14532d']}
         recycle={false}
         width={920}
         height={480}

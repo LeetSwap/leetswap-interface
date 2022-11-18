@@ -38,8 +38,8 @@ const StyledBridgeButton = styled.div<{ isActive?: boolean }>`
 const Menu = styled.div`
   min-width: 8.125rem;
   background: ${({ theme }) => `linear-gradient(90deg, ${theme.dark0} 0%, ${theme.dark2} 35%, ${theme.dark0} 100%);`};
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.2), 0 0 7px rgba(39, 210, 234, 0.2);
-  border: 1px solid rgba(12, 92, 146, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.2), 0 0 7px rgba(74, 222, 128, 0.2);
+  border: 1px solid rgba(4, 76, 26, 0.7);
   border-radius: 8px;
   backdrop-filter: blur(4px) brightness(50%) saturate(150%);
 `

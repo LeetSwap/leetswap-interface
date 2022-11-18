@@ -8,26 +8,26 @@ const Card = styled(Box)<{ width?: string; padding?: string; border?: string; bo
   padding: ${({ padding }) => padding};
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
 `
 export default Card
 
 export const LightCard = styled(Card)`
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
   background-color: ${({ theme }) => theme.darkTransparent};
 `
 
 export const LightGreyCard = styled(Card)`
-  border: 1px solid rgba(12, 92, 146, 0);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0), 0 0 7px rgba(39, 210, 234, 0);
+  border: 1px solid rgba(4, 76, 26, 0);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0), 0 0 7px rgba(74, 222, 128, 0);
   background-color: ${({ theme }) => theme.darkTransparent};
 `
 
 export const GreyCard = styled(Card)`
-  border: 1px solid rgba(12, 92, 146, 0.7);
-  box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(4, 76, 26, 0.7);
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
   background: ${({ theme }) => `linear-gradient(90deg, ${theme.dark0} 0%, ${theme.dark2} 35%, ${theme.dark0} 100%);`};
   z-index: 3;
 `

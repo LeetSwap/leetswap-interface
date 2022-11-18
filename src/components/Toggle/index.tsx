@@ -33,7 +33,7 @@ const StyledToggle = styled.button<{ isActive?: boolean; activeElement?: boolean
   cursor: pointer;
   outline: none;
   padding: 0;
-  border: 1px solid rgba(39, 210, 234, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.1);
 `
 
 export interface ToggleProps {

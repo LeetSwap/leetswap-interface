@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { ExternalLink } from '../../theme'
 
 const InfoCard = styled.button<{ active?: boolean }>`
-  background-color: ${({ active }) => (active ? 'rgba(39, 210, 234, 0.2)' : 'rgba(10,19,51, 0.2)')};
+  background-color: ${({ active }) => (active ? 'rgba(74, 222, 128, 0.2)' : 'rgba(10,19,51, 0.2)')};
   padding: 1rem;
   outline: none;
   border: 1px solid;

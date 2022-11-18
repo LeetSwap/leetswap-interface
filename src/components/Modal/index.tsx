@@ -43,8 +43,8 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
       `linear-gradient(90deg, ${theme.darkTransparent3} 0%, ${theme.dark2} 50%, ${theme.darkTransparent3} 100%);`};
     border: 1px solid ${({ theme }) => theme.bg1};
     box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadow1)};
-    border: 1px solid rgba(12, 92, 146, 0.7);
-    box-shadow: 0 0 5px rgba(39, 210, 234, 0.1), 0 0 7px rgba(39, 210, 234, 0.1);
+    border: 1px solid rgba(4, 76, 26, 0.7);
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.1);
     padding: 0px;
     width: 50vw;
     overflow-y: ${({ mobile }) => (mobile ? 'hidden' : 'hidden')};

@@ -21,7 +21,7 @@ const ToggleWrapper = styled(RowBetween)`
   background-color: ${({ theme }) => theme.dark0};
   border-radius: 8px;
   padding: 6px;
-  border: 1px solid rgba(39, 210, 234, 0.2);
+  border: 1px solid rgba(74, 222, 128, 0.2);
 `
 
 const ToggleOption = styled.div<{ active?: boolean }>`

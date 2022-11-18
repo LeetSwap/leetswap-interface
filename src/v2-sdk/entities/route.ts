@@ -56,7 +56,6 @@ export class Route<TInput extends Currency, TOutput extends Currency> {
         )
       }
     }
-    prices.forEach((item, index) => console.error(item.toFixed(2), this.pairs[index]))
     const reduced = prices.slice(1).reduce((accumulator, currentValue) => accumulator.multiply(currentValue), prices[0])
     return (this._midPrice = new Price(this.input, this.output, reduced.denominator, reduced.numerator))
   }
