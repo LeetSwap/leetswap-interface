@@ -26,7 +26,7 @@ export default function useUSDCPrice(currency?: Currency): Price<Currency, Token
         : usdcCurrencyAmount
       : undefined, 
       {
-      maxHops: 2,
+      maxHops: 4,
       }
   )
 
