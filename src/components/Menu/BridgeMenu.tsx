@@ -75,29 +75,14 @@ export function BridgeMenu() {
           {/*    Nomad <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>*/}
           {/*  </div>*/}
           {/*</MenuItem>*/}
-          <MenuItem href="https://bridge.connext.network/">
+          <MenuItem href="https://bridge.canto.io/">
             <div>
-              Connext <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+              Canto Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
           <MenuItem href="https://bridge.blockscape.network/">
             <div>
               Gravity Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://satellite.money/">
-            <div>
-              Axelar Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://cbridge.celer.network/">
-            <div>
-              Celer <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://app.multichain.org">
-            <div>
-              Multichain <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
         </Menu>
