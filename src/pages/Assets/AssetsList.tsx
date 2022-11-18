@@ -157,10 +157,10 @@ export const AssetsListPage = () => {
   return (
     <AssetContextProvider>
       <AssetsListContainer>
-        <Tux />
+        {/*<Tux />*/}
         <HeadingWithPotion
           heading="My Assets"
-          description="Overview of assets, liquidity-, farm- and staking positions on Diffusion"
+          description="Overview of your tokens, and liquidity positions on LeetSwap."
         />
         <TotalAssets
           stakedBalance={parseFloat(xdiffValue?.toSignificant(4) ?? '0')}
