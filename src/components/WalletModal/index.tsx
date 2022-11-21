@@ -189,7 +189,7 @@ export default function WalletModal({
             try {
               await provider.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x2329' }],
+                params: [{ chainId: '0x1e14' }],
               })
             } catch (switchError: any) {
               if (switchError.code === 4902) {
@@ -198,7 +198,7 @@ export default function WalletModal({
                     method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: '0x2329',
+                        chainId: '0x1e14',
                         chainName: 'CANTO',
                         nativeCurrency: {
                           name: 'CANTO',
