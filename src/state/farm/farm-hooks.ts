@@ -61,7 +61,7 @@ export function usePools(page = 0, pageSize = 10) {
       pendingArguments: account ? poolIndizes.map((pid) => [pid, account]) : [],
       poolIndizes,
     }
-  }, [poolLengthNumber, page, account])
+  }, [poolLengthNumber, page, pageSize, account])
 
   const poolInfos = useSingleContractMultipleData(minichefContract, 'poolInfo', poolIndizesArguments, NEVER_RELOAD)
   const lpTokens = useSingleContractMultipleData(minichefContract, 'lpToken', poolIndizesArguments, NEVER_RELOAD)
