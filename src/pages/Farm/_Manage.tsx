@@ -16,7 +16,7 @@ import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
 import StakingModal from '../../components/farm/StakingModal'
 import { useStakingInfo } from '../../state/stake/hooks'
 import UnstakingModal from '../../components/farm/UnstakingModal'
-import ClaimRewardModal from '../../components/farm/ClaimRewardModal'
+// import ClaimRewardModal from '../../components/farm/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { useColor } from '../../hooks/useColor'
@@ -109,7 +109,7 @@ export default function Manage({
   // toggle for staking modal and unstaking modal
   const [showStakingModal, setShowStakingModal] = useState(false)
   const [showUnstakingModal, setShowUnstakingModal] = useState(false)
-  const [showClaimRewardModal, setShowClaimRewardModal] = useState(false)
+  // const [showClaimRewardModal, setShowClaimRewardModal] = useState(false)
 
   // fade cards if nothing staked or nothing earned yet
   const disableTop = true // !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
@@ -273,7 +273,7 @@ export default function Manage({
                     padding="8px"
                     borderRadius="8px"
                     width="fit-content"
-                    onClick={() => setShowClaimRewardModal(true)}
+                    // onClick={() => setShowClaimRewardModal(true)}
                   >
                     Claim
                   </ButtonEmpty>

@@ -14,7 +14,7 @@ import AddressInputPanel from '../../components/AddressInputPanel'
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
 import { GreyCard } from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
+import CurrencyInputPanel, { ShortcutAmount } from '../../components/CurrencyInputPanel'
 import CurrencyLogo from '../../components/CurrencyLogo'
 import Loader from '../../components/Loader'
 import Row, { AutoRow, RowFixed } from '../../components/Row'
@@ -224,7 +224,8 @@ export default function Swap({ history }: RouteComponentProps) {
   }, [approvalState, approvalSubmitted])
 
   const maxInputAmount: CurrencyAmount<Currency> | undefined = maxAmountSpend(currencyBalances[Field.INPUT])
-  const showMaxButton = Boolean(maxInputAmount?.greaterThan(0) && !parsedAmounts[Field.INPUT]?.equalTo(maxInputAmount))
+  const halfInputAmount: CurrencyAmount<Currency> | undefined = maxInputAmount?.divide(2)
+  const showMaxButton = Boolean(maxInputAmount?.greaterThan(0)) //  && !parsedAmounts[Field.INPUT]?.equalTo(maxInputAmount)
 
   // the callback to execute the swap
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(trade, allowedSlippage, recipient)
@@ -328,6 +329,13 @@ export default function Swap({ history }: RouteComponentProps) {
     maxInputAmount && onUserInput(Field.INPUT, maxInputAmount.toExact())
   }, [maxInputAmount, onUserInput])
 
+  const handleHalfInput = useCallback(
+    (value: ShortcutAmount) => {
+      halfInputAmount && value === 'half' && onUserInput(Field.INPUT, halfInputAmount.toExact())
+    },
+    [halfInputAmount, onUserInput]
+  )
+
   const handleOutputSelect = useCallback(
     (outputCurrency) => onCurrencySelection(Field.OUTPUT, outputCurrency),
     [onCurrencySelection]
@@ -371,9 +379,11 @@ export default function Swap({ history }: RouteComponentProps) {
                 label={independentField === Field.OUTPUT && !showWrap ? 'From (at most)' : 'From'}
                 value={formattedAmounts[Field.INPUT]}
                 showMaxButton={showMaxButton}
+                showShortcutButtons={true}
                 currency={currencies[Field.INPUT]}
                 onUserInput={handleTypeInput}
                 onMax={handleMaxInput}
+                onShortcutAmount={handleHalfInput}
                 fiatValue={fiatValueInput ?? undefined}
                 onCurrencySelect={handleInputSelect}
                 otherCurrency={currencies[Field.OUTPUT]}

@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react/types-6-0'
 import React, { PropsWithChildren } from 'react'
-import Component, { BadgeProps, BadgeVariant } from './../Badge/index'
+import { BadgeProps, BadgeVariant } from './../Badge/index'
 import { PotionIcon } from './Potions'
 
 export default {
