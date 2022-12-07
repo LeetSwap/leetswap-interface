@@ -70,14 +70,14 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          {/*<MenuItem href="https://app.nomad.xyz/">*/}
-          {/*  <div>*/}
-          {/*    Nomad <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>*/}
-          {/*  </div>*/}
-          {/*</MenuItem>*/}
           <MenuItem href="https://bridge.canto.io/">
             <div>
               Canto Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
+          <MenuItem href="https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=7700">
+            <div>
+              Synapse Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
           <MenuItem href="https://bridge.blockscape.network/">
