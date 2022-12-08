@@ -16,6 +16,7 @@ import {
   MinichefRawPoolInfo,
   useCalculateAPR,
   useFarmTVL,
+  useOwnWeeklyEmission,
   usePairTokens,
   usePools,
   useRewardInfos,
@@ -24,7 +25,6 @@ import {
 import styled from 'styled-components'
 import { Tux } from '../../components/farm/TuxBanner'
 
-import { HRDark } from '../../components/HR/HR'
 import { CurrencyAmount } from 'sdk-core/entities'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
@@ -112,6 +112,8 @@ export function PoolRow({
   const token1Value = useUSDCValue(token1Deposited)
 
   const positionValue = useMemo(() => token0Value?.multiply(2) || token1Value?.multiply(2), [token0Value, token1Value])
+  const ownPrimaryWeeklyEmission = useOwnWeeklyEmission(poolEmissionAmount, stakedAmount, totalPoolStaked)
+  const ownSecondaryWeeklyEmission = useOwnWeeklyEmission(rewardPerSecondAmount, stakedAmount, totalPoolStaked)
 
   const isActive =
     positionValue?.greaterThan(0) || poolEmissionAmount?.greaterThan(0) || rewardPerSecondAmount?.greaterThan(0)
@@ -122,7 +124,6 @@ export function PoolRow({
 
   return (
     <>
-      <HRDark />
       <FarmTableRow
         pair={pair ?? undefined}
         poolId={poolId}
@@ -130,6 +131,8 @@ export function PoolRow({
         totalLPStaked={totalPoolStaked}
         primaryEmissionPerSecond={poolEmissionAmount}
         secondaryEmissionPerSecond={rewardPerSecondAmount}
+        ownPrimaryWeeklyEmission={ownPrimaryWeeklyEmission}
+        ownSecondaryWeeklyEmission={ownSecondaryWeeklyEmission}
         totalAPR={totalAPR}
         positionValue={positionValue}
       />
