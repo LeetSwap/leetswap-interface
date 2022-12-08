@@ -87,6 +87,33 @@ const Heading = styled.div`
   justify-content: center;
 `
 
+const YourDeposits = styled(RowBetween)`
+  align-items: baseline;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+  `};
+`
+
+const YourDepositsHeading = styled(RowBetween)`
+  align-items: baseline;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    align-items: center;
+  `};
+`
+
+const PageHeading = styled(TYPE.largeHeader)`
+  display: flex;
+  margin: 0;
+  gap: 5px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    align-items: center;
+  `};
+`
+
 export default function Manage({ match: { params } }: RouteComponentProps<{ poolId?: string }>) {
   const { account } = useActiveWeb3React()
 
@@ -171,9 +198,12 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
       <AutoRow justify={'space-between'}>
         <Heading>
           {/* <PotionIcon4 width={60} height={60} /> */}
-          <TYPE.largeHeader style={{ margin: 0 }}>
-            {currency0?.symbol}-{currency1?.symbol} Liquidity Mining
-          </TYPE.largeHeader>
+          <PageHeading>
+            <span>
+              {currency0?.symbol}-{currency1?.symbol}
+            </span>
+            <span>Liquidity Mining</span>
+          </PageHeading>
         </Heading>
         <DoubleCurrencyLogo
           currency0={currency0 ?? undefined}
@@ -251,17 +281,17 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
             {/*<CardBGImage desaturate />*/}
             <CardNoise />
             <AutoColumn gap="md">
-              <RowBetween>
+              <YourDepositsHeading>
                 <TYPE.white fontWeight={600}>Your liquidity deposits</TYPE.white>
-              </RowBetween>
-              <RowBetween style={{ alignItems: 'baseline' }}>
+              </YourDepositsHeading>
+              <YourDeposits>
                 <TYPE.white fontSize={36} fontWeight={600}>
                   {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                 </TYPE.white>
                 <TYPE.white>
                   LEET-LP {currency0?.symbol}-{currency1?.symbol}
                 </TYPE.white>
-              </RowBetween>
+              </YourDeposits>
               <RowBetween style={{ alignItems: 'baseline' }}>
                 <TYPE.white>Underlying {token0Deposited?.currency.symbol}</TYPE.white>
                 <TYPE.white>
