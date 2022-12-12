@@ -1,18 +1,19 @@
 import React, { useContext, useEffect } from 'react'
-import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
+import JSBI from 'jsbi'
+import { CurrencyAmount } from 'sdk-core/entities'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
+import Loader from 'components/Loader'
 import { Emission, EmissionText, PoolPair, PoolRow, RowColumn } from 'components/farm/FarmTable'
+import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
 import { AutoRow } from 'components/Row'
 import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
-import JSBI from 'jsbi'
-import { CurrencyAmount } from 'sdk-core/entities'
 import { MinichefRawPoolInfo, usePairTokens, useRewardInfos } from 'state/farm/farm-hooks'
+import { useTotalSupply } from 'hooks/useTotalSupply'
 import { useActiveWeb3React } from 'hooks/web3'
 import { AssetContext } from 'contexts/assets/AssetContext'
 import { AssetActions } from 'contexts/assets/assets.constants'
 import { USDCValue } from '../shared/USDCValue'
-import Loader from 'components/Loader'
 
 const FarmAssetRow = ({
   lpTokenAddress,
@@ -24,20 +25,22 @@ const FarmAssetRow = ({
   const { account } = useActiveWeb3React()
   const { dispatch: assetsDispatch } = useContext(AssetContext)
 
-  const { totalPoolStaked, pair, lpToken } = usePairTokens(lpTokenAddress)
+  const { pair, lpToken } = usePairTokens(lpTokenAddress)
+  const totalPoolTokens = useTotalSupply(lpToken ?? undefined)
+
   const { rewardPerSecondAmount } = useRewardInfos(poolId, rewarderAddress)
 
   const stakedAmount = lpToken ? CurrencyAmount.fromRawAmount(lpToken, stakedRawAmount || 0) : undefined
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
-    !!totalPoolStaked &&
+    !!totalPoolTokens &&
     !!stakedAmount &&
     // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolStaked.quotient, stakedAmount.quotient)
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, stakedAmount.quotient)
       ? [
-          pair.getLiquidityValue(pair.token0, totalPoolStaked, stakedAmount, false),
-          pair.getLiquidityValue(pair.token1, totalPoolStaked, stakedAmount, false),
+          pair.getLiquidityValue(pair.token0, totalPoolTokens, stakedAmount, false),
+          pair.getLiquidityValue(pair.token1, totalPoolTokens, stakedAmount, false),
         ]
       : [undefined, undefined]
 
