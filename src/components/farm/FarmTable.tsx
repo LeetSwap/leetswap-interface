@@ -256,8 +256,8 @@ export function FarmTableRow({
       {isMobile ? (
         <>
           <HRDarkLine />
-          <AutoColumn style={{ padding: '20px 0' }}>
-            <MobilePoolHeading gap={'3%'} justify={'flex-start'}>
+          <AutoColumn style={{ padding: '20px' }}>
+            <MobilePoolHeading gap={'2%'} justify={'flex-start'}>
               <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
               <MobilePoolName>{PoolName}</MobilePoolName>
             </MobilePoolHeading>
