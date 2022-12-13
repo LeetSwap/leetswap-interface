@@ -190,10 +190,10 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
       tokens: [token0, token1] as [Token, Token],
       stakedAmount: stakedAmount!,
       earnedAmount: pendingAmount!,
-      earnedAmountSecondary: rewardPerSecondAmount!,
+      earnedAmountSecondary: pendingRewardAmount!,
       lpTokenAddress,
     }
-  }, [lpTokenAddress, pendingAmount, poolId, stakedAmount, rewardPerSecondAmount, token0, token1])
+  }, [lpTokenAddress, pendingAmount, poolId, stakedAmount, pendingRewardAmount, token0, token1])
   return (
     <PageWrapper gap="lg" justify="center">
       <AutoRow justify={'space-between'}>
