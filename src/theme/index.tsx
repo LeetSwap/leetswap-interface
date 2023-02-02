@@ -8,6 +8,7 @@ import styled, {
 } from 'styled-components'
 import { useIsDarkMode } from '../state/user/hooks'
 import { Colors } from './styled'
+import BackgroundImg from '../assets/images/background.webp'
 
 export * from './components'
 
@@ -41,10 +42,10 @@ export function colors(darkMode: boolean): Colors {
 
     // text
     text1: darkMode ? '#FFFFFF' : '#000000',
-    text2: darkMode ? '#C3C5CB' : '#565A69',
-    text3: darkMode ? '#6C7284' : '#888D9B',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
-    text5: darkMode ? '#2C2F36' : '#EDEEF2',
+    text2: darkMode ?'#EDEEF2' : '#565A69',
+    text3: darkMode ? '#C3C5CB' : '#888D9B',
+    text4: darkMode ? '#6C7284' : '#C3C5CB',
+    text5: darkMode ? '#565A69' : '#EDEEF2',
 
     // backgrounds / greys
     bg01: 'black',
@@ -222,9 +223,6 @@ export const ThemedBackground = styled.div<{ backgroundColor?: string | undefine
     `radial-gradient(50% 50% at 50% 50%, ${
       backgroundColor ? backgroundColor : '#fc077d10'
     } 0%, rgba(255, 255, 255, 0) 100%)`}; */
-  background: transparent radial-gradient(closest-side at 50% 50%, #166534 0%, #20212400 100%) 0% 0% no-repeat
-    padding-box;
-  opacity: 0.6;
   transform: translateY(-100vh);
   will-change: background;
   transition: background 450ms ease;
@@ -280,6 +278,7 @@ export const ThemedGlobalStyle = createGlobalStyle`
 html {
   color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.bg01};
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.833) 0 100%), url('${BackgroundImg}') no-repeat fixed;
 }
 
 body {
