@@ -337,6 +337,13 @@ export default function Header() {
             {t('Farm')}
           </StyledNavLink>
           <StyledNavLink
+            id={`stake-nav-link`}
+            to={'/stake'}
+            isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/stake')}
+          >
+            {t('Stake')}
+          </StyledNavLink>
+          <StyledNavLink
             id={`assets-nav-link`}
             to={'/assets'}
             isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/assets')}

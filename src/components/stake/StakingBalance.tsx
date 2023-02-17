@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { DIFFUSION, XDIFFUSION } from 'constants/tokens'
 import { useActiveWeb3React } from 'hooks/web3'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { TYPE } from '../../theme'
 import { AutoRow, RowBetween } from '../../components/Row'
@@ -16,7 +16,7 @@ import { HRDark } from '../../components/HR/HR'
 
 import { useEarnedDiff, useStakingAPY } from 'components/stake/stake-hooks'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
-import { CurrencyAmount } from 'sdk-core/entities'
+import { CurrencyAmount, Token } from 'sdk-core/entities'
 import { useUSDCValue } from '../../hooks/useUSDCPrice'
 import { FarmYield } from '../farm/FarmYield'
 import JSBI from 'jsbi'
@@ -24,6 +24,7 @@ import { CountUp } from 'use-count-up'
 import QuestionHelper from '../QuestionHelper'
 import { Glow } from '../../pages/AppBody'
 import usePrevious from '../../hooks/usePrevious'
+import getDailyVolume from 'utils/getDailyVolume'
 
 export const TokenAndUSDCBalance = styled.div`
   display: flex;
@@ -34,16 +35,32 @@ export function StakingBalance() {
   const { account, chainId } = useActiveWeb3React()
   const token = chainId ? DIFFUSION[chainId] : undefined
   const xToken = chainId ? XDIFFUSION[chainId] : undefined
-  const diffusionBalance = useTokenBalance(account ?? undefined, token)
-  const diffusionUSDCValue = useUSDCValue(diffusionBalance)
+
+  const [dailyVolume, setDailyVolume] = useState(CurrencyAmount.fromRawAmount(token as Token, JSBI.BigInt(0)))
+  useEffect(() => {
+   let mounted = true
+   if (token) {
+     getDailyVolume(token)
+       .then(volume => {
+         if(mounted) {
+           setDailyVolume(volume)
+         }
+       })
+   }
+   return () => { mounted = false }
+  }, [token])
+
+  const primaryTokenBalance = useTokenBalance(account ?? undefined, token)
+  const primaryTokenUSDCValue = useUSDCValue(primaryTokenBalance)
   const xdiffBalance = useTokenBalance(account ?? undefined, xToken)
   const earnedDiff = useEarnedDiff(xdiffBalance)
   const earnedDiffUSDCValue = useUSDCValue(earnedDiff)
   const xDiffContractBalance = useTokenBalance(chainId ? XDIFFUSION[chainId].address : undefined, token)
   const xDiffContractUSDCBalance = useUSDCValue(xDiffContractBalance)
-  const emission = token ? CurrencyAmount.fromRawAmount(token, 62500e18) : undefined
+  const emission = dailyVolume.multiply(JSBI.BigInt(50)).divide(JSBI.BigInt(1e4))
+  console.log('emission', emission.quotient)
 
-  const emissionPerSecond = token ? CurrencyAmount.fromRawAmount(token, 0.72337962963e18) : undefined
+  const emissionPerSecond = token ? emission.divide(JSBI.BigInt(86400)) : undefined
 
   const apr =
     emission && xDiffContractBalance
@@ -57,10 +74,10 @@ export function StakingBalance() {
   const ratioPrevious = usePrevious(parseFloat(ratio ? ratio?.toSignificant() : '0'))
   const apy = useStakingAPY()
 
-  const countUpDiffusionBalance = diffusionBalance?.toSignificant() ?? '0'
+  const countUpDiffusionBalance = primaryTokenBalance?.toSignificant() ?? '0'
   const countUpDiffusionBalancePrevious = usePrevious(countUpDiffusionBalance) ?? '0'
 
-  const countUpDiffusionBalanceUSDC = diffusionUSDCValue?.toSignificant() ?? '0'
+  const countUpDiffusionBalanceUSDC = primaryTokenUSDCValue?.toSignificant() ?? '0'
   const countUpDiffusionBalanceUSDCPrevious = usePrevious(countUpDiffusionBalanceUSDC) ?? '0'
 
   const countUpXDiffBalance = xdiffBalance?.toSignificant() ?? '0'
@@ -74,7 +91,7 @@ export function StakingBalance() {
 
   const [stakingModalOpen, setStakingModalOpen] = useState(false)
   const [unstakeModalOpen, setUnstakeModalOpen] = useState(false)
-  console.log(apy)
+  console.log('staking apy', apy)
   return (
     <>
       <FarmYield
@@ -101,7 +118,7 @@ export function StakingBalance() {
                   <DoubleCurrencyLogo currency0={xToken} currency1={token} size={16} />
                   <TYPE.body fontSize={16} fontWeight={500} margin={'10px'}>
                     LEET / xLEET Ratio:{' '}
-                    <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '7px' }}>
+                    <span style={{ color: '#eab308', fontSize: '14px', paddingLeft: '7px' }}>
                       {ratio ? (
                         <CountUp
                           key={ratio?.toSignificant()}
@@ -134,9 +151,9 @@ export function StakingBalance() {
             </AutoColumn>
             <AutoColumn justify={'end'}>
               <TokenAndUSDCBalance>
-                {diffusionBalance?.toSignificant() ? (
+                {primaryTokenBalance?.toSignificant() ? (
                   <CountUp
-                    key={diffusionBalance?.toSignificant()}
+                    key={primaryTokenBalance?.toSignificant()}
                     isCounting
                     decimalPlaces={4}
                     start={parseFloat(countUpDiffusionBalancePrevious)}
@@ -147,11 +164,11 @@ export function StakingBalance() {
                 ) : (
                   <></>
                 )}
-                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#eab308', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
-                  {diffusionUSDCValue ? (
+                  {primaryTokenUSDCValue ? (
                     <CountUp
-                      key={diffusionUSDCValue?.toFixed(0)}
+                      key={primaryTokenUSDCValue?.toFixed(0)}
                       isCounting
                       decimalPlaces={2}
                       start={parseFloat(countUpDiffusionBalanceUSDCPrevious)}
@@ -192,7 +209,7 @@ export function StakingBalance() {
                 ) : (
                   `     `
                 )}
-                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#eab308', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
                   {earnedDiffUSDCValue ? (
                     <CountUp
@@ -242,7 +259,7 @@ export function StakingBalance() {
                 ) : (
                   `     `
                 )}
-                <span style={{ color: '#22c55e', fontSize: '14px', paddingLeft: '5px' }}>
+                <span style={{ color: '#eab308', fontSize: '14px', paddingLeft: '5px' }}>
                   <span>$</span>
                   {earnedDiffUSDCValue ? (
                     <CountUp
@@ -270,7 +287,7 @@ export function StakingBalance() {
             padding="8px"
             borderRadius="8px"
             width="140px"
-            disabled={!diffusionBalance?.greaterThan('0')}
+            disabled={!primaryTokenBalance?.greaterThan('0')}
             onClick={() => setStakingModalOpen(true)}
           >
             Stake
@@ -292,7 +309,7 @@ export function StakingBalance() {
       <StakingModal
         isOpen={stakingModalOpen}
         onDismiss={() => setStakingModalOpen(false)}
-        availableAmount={diffusionBalance}
+        availableAmount={primaryTokenBalance}
         currencyToAdd={xToken}
       />
       <UnstakingModal
@@ -307,8 +324,8 @@ export function StakingBalance() {
 const BalanceRow = styled(RowBetween)`
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.darkTransparent} 0%, ${theme.secondary1_30} 50%, ${theme.darkTransparent} 100%);`};
-  border: 1px solid rgba(4, 76, 26, 0.7);
-  box-shadow: 0 0 5px rgba(74, 222, 128, 0.1), 0 0 7px rgba(74, 222, 128, 0.3);
+  border: 1px solid rgba(66, 26, 4, 0.7);
+  box-shadow: 0 0 5px rgba(245, 158, 11, 0.1), 0 0 7px rgba(245, 158, 11, 0.3);
   border-radius: 8px;
   padding: 2% 5%;
   font-size: 22px;
