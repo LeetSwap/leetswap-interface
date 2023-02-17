@@ -10,7 +10,7 @@ import {
 
 const THIRTY_BIPS_FEE = new Percent(JSBI.BigInt(30), JSBI.BigInt(10000))
 const ONE_HUNDRED_PERCENT = new Percent(JSBI.BigInt(10000), JSBI.BigInt(10000))
-const INPUT_FRACTION_AFTER_FEE = ONE_HUNDRED_PERCENT
+const INPUT_FRACTION_AFTER_FEE = ONE_HUNDRED_PERCENT.subtract(THIRTY_BIPS_FEE)
 
 // computes realized lp fee as a percent
 export function computeRealizedLPFeePercent(trade: V2Trade<Currency, Currency, TradeType>): Percent {
@@ -19,7 +19,7 @@ export function computeRealizedLPFeePercent(trade: V2Trade<Currency, Currency, T
   const percent = ONE_HUNDRED_PERCENT.subtract(
     trade.route.pairs.reduce<Percent>(
       (currentFee: Percent): Percent => currentFee.multiply(INPUT_FRACTION_AFTER_FEE),
-          THIRTY_BIPS_FEE
+        ONE_HUNDRED_PERCENT
     )
   )
 
