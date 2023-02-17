@@ -42,12 +42,12 @@ export const CINU = {
  * LeetSwap
  */
 
-export const DIFFUSION = makeToken('Diffusion', 'DIFF', 18, {
-  [ChainId.MAINNET]: '0x3f75ceabCDfed1aCa03257Dc6Bdc0408E2b4b026',
+export const DIFFUSION = makeToken('COH Demo', 'COHDEMO', 18, {
+  [ChainId.MAINNET]: '0x71c2A98f75ee12Cb1694a37bc39518579f17332c',
   [ChainId.TESTNET]: TESTNET.diffusion || '0x067eC87844fBD73eDa4a1059F30039584586e09d',
 })
 
-export const XDIFFUSION = makeToken('xDiffusion', 'XDIFF', 18, {
+export const XDIFFUSION = makeToken('xCOHDemo', 'XCOHDEMO', 18, {
   [ChainId.MAINNET]: MAINNET.diffusionbar,
   [ChainId.TESTNET]: TESTNET.diffusionbar,
 })
