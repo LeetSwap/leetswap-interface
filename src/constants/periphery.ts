@@ -8,6 +8,7 @@
 
 const PERIPHERY_TESTNET = {
   factory: '0x81BC50a2df9cE424843e3c17110E1ab1FedCD4b8',
+  cantodexFactory: '0x81BC50a2df9cE424843e3c17110E1ab1FedCD4b8',
   weth9: '0xcc491f589B45d4a3C679016195B3FB87D7848210',
   router: '0x72bd489d3cF0e9cC36af6e306Ff53E56d0f9EFb4',
   mockUSDC: '0xc48Efe267a31b5Af4cFDb50C8457914aadB0b875',
@@ -30,9 +31,10 @@ const PERIPHERY_TESTNET = {
 }
 
 const MAINNET_PERIPHERY = {
-  factory: '0xE387067f12561e579C5f7d4294f51867E0c1cFba',
+  factory: '0x432Aad747c5f126a313d918E15d8133fca571Df1',
+  cantodexFactory: '0xE387067f12561e579C5f7d4294f51867E0c1cFba',
   weth9: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
-  router: '0xDa07ecB6479BE5B2e1E9BF9B5fFe56f779bb3bbF',
+  router: '0x90DEc5d26CE471418265a314063955392E66765D',
   multicall2: '0xfCD3842f85ed87ba2889b4D35893403796e67FF1',
   //
   minichef: '0x067eC87844fBD73eDa4a1059F30039584586e09d',
@@ -47,9 +49,37 @@ const MAINNET_STABLE_PAIRS: string[] = [
   '0x3CE59FaB4b43B2709343Ba29c768E222e080e2a4', // USDT/USDC
 ]
 
+const TESTNET_CANTODEX_TOKEN_PAIRS: string[] = []
+
+const wcanto = '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B'
+const note = '0x4e71A2E537B7f9D9413D3991D37958c0b5e1e503'
+const usdc = '0x80b5a32E4F032B2a058b4F29EC95EEfEEB87aDcd'
+const eth = '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687'
+const atom = '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265'
+const usdt = '0xd567B3d7B8FE3C79a1AD8dA978812cfC4Fa05e75'
+const cinu = '0x7264610A66EcA758A8ce95CF11Ff5741E1fd0455'
+const cbonk = '0x38D11B40D2173009aDB245b869e90525950aE345'
+const upsample = '0x069C4887f2eafCbE7D3572e13b449A02B31D260C'
+const bank = '0x6f6BAe4110eCC33fE4E330b16b8df2A5E9807658'
+const topg = '0xe350b49e52c9d865735BFD77c956f64585Be7583'
+
+const MAINNET_CANTODEX_TOKEN_PAIRS: string[] = [
+  [cbonk, wcanto].sort().join('-'),
+  [upsample, note].sort().join('-'),
+  [bank, wcanto].sort().join('-'),
+  [topg, wcanto].sort().join('-'),
+  [cinu, wcanto].sort().join('-'),
+  [note, usdc].sort().join('-'),
+  [note, usdt].sort().join('-'),
+  [wcanto, note].sort().join('-'),
+  [eth, wcanto].sort().join('-'),
+  [atom, wcanto].sort().join('-'),
+]
+
 export const MAINNET = {
   ...MAINNET_PERIPHERY,
   stablePairs: MAINNET_STABLE_PAIRS,
+  cantodexTokenPairs: MAINNET_CANTODEX_TOKEN_PAIRS,
   diffusionbar: '0x75aeE82a16BD1fB98b11879af93AB7CE055f66Da',
   airdrop: '0xb9A52744213eA63D57F389622e1d569Bb4705207',
 }
@@ -57,6 +87,7 @@ export const MAINNET = {
 export const TESTNET = {
   ...PERIPHERY_TESTNET,
   stablePairs: TESTNET_STABLE_PAIRS,
+  cantodexTokenPairs: TESTNET_CANTODEX_TOKEN_PAIRS,
   airdrop: '0x2F7Ad6172388aED2017FBfA1631724F172360Ab1',
   diffusionbar: '0x2314D451a1A2519501119f105dd1D65D0CE4E93b',
 }

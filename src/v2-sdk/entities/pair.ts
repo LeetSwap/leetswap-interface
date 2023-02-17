@@ -4,17 +4,19 @@ import JSBI from 'jsbi'
 import { pack, keccak256 } from '@ethersproject/solidity'
 import { getCreate2Address } from '@ethersproject/address'
 
-import { INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
+import { INIT_CODE_HASH, CANTODEX_INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
-import { STABLE_PAIR_ADDRESSES, V2_FACTORY_ADDRESS } from 'constants/addresses'
+import { STABLE_PAIR_ADDRESSES, CANTODEX_TOKEN_PAIRS, V2_FACTORY_ADDRESS, CANTODEX_FACTORY_ADDRESS } from 'constants/addresses'
 import { ChainId } from 'constants/chains'
 
 export const computePairAddress = ({
   factoryAddress,
+  initCodeHash,
   tokenA,
   tokenB,
 }: {
   factoryAddress: string
+  initCodeHash: string
   tokenA: Token
   tokenB: Token
 }): string => {
@@ -22,7 +24,7 @@ export const computePairAddress = ({
   const stablePairAddress = getCreate2Address(
     factoryAddress,
     keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0.address, token1.address, true])]),
-    INIT_CODE_HASH
+    initCodeHash
   )
   if (STABLE_PAIR_ADDRESSES[tokenA.chainId as ChainId].includes(stablePairAddress)) {
     return stablePairAddress
@@ -30,7 +32,7 @@ export const computePairAddress = ({
   const volatilePairAddress = getCreate2Address(
     factoryAddress,
     keccak256(['bytes'], [pack(['address', 'address', 'bool'], [token0.address, token1.address, false])]),
-    INIT_CODE_HASH
+    initCodeHash
   )
   return volatilePairAddress
 }
@@ -40,8 +42,13 @@ export class Pair {
   private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>]
 
   public static getAddress(tokenA: Token, tokenB: Token): string {
-    const factoryAddress = V2_FACTORY_ADDRESS[tokenA.chainId as ChainId]
-    return computePairAddress({ factoryAddress, tokenA, tokenB })
+    const shouldUseCantoDex = CANTODEX_TOKEN_PAIRS[tokenA.chainId as ChainId].includes(
+        [tokenA.address, tokenB.address].sort().join('-')
+    )
+    const factory = shouldUseCantoDex ? CANTODEX_FACTORY_ADDRESS : V2_FACTORY_ADDRESS
+    const factoryAddress = factory[tokenA.chainId as ChainId]
+    const initCodeHash = shouldUseCantoDex ? CANTODEX_INIT_CODE_HASH : INIT_CODE_HASH
+    return computePairAddress({ factoryAddress, initCodeHash, tokenA, tokenB })
   }
 
   public constructor(currencyAmountA: CurrencyAmount<Token>, tokenAmountB: CurrencyAmount<Token>) {
