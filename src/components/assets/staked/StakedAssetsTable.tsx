@@ -99,12 +99,12 @@ const StakedAssetsTable = () => {
             <TokenLogo>
               <CurrencyLogoFromList currency={token ?? undefined} size={'24px'} />
               <TYPE.body fontSize={20} fontWeight={500} margin={'10px'}>
-                Staked DIFF
+                Staked LEET
               </TYPE.body>
               <QuestionHelper
                 text={`${earnedDiff?.toFixed(
                   2
-                )} DIFF is available upon unstaking ${xdiffBalance?.toSignificant()} xDIFF.`}
+                )} LEET is available upon unstaking ${xdiffBalance?.toSignificant()} xLEET.`}
               />
             </TokenLogo>
             <TokenAndUSDCBalance style={{ marginLeft: 12 }}>

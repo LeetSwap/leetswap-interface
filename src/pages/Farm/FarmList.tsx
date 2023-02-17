@@ -42,12 +42,12 @@ export function FarmListPage() {
 
   return (
     <FarmListContainer>
-      <Tux />
+      {false && <Tux />}
       {false && <NomadWarningBanner />}
       <HeadingWithPotion heading="Farm" description="Earn fees and rewards by depositing and staking your LP tokens." />
       {/* {pools.map((pool) => pool.lpTokenAddress && <Pool key={pool.lpTokenAddress} {...pool} />).filter(isTruthy)} */}
 
-      <PoolListPagination pageCount={pageCount} setPage={setPage} currentPage={page} />
+      {/* <PoolListPagination pageCount={pageCount} setPage={setPage} currentPage={page} /> */}
       <FarmTable>
         {pools.map((pool) => (
           <PoolRow {...pool} key={pool.poolId} />
@@ -57,7 +57,7 @@ export function FarmListPage() {
   )
 }
 
-const PAGE_LENGTH = 10
+const PAGE_LENGTH = 100
 
 function usePaginatedPools() {
   const [page, setPage] = useState(0)

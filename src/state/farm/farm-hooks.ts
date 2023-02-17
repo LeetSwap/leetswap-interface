@@ -41,7 +41,7 @@ export function usePairTokens(pairAddress?: string) {
   }
 }
 
-export const NOMAD_POOLS: number[] = [0, 2, 3]
+export const NOMAD_POOLS: number[] = []
 
 export function usePools(page = 0, pageSize = 10) {
   const { account, chainId } = useActiveWeb3React()
@@ -72,7 +72,7 @@ export function usePools(page = 0, pageSize = 10) {
     blocksPerFetch: 1000,
   })
 
-  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond', [])
+  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'primaryTokenPerSecond', [])
   const diffusionPerSecond = diffusionPerSecondResponse.result?.[0]
     ? JSBI.BigInt(diffusionPerSecondResponse.result[0].toString())
     : JSBI.BigInt(0)
@@ -80,7 +80,7 @@ export function usePools(page = 0, pageSize = 10) {
   const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint', [], { blocksPerFetch: 50 })
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
 
-  const pendingDiffusions = useSingleContractMultipleData(minichefContract, 'pendingDiffusion', pendingArguments, {
+  const pendingDiffusions = useSingleContractMultipleData(minichefContract, 'pendingPrimaryToken', pendingArguments, {
     blocksPerFetch: 50,
   })
 
@@ -179,7 +179,7 @@ export function usePool(poolId: number) {
     blocksPerFetch: 100,
   })
 
-  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'diffusionPerSecond', [], {
+  const diffusionPerSecondResponse = useSingleCallResult(minichefContract, 'primaryTokenPerSecond', [], {
     blocksPerFetch: 500,
   })
   const diffusionPerSecond = diffusionPerSecondResponse.result?.[0]
@@ -188,7 +188,7 @@ export function usePool(poolId: number) {
 
   const totalAllocationResponse = useSingleCallResult(minichefContract, 'totalAllocPoint', [], { blocksPerFetch: 19 })
   const totalAllocation = totalAllocationResponse.result?.[0] as BigNumber | undefined
-  const pendingDiffusions = useSingleCallResult(minichefContract, 'pendingDiffusion', [poolId, account ?? undefined])
+  const pendingDiffusions = useSingleCallResult(minichefContract, 'pendingPrimaryToken', [poolId, account ?? undefined])
 
   const lpTokenAddress = lpTokens?.result?.[0] as string | undefined
   const rewarderAddress = rewarders?.result?.[0] as string | undefined
@@ -240,10 +240,10 @@ export function usePool(poolId: number) {
     totalAllocation,
     userInfo?.amount,
   ])
-  console.log('RawInfo')
-  console.log(rawInfo)
-  console.log(JSON.stringify(rawInfo, null, 4))
-  console.log('---------------------------------------')
+  // console.log('RawInfo')
+  // console.log(rawInfo)
+  // console.log(JSON.stringify(rawInfo, null, 4))
+  // console.log('---------------------------------------')
   return rawInfo
 }
 

@@ -71,7 +71,7 @@ export default function StakingModal({ isOpen, onDismiss, availableAmount, curre
         try {
           const response = await diffusionBar.enter(`0x${parsedAmount.quotient.toString(16)}`)
           addTransaction(response, {
-            summary: 'Stake Diffusion',
+            summary: 'Stake LEET',
           })
           setHash(response.hash)
         } catch (e: any) {
@@ -147,7 +147,7 @@ export default function StakingModal({ isOpen, onDismiss, availableAmount, curre
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Staking</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} DIFF</TYPE.body>
+            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} LEET</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
@@ -173,7 +173,7 @@ export default function StakingModal({ isOpen, onDismiss, availableAmount, curre
           />
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Staked {parsedAmount?.toSignificant(4)} DIFF</TYPE.body>
+            <TYPE.body fontSize={20}>Staked {parsedAmount?.toSignificant(4)} LEET</TYPE.body>
             <AddXDiffButton addToken={addToken} success={success} />
           </AutoColumn>
         </SubmittedView>
@@ -186,5 +186,5 @@ function AddXDiffButton({ addToken, success }: { addToken: () => void; success?:
   if (success) {
     return <ButtonSecondary disabled>Added to Metamask</ButtonSecondary>
   }
-  return <ButtonSecondary onClick={addToken}>Add xDIFF to Metamask</ButtonSecondary>
+  return <ButtonSecondary onClick={addToken}>Add xLEET to Metamask</ButtonSecondary>
 }
