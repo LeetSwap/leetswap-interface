@@ -189,7 +189,7 @@ export function FarmTableRow({
         <TVL>
           {tvl
             ? `$${tvl.toFixed(0, { groupSeparator: ',' })}`
-            : `${totalLPStaked?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} DIFF-LP`}
+            : `${totalLPStaked?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} LEET-LP`}
         </TVL>
         <RowColumn>
           <Emission>

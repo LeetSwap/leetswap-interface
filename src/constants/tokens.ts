@@ -43,7 +43,7 @@ export const CINU = {
  */
 
 export const DIFFUSION = makeToken('COH Demo', 'COHDEMO', 18, {
-  [ChainId.MAINNET]: '0x71c2A98f75ee12Cb1694a37bc39518579f17332c',
+  [ChainId.MAINNET]: MAINNET.diffusion,
   [ChainId.TESTNET]: TESTNET.diffusion || '0x067eC87844fBD73eDa4a1059F30039584586e09d',
 })
 

@@ -120,6 +120,11 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
   const primaryAPR = useCalculateAPR(poolEmissionAmount, valueOfTotalStakedAmountInUSDC)
   const secondaryAPR = useCalculateAPR(rewardPerSecondAmount, valueOfTotalStakedAmountInUSDC)
   const totalAPR = JSBI.add(primaryAPR || JSBI.BigInt(0), secondaryAPR || JSBI.BigInt(0))
+  console.log('pool emission amount', poolEmissionAmount?.toFixed(2))
+  console.log('valueOfTotalStakedAmountInUSDC', valueOfTotalStakedAmountInUSDC?.toFixed(2))
+  console.log('primaryAPR', primaryAPR.toString())
+  console.log('secondaryAPR', secondaryAPR.toString())
+  console.log('totalAPR', totalAPR.toString())
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
@@ -165,7 +170,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
     <PageWrapper gap="lg" justify="center">
       <AutoRow justify={'space-between'}>
         <Heading>
-          <PotionIcon4 width={60} height={60} />
+          {/* <PotionIcon4 width={60} height={60} /> */}
           <TYPE.largeHeader style={{ margin: 0 }}>
             {currency0?.symbol}-{currency1?.symbol} Liquidity Mining
           </TYPE.largeHeader>
@@ -195,11 +200,11 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Step 1. Get Diffusion Liquidity tokens</TYPE.white>
+                <TYPE.white fontWeight={600}>Step 1. Get LeetSwap Liquidity tokens</TYPE.white>
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
                 <TYPE.white fontSize={14}>
-                  {`Diffusion LP tokens are required. Once you've added liquidity to the ${token0?.symbol}-${token1?.symbol} pool you can stake your liquidity tokens on this page.`}
+                  {`LeetSwap LP tokens are required. Once you've added liquidity to the ${token0?.symbol}-${token1?.symbol} pool you can stake your liquidity tokens on this page.`}
                 </TYPE.white>
               </RowBetween>
               <ButtonPrimary
@@ -254,7 +259,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
                   {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                 </TYPE.white>
                 <TYPE.white>
-                  DIFF-LP {currency0?.symbol}-{currency1?.symbol}
+                  LEET-LP {currency0?.symbol}-{currency1?.symbol}
                 </TYPE.white>
               </RowBetween>
               <RowBetween style={{ alignItems: 'baseline' }}>
@@ -315,7 +320,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
           <DataButtonRow style={{ marginBottom: '1rem' }}>
             {stakingInfo && !isNomad && (
               <ButtonPrimary padding="8px" borderRadius="8px" width="360px" onClick={handleDepositClick}>
-                {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit Diffusion LP Tokens'}
+                {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit LeetSwap LP Tokens'}
               </ButtonPrimary>
             )}
 
@@ -334,7 +339,7 @@ export default function Manage({ match: { params } }: RouteComponentProps<{ pool
           </DataButtonRow>
         )}
         {!userLiquidityUnstaked || userLiquidityUnstaked.equalTo('0') ? null : (
-          <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} Diffusion LP tokens available</TYPE.main>
+          <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} LeetSwap LP tokens available</TYPE.main>
         )}
       </PositionInfo>
     </PageWrapper>

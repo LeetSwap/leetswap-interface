@@ -15,7 +15,7 @@ export function NomadWarningBanner({ style }: { style?: any }) {
             and will keep you updated.
           </li>
           <li>
-            The USD prices on Diffusion are derived from madUSDC. Given the exploit Nomad assets might not have their
+            The USD prices on LeetSwap are derived from madUSDC. Given the exploit Nomad assets might not have their
             expected value.
           </li>
         </ol>

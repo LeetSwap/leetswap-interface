@@ -177,7 +177,7 @@ export class Pair {
   }
 
   public getInputAmount(outputAmount: CurrencyAmount<Token>): [CurrencyAmount<Token>, Pair] {
-    console.log(outputAmount.toFixed(2))
+    // console.log(outputAmount.toFixed(2))
     invariant(this.involvesToken(outputAmount.currency), 'TOKEN')
     if (
       JSBI.equal(this.reserve0.quotient, ZERO) ||

@@ -7,7 +7,7 @@
       "inputs": [
         {
           "internalType": "contract IERC20",
-          "name": "_diffusion",
+          "name": "_primaryToken",
           "type": "address"
         }
       ],
@@ -107,11 +107,11 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "diffusionPerSecond",
+          "name": "primaryTokenPerSecond",
           "type": "uint256"
         }
       ],
-      "name": "LogDiffusionPerSecond",
+      "name": "LogPrimaryTokenPerSecond",
       "type": "event"
     },
     {
@@ -200,7 +200,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "accDiffusionPerShare",
+          "name": "accPrimaryTokenPerShare",
           "type": "uint256"
         }
       ],
@@ -259,7 +259,7 @@
     },
     {
       "inputs": [],
-      "name": "DIFFUSION",
+      "name": "PRIMARYTOKEN",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -373,7 +373,7 @@
     },
     {
       "inputs": [],
-      "name": "diffusionPerSecond",
+      "name": "primaryTokenPerSecond",
       "outputs": [
         {
           "internalType": "uint256",
@@ -504,7 +504,7 @@
           "type": "address"
         }
       ],
-      "name": "pendingDiffusion",
+      "name": "pendingPrimaryToken",
       "outputs": [
         {
           "internalType": "uint256",
@@ -588,7 +588,7 @@
       "outputs": [
         {
           "internalType": "uint128",
-          "name": "accDiffusionPerShare",
+          "name": "accPrimaryTokenPerShare",
           "type": "uint128"
         },
         {
@@ -669,11 +669,11 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_diffusionPerSecond",
+          "name": "_primaryTokenPerSecond",
           "type": "uint256"
         }
       ],
-      "name": "setDiffusionPerSecond",
+      "name": "setPrimaryTokenPerSecond",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -741,7 +741,7 @@
           "components": [
             {
               "internalType": "uint128",
-              "name": "accDiffusionPerShare",
+              "name": "accPrimaryTokenPerShare",
               "type": "uint128"
             },
             {
