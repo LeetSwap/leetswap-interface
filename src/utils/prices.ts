@@ -19,7 +19,7 @@ export function computeRealizedLPFeePercent(trade: V2Trade<Currency, Currency, T
   const percent = ONE_HUNDRED_PERCENT.subtract(
     trade.route.pairs.reduce<Percent>(
       (currentFee: Percent): Percent => currentFee.multiply(INPUT_FRACTION_AFTER_FEE),
-      ONE_HUNDRED_PERCENT
+          THIRTY_BIPS_FEE
     )
   )
 
