@@ -45,15 +45,14 @@ export function DisclaimerModal() {
               `}
             >
               <p>
-                
                 LeetSwap Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
-                trade ERC-20 tokens on Canto. LeetSwap is a public, open-source or source-available
-                software including a set of smart contracts that are deployed on the Canto Blockchain. Your use of the
+                trade ERC-20 tokens on Canto. This website is a public and free interface to help users interact with the
+                decentralized DEX smart contracts that are deployed on the Canto Blockchain. Your use of the
                 LeetSwap protocol involves various risks, including, but not limited to, losses while digital assets
                 are being supplied to the LeetSwap protocol and losses due to the fluctuation of prices of tokens in a
                 trading pair or liquidity pool. Before using the LeetSwap protocol, you should review the relevant
                 documentation to make sure you understand how the LeetSwap protocol works. Additionally, just as you
-                can access email email protocols such as SMTP through multiple email clients, you can access the
+                can access email protocols such as SMTP through multiple email clients, you can access the
                 LeetSwap protocol through dozens of web or mobile interfaces. You are responsible for doing your own
                 diligence on those interfaces to understand the fees and risks they present.
               </p>
@@ -64,7 +63,8 @@ export function DisclaimerModal() {
                 claims or damages whatsoever associated with your use, inability to use, or your interaction with other
                 users of, the LeetSwap protocol, including any direct, indirect, incidental, special, exemplary,
                 punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of
-                value.
+                value. The LeetSwap protocol is not a financial product and should not be treated as such. Furthermore,
+                the smart contracts, although tested before deployment, are not audited and therefore may contain bugs.
               </p>
             </div>
           </RowBetween>
