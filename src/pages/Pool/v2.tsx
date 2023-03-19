@@ -23,6 +23,7 @@ import { BIG_INT_ZERO } from '../../constants/misc'
 import { Pair } from '@uniswap/v2-sdk'
 import { InfoCard } from 'components/InfoCard'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
+import { useLPFeesInfo } from 'state/fees/hooks'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -100,8 +101,9 @@ export default function Pool() {
   )
 
   const v2Pairs = useV2Pairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
+  const lpFeesInfo = useLPFeesInfo(liquidityTokensWithBalances.map(({ tokens }) => tokens))
   const v2IsLoading =
-    fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some((V2Pair) => !V2Pair)
+    fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some((V2Pair) => !V2Pair) || lpFeesInfo?.length < liquidityTokensWithBalances.length
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
 
@@ -119,6 +121,13 @@ export default function Pool() {
         ?.map((stakingPair) => stakingPair[1])
         .filter((stakingPair) => stakingPair?.liquidityToken.address === v2Pair.liquidityToken.address).length === 0
     )
+  })
+
+  const feesWithoutStakedAmount = v2PairsWithoutStakedAmount.map((pair) => {
+    return lpFeesInfo.find((fee) => fee?.pairAddress === pair.liquidityToken.address) ?? undefined
+  })
+  const feesWithStakedAmount = stakingPairs.map((pair) => {
+    return lpFeesInfo.find((fee) => fee?.pairAddress === pair[1]?.liquidityToken.address) ?? undefined
   })
 
   return (
@@ -192,8 +201,12 @@ export default function Pool() {
                     <span> ↗</span>
                   </RowBetween>
                 </ButtonSecondary> */}
-                {v2PairsWithoutStakedAmount.map((v2Pair) => (
-                  <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
+                {v2PairsWithoutStakedAmount.map((v2Pair, index) => (
+                  <FullPositionCard
+                    key={v2Pair.liquidityToken.address}
+                    pair={v2Pair}
+                    lpFeesInfo={feesWithoutStakedAmount[index] ?? undefined}
+                  />
                 ))}
                 {stakingPairs.map(
                   (stakingPair, i) =>
@@ -202,6 +215,7 @@ export default function Pool() {
                         key={stakingInfosWithBalance[i].stakingRewardAddress}
                         pair={stakingPair[1]}
                         stakedBalance={stakingInfosWithBalance[i].stakedAmount}
+                        lpFeesInfo={feesWithStakedAmount[i] ?? undefined}
                       />
                     )
                 )}
