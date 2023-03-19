@@ -1,7 +1,7 @@
 import { ChainId } from 'constants/chains'
 
 const EXPLORER_PREFIXES: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: 'evm.explorer.canto.io',
+  [ChainId.MAINNET]: 'tuber.build',
   [ChainId.TESTNET]: 'evm.explorer.canto-testnet.com',
 }
 
