@@ -3,7 +3,7 @@ import { Percent, CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'react-feather'
+import { AlignCenter, ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components/macro'
@@ -24,11 +24,13 @@ import Card, { GreyCard, LightCard } from '../Card'
 import { AutoColumn } from '../Column'
 import CurrencyLogo from '../CurrencyLogo'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { RowBetween, RowFixed, AutoRow } from '../Row'
+import { RowBetween, RowFixed, AutoRow, RowFlat } from '../Row'
 import { Dots } from '../swap/styleds'
 import { BIG_INT_ZERO } from '../../constants/misc'
 import { useUSDCValue } from 'hooks/useUSDCPrice'
 import { Glow } from '../../pages/AppBody'
+import { LPFeesInfo } from 'state/fees/hooks'
+import ClaimFeesModal from './ClaimFeesModal'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -58,6 +60,7 @@ interface PositionCardProps {
   showUnwrapped?: boolean
   border?: string
   stakedBalance?: CurrencyAmount<Token> // optional balance to indicate that liquidity is deposited in mining pool
+  lpFeesInfo?: LPFeesInfo
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
@@ -169,13 +172,14 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   )
 }
 
-export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
+export default function FullPositionCard({ pair, border, stakedBalance, lpFeesInfo }: PositionCardProps) {
   const { account } = useActiveWeb3React()
 
   const currency0 = unwrappedToken(pair.token0)
   const currency1 = unwrappedToken(pair.token1)
 
   const [showMore, setShowMore] = useState(false)
+  const [showClaimFeesModal, setShowClaimFeesModal] = useState(false)
 
   const userDefaultPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
   const totalPoolTokens = useTotalSupply(pair.liquidityToken)
@@ -265,6 +269,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 </Text>
               </FixedHeightRow>
             )}
+
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>
@@ -334,6 +339,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 </ButtonPrimary>
               </RowBetween>
             )}
+
             {stakedBalance && JSBI.greaterThan(stakedBalance.quotient, BIG_INT_ZERO) && (
               <ButtonPrimary
                 padding="8px"
@@ -345,6 +351,61 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 Manage Liquidity in Rewards Pool
               </ButtonPrimary>
             )}
+
+            {lpFeesInfo && (
+              <>
+                <ClaimFeesModal
+                  isOpen={showClaimFeesModal}
+                  onDismiss={() => setShowClaimFeesModal(false)}
+                  lpFeesInfo={lpFeesInfo}
+                />
+              </>
+            )}
+
+            {lpFeesInfo && (
+              <>
+                <FixedHeightRow style={{ marginTop: '25px' }}>
+                  <RowFixed>
+                    <Text fontSize={16} fontWeight={500}>
+                      {currency0.symbol} fees earned:
+                    </Text>
+                  </RowFixed>
+                  <RowFixed>
+                    <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                      {lpFeesInfo.claimable0.toSignificant(6)}
+                    </Text>
+                    <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency0} />
+                  </RowFixed>
+                </FixedHeightRow>
+
+                <FixedHeightRow>
+                  <RowFixed>
+                    <Text fontSize={16} fontWeight={500}>
+                      {currency1.symbol} fees earned:
+                    </Text>
+                  </RowFixed>
+                  <RowFixed>
+                    <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                      {lpFeesInfo.claimable1.toSignificant(6)}
+                    </Text>
+                    <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency1} />
+                  </RowFixed>
+                </FixedHeightRow>
+
+                <FixedHeightRow style={{ marginTop: '10px' }}>
+                  <ButtonPrimary
+                    padding="8px"
+                    borderRadius="8px"
+                    width="100%"
+                    disabled={lpFeesInfo.claimable0.equalTo(0) && lpFeesInfo.claimable1.equalTo(0)}
+                    onClick={() => setShowClaimFeesModal(true)}
+                  >
+                    Claim Fees
+                  </ButtonPrimary>
+                </FixedHeightRow>
+              </>
+            )}
+
           </AutoColumn>
         )}
       </AutoColumn>
