@@ -348,7 +348,7 @@ export default function Header() {
             to={'/assets'}
             isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/assets')}
           >
-            {t('Assets')}
+            {t('My Assets')}
           </StyledNavLink>
           <BridgeMenu />
         </HeaderLinks>
