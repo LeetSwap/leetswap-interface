@@ -31,14 +31,14 @@ const PERIPHERY_TESTNET = {
 }
 
 const MAINNET_PERIPHERY = {
-  factory: '0x432Aad747c5f126a313d918E15d8133fca571Df1',
+  factory: '0x116e8a41E8B0A5A87058AF110C0Ddd55a0ed82B7',
   cantodexFactory: '0xE387067f12561e579C5f7d4294f51867E0c1cFba',
   weth9: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
-  router: '0x97b53AC28Acb030a3D53b33D0271342eD79e7faa',
+  router: '0x4bc8090e870301Dc80A2DBec600820BEeb5923A9',
   multicall2: '0xfCD3842f85ed87ba2889b4D35893403796e67FF1',
   //
-  minichef: '0x1FCed1966De286Ec846E05CD05F64F260DA79Bf0',
-  diffusion: '0x71c2A98f75ee12Cb1694a37bc39518579f17332c',
+  minichef: '0xC4DC314E4370085cFB08bd106fefb44A512fae66',
+  diffusion: '0x9aeff862435Cc243D12CEe915e7129629c6a8D5D',
 }
 
 const TESTNET_STABLE_PAIRS: string[] = []
@@ -57,18 +57,12 @@ const usdc = '0x80b5a32E4F032B2a058b4F29EC95EEfEEB87aDcd'
 const eth = '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687'
 const atom = '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265'
 const usdt = '0xd567B3d7B8FE3C79a1AD8dA978812cfC4Fa05e75'
-const cinu = '0x7264610A66EcA758A8ce95CF11Ff5741E1fd0455'
-const cbonk = '0x38D11B40D2173009aDB245b869e90525950aE345'
-const upsample = '0x069C4887f2eafCbE7D3572e13b449A02B31D260C'
 const bank = '0x6f6BAe4110eCC33fE4E330b16b8df2A5E9807658'
 const topg = '0xe350b49e52c9d865735BFD77c956f64585Be7583'
 
 const MAINNET_CANTODEX_TOKEN_PAIRS: string[] = [
-  [cbonk, wcanto].sort().join('-'),
-  [upsample, note].sort().join('-'),
   [bank, wcanto].sort().join('-'),
   [topg, wcanto].sort().join('-'),
-  [cinu, wcanto].sort().join('-'),
   [note, usdc].sort().join('-'),
   [note, usdt].sort().join('-'),
   [wcanto, note].sort().join('-'),
@@ -80,7 +74,7 @@ export const MAINNET = {
   ...MAINNET_PERIPHERY,
   stablePairs: MAINNET_STABLE_PAIRS,
   cantodexTokenPairs: MAINNET_CANTODEX_TOKEN_PAIRS,
-  diffusionbar: '0x12542ac934a99F361c4DF149832cAb350634A5e9',
+  diffusionbar: '0x32c89133c2702cBde22261D09372C5Bb7815C6CA',
   airdrop: '0xb9A52744213eA63D57F389622e1d569Bb4705207',
 }
 
