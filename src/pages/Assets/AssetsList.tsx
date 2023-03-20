@@ -180,12 +180,10 @@ export const AssetsListPage = () => {
           stakingPairs={stakingPairs}
           stakingInfosWithBalance={stakingInfosWithBalance}
         />
-        {/*
         <TableHeadingText>Farms</TableHeadingText>
         <FarmAssetsTable />
         <TableHeadingText>Staked</TableHeadingText>
         <StakedAssetsTable />
-        */}
       </AssetsListContainer>
     </AssetContextProvider>
   )
