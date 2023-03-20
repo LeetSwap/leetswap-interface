@@ -22,8 +22,10 @@ export default async function getDailyVolume(
         }, 0)
         console.log('dailyVolumeInUSD', dailyVolumeInUSD)
 
-        const pricePairAddress = '0x017EC40AA1984CDDa79F789066bD971F924132A5'
-        const priceInUSD = pairs.find((pair: any) => pair.pairAddress.toLowerCase() === pricePairAddress.toLowerCase())?.priceUsd as number
+        const pricePair = pairs.reduce((acc: any, pair: any) => {
+            return acc.liquidity.usd > pair.liquidity.usd ? acc : pair
+        }, { liquidity: { usd: 0 } })
+        const priceInUSD = pairs.find((pair: any) => pair.pairAddress.toLowerCase() === pricePair.pairAddress.toLowerCase())?.priceUsd as number
         console.log('priceInUSD', priceInUSD)
         console.log('dailyVolume', dailyVolumeInUSD / priceInUSD)
 
