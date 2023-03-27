@@ -17,6 +17,9 @@ export default async function getDailyVolume(
 
         const json = await response.json()
         const pairs = json.pairs
+        if (!pairs) {
+            throw new Error(`No pairs found for token ${token.address}`)
+        }
         const dailyVolumeInUSD = pairs.reduce((acc: number, pair: any) => {
             return acc + pair.volume.h24
         }, 0)
