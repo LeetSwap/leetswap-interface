@@ -1,23 +1,23 @@
 import { CONTRACTS } from './contracts'
 
 describe('Add Liquidity', () => {
-  it('Loads Canto correctly', () => {
-    cy.visit(`/add/v2/CANTO`)
-    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'CANTO')
+  it('Loads Eth correctly', () => {
+    cy.visit(`/add/v2/ETH`)
+    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'ETH')
   })
 
   it('loads the two correct tokens', () => {
-    const { MCANTO, MUSDC } = CONTRACTS
-    cy.visit(`/add/v2/${MUSDC}/${MCANTO}`)
+    const { METH, MUSDC } = CONTRACTS
+    cy.visit(`/add/v2/${MUSDC}/${METH}`)
     cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'MUSDC')
-    cy.get('#add-liquidity-input-tokenb .token-symbol-container').should('contain.text', 'MCANTO')
+    cy.get('#add-liquidity-input-tokenb .token-symbol-container').should('contain.text', 'METH')
   })
 
-  it('does not crash if CANTOis duplicated', () => {
-    const { MCANTO } = CONTRACTS
-    cy.visit(`/add/v2/${MCANTO}/${MCANTO}`)
-    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'MCANTO')
-    cy.get('#add-liquidity-input-tokenb .token-symbol-container').should('not.contain.text', 'MCANTO')
+  it('does not crash if ETHis duplicated', () => {
+    const { METH } = CONTRACTS
+    cy.visit(`/add/v2/${METH}/${METH}`)
+    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'METH')
+    cy.get('#add-liquidity-input-tokenb .token-symbol-container').should('not.contain.text', 'METH')
   })
 
   it.skip('token not in storage is loaded', () => {
@@ -27,9 +27,9 @@ describe('Add Liquidity', () => {
   })
 
   it('single token can be selected', () => {
-    const { MCANTO, MUSDC } = CONTRACTS
-    cy.visit(`/add/v2/${MCANTO}`)
-    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'MCANTO')
+    const { METH, MUSDC } = CONTRACTS
+    cy.visit(`/add/v2/${METH}`)
+    cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'METH')
     cy.visit(`/add/v2/${MUSDC}`)
     cy.get('#add-liquidity-input-tokena .token-symbol-container').should('contain.text', 'MUSDC')
   })

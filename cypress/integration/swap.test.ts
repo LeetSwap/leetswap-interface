@@ -24,7 +24,7 @@ describe('Swap', () => {
     cy.get('#swap-currency-output .token-amount-input').type('0.0', { delay: 200 }).should('have.value', '0.0')
   })
 
-  it('can swap CANTO for ATOM', () => {
+  it('can swap ETH for ATOM', () => {
     const { MATOM } = CONTRACTS
 
     cy.get('#swap-currency-output .open-currency-select-button').click()

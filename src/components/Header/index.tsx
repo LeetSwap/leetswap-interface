@@ -285,8 +285,8 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: Record<ChainId, string> = {
-  [ChainId.TESTNET]: 'Canto Testnet',
-  [ChainId.MAINNET]: 'Canto',
+  [ChainId.TESTNET]: 'Polygon zkEVM Testnet',
+  [ChainId.MAINNET]: 'Polygon zkEVM',
 }
 
 export default function Header() {
@@ -363,7 +363,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} <span style={{ color: '#22c55e' }}>CANTO</span>
+                {userEthBalance?.toSignificant(4)} <span style={{ color: '#22c55e' }}>ETH</span>
               </BalanceText>
             ) : null}
             <Web3Status />

@@ -1,6 +1,6 @@
 // a list of tokens by chain
 import { Token } from '@uniswap/sdk-core'
-import { ATOM, USDC, USDT, WCANTO, ETH, NOTE, CINU, DIFFUSION } from './tokens'
+import { USDC, WETH } from './tokens'
 import { ChainId } from './chains'
 type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
@@ -8,8 +8,8 @@ type ChainTokenList = {
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
-  [ChainId.MAINNET]: pickNetwork([WCANTO, DIFFUSION, USDC, USDT, NOTE, ATOM, ETH, CINU] as any, ChainId.MAINNET),
-  [ChainId.TESTNET]: pickNetwork([USDC, WCANTO], ChainId.TESTNET),
+  [ChainId.MAINNET]: pickNetwork([WETH, USDC] as any, ChainId.MAINNET),
+  [ChainId.TESTNET]: pickNetwork([USDC, WETH], ChainId.TESTNET),
 }
 export const ADDITIONAL_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {}
 
@@ -21,14 +21,14 @@ export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: To
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: Partial<ChainTokenList> = {
-  [ChainId.MAINNET]: pickNetwork([DIFFUSION, USDC, NOTE, ATOM, WCANTO, USDT, ETH] as any, ChainId.MAINNET),
-  [ChainId.TESTNET]: pickNetwork([USDC, WCANTO], ChainId.TESTNET),
+  [ChainId.MAINNET]: pickNetwork([USDC, WETH], ChainId.MAINNET),
+  [ChainId.TESTNET]: pickNetwork([USDC, WETH], ChainId.TESTNET),
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
-  [ChainId.MAINNET]: pickNetwork([WCANTO, DIFFUSION, USDC, ATOM, ETH, USDT, NOTE, CINU] as any, ChainId.MAINNET),
-  [ChainId.TESTNET]: pickNetwork([USDC, WCANTO], ChainId.TESTNET),
+  [ChainId.MAINNET]: pickNetwork([WETH, USDC], ChainId.MAINNET),
+  [ChainId.TESTNET]: pickNetwork([USDC, WETH], ChainId.TESTNET),
 }
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
   //@TODO: Check where this is used

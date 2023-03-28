@@ -4,9 +4,9 @@ import JSBI from 'jsbi'
 import { pack, keccak256 } from '@ethersproject/solidity'
 import { getCreate2Address } from '@ethersproject/address'
 
-import { INIT_CODE_HASH, CANTODEX_INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
+import { INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
-import { STABLE_PAIR_ADDRESSES, CANTODEX_TOKEN_PAIRS, V2_FACTORY_ADDRESS, CANTODEX_FACTORY_ADDRESS } from 'constants/addresses'
+import { STABLE_PAIR_ADDRESSES, V2_FACTORY_ADDRESS } from 'constants/addresses'
 import { ChainId } from 'constants/chains'
 
 export const computePairAddress = ({
@@ -42,12 +42,9 @@ export class Pair {
   private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>]
 
   public static getAddress(tokenA: Token, tokenB: Token): string {
-    const shouldUseCantoDex = CANTODEX_TOKEN_PAIRS[tokenA.chainId as ChainId].includes(
-        [tokenA.address, tokenB.address].sort().join('-')
-    )
-    const factory = shouldUseCantoDex ? CANTODEX_FACTORY_ADDRESS : V2_FACTORY_ADDRESS
+    const factory = V2_FACTORY_ADDRESS
     const factoryAddress = factory[tokenA.chainId as ChainId]
-    const initCodeHash = shouldUseCantoDex ? CANTODEX_INIT_CODE_HASH : INIT_CODE_HASH
+    const initCodeHash = INIT_CODE_HASH
     return computePairAddress({ factoryAddress, initCodeHash, tokenA, tokenB })
   }
 

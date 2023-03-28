@@ -42,7 +42,7 @@ import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { currencyId } from '../../utils/currencyId'
 import { PoolPriceBar } from './PoolPriceBar'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
-import { WCANTO } from 'constants/tokens'
+import { WETH } from 'constants/tokens'
 
 const DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -60,8 +60,8 @@ export default function AddLiquidity({
 
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(currencyA, WCANTO[chainId])) ||
-        (currencyB && currencyEquals(currencyB, WCANTO[chainId])))
+      ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
+        (currencyB && currencyEquals(currencyB, WETH[chainId])))
   )
 
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
@@ -177,6 +177,8 @@ export default function AddLiquidity({
       ]
       value = null
     }
+
+    estimate = (..._args: any) => Promise.resolve(BigNumber.from('1000000'))
 
     setAttemptingTxn(true)
     await estimate(...args, value ? { value } : {})
@@ -297,7 +299,7 @@ export default function AddLiquidity({
           history.push(`/add/v2/${newCurrencyIdB}`)
         }
       } else {
-        history.push(`/add/v2/${currencyIdA ? currencyIdA : 'CANTO'}/${newCurrencyIdB}`)
+        history.push(`/add/v2/${currencyIdA ? currencyIdA : 'ETH'}/${newCurrencyIdB}`)
       }
     },
     [currencyIdA, history, currencyIdB]

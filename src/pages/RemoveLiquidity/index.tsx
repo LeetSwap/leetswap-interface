@@ -16,7 +16,7 @@ import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { AddRemoveTabs } from '../../components/NavigationTabs'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import Row, { RowBetween, RowFixed } from '../../components/Row'
-import { WCANTO } from 'constants/tokens'
+import { WETH } from 'constants/tokens'
 
 import Slider from '../../components/Slider'
 import CurrencyLogo from '../../components/CurrencyLogo'
@@ -191,7 +191,8 @@ export default function RemoveLiquidity({
           .then(calculateGasMargin)
           .catch((error) => {
             console.error(`estimateGas failed`, methodName, args, error)
-            return undefined
+            return BigNumber.from('1000000')
+
           })
       )
     )
@@ -335,8 +336,8 @@ export default function RemoveLiquidity({
   const oneCurrencyIsETH = currencyA?.isNative || currencyB?.isNative
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(WCANTO[chainId], currencyA)) ||
-        (currencyB && currencyEquals(WCANTO[chainId], currencyB)))
+      ((currencyA && currencyEquals(WETH[chainId], currencyA)) ||
+        (currencyB && currencyEquals(WETH[chainId], currencyB)))
   )
 
   const handleSelectCurrencyA = useCallback(
@@ -475,19 +476,19 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsETH ? (
                           <StyledInternalLink
-                            to={`/remove/v2/${currencyA?.isNative ? WCANTO[chainId].address : currencyIdA}/${
-                              currencyB?.isNative ? WCANTO[chainId].address : currencyIdB
+                            to={`/remove/v2/${currencyA?.isNative ? WETH[chainId].address : currencyIdA}/${
+                              currencyB?.isNative ? WETH[chainId].address : currencyIdB
                             }`}
                           >
-                            Receive wCANTO
+                            Receive wETH
                           </StyledInternalLink>
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
                             to={`/remove/v2/${
-                              currencyA && currencyEquals(currencyA, WCANTO[chainId]) ? 'CANTO' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WCANTO[chainId]) ? 'CANTO' : currencyIdB}`}
+                              currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'ETH' : currencyIdA
+                            }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'ETH' : currencyIdB}`}
                           >
-                            Receive CANTO
+                            Receive ETH
                           </StyledInternalLink>
                         ) : null}
                       </RowBetween>

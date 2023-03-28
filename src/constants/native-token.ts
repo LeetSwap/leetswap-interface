@@ -4,27 +4,27 @@ import { NativeCurrency } from '../sdk-core/entities/nativeCurrency'
 import invariant from 'tiny-invariant'
 import { WETH9_ADDRESS } from './addresses'
 
-export const WCANTO = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, WETH9_ADDRESS[ChainId.MAINNET], 18, 'wCANTO', 'Wrapped Canto'),
-  [ChainId.TESTNET]: new Token(ChainId.TESTNET, WETH9_ADDRESS[ChainId.TESTNET], 18, 'wCANTO', 'Wrapped Canto'),
+export const WETH = {
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, WETH9_ADDRESS[ChainId.MAINNET], 18, 'wETH', 'Wrapped Eth'),
+  [ChainId.TESTNET]: new Token(ChainId.TESTNET, WETH9_ADDRESS[ChainId.TESTNET], 18, 'wETH', 'Wrapped Eth'),
 }
-export const WETH9 = WCANTO
+export const WETH9 = WETH
 
-export class Canto extends NativeCurrency {
+export class Eth extends NativeCurrency {
   protected constructor(chainId: number) {
-    super(chainId, 18, 'CANTO', 'Canto')
+    super(chainId, 18, 'ETH', 'Eth')
   }
 
   public get wrapped(): Token {
-    const weth9 = WCANTO[this.chainId as ChainId]
+    const weth9 = WETH[this.chainId as ChainId]
     invariant(!!weth9, 'WRAPPED')
     return weth9
   }
 
-  private static _etherCache: { [chainId: number]: Canto } = {}
+  private static _etherCache: { [chainId: number]: Eth } = {}
 
-  public static onChain(chainId: number): Canto {
-    return this._etherCache[chainId] ?? (this._etherCache[chainId] = new Canto(chainId))
+  public static onChain(chainId: number): Eth {
+    return this._etherCache[chainId] ?? (this._etherCache[chainId] = new Eth(chainId))
   }
 
   public equals(other: NativeCurrency | Token): boolean {

@@ -44,16 +44,6 @@ export const STABLE_PAIR_ADDRESSES = {
   [ChainId.TESTNET]: TESTNET.stablePairs,
 }
 
-export const CANTODEX_FACTORY_ADDRESS = {
-    [ChainId.MAINNET]: MAINNET.cantodexFactory,
-    [ChainId.TESTNET]: TESTNET.cantodexFactory,
-}
-
-export const CANTODEX_TOKEN_PAIRS = {
-    [ChainId.MAINNET]: MAINNET.cantodexTokenPairs,
-    [ChainId.TESTNET]: TESTNET.cantodexTokenPairs,
-}
-
 /**
  * ------------------------------------------------------------------------------------
  * Not sure if these are used in the diffusion codebase

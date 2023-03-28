@@ -34,7 +34,7 @@ export function useSwapActionHandlers(): {
       dispatch(
         selectCurrency({
           field,
-          currencyId: currency.isToken ? currency.address : currency.isNative ? 'CANTO' : '',
+          currencyId: currency.isToken ? currency.address : currency.isNative ? 'ETH' : '',
         })
       )
     },
@@ -213,7 +213,7 @@ function parseCurrencyFromURLParameter(urlParam: any): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
-    if (urlParam.toUpperCase() === 'CANTO') return 'CANTO'
+    if (urlParam.toUpperCase() === 'ETH') return 'ETH'
   }
   return ''
 }
@@ -242,7 +242,7 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
   if (inputCurrency === '' && outputCurrency === '') {
     // default to ETH input
-    inputCurrency = 'CANTO'
+    inputCurrency = 'ETH'
   } else if (inputCurrency === outputCurrency) {
     // clear output if identical
     outputCurrency = ''

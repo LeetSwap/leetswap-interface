@@ -9,7 +9,7 @@ import { AutoColumn } from '../Column'
 import QuestionHelper from '../QuestionHelper'
 import { AutoRow } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
-import { Canto, CANTO } from '../../constants/tokens'
+import { Eth, ETH } from '../../constants/tokens'
 import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
@@ -49,7 +49,7 @@ export default function CommonBases({
         <BaseWrapper
           onClick={() => {
             if (chainId) {
-              const photon = Canto.onChain(chainId || ChainId.MAINNET)
+              const photon = Eth.onChain(chainId || ChainId.MAINNET)
               if (!selectedCurrency || !currencyEquals(selectedCurrency, photon)) {
                 onSelect(photon)
               }
@@ -57,9 +57,9 @@ export default function CommonBases({
           }}
           disable={selectedCurrency?.isNative}
         >
-          <CurrencyLogo currency={CANTO} style={{ marginRight: 8 }} />
+          <CurrencyLogo currency={ETH} style={{ marginRight: 8 }} />
           <Text fontWeight={500} fontSize={16}>
-            {CANTO.symbol}
+            {ETH.symbol}
           </Text>
         </BaseWrapper>
         {(typeof chainId === 'number' ? SUGGESTED_BASES[chainId] ?? [] : []).map((token: Token) => {

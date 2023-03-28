@@ -25,7 +25,7 @@ import { abi as AIRDROP_ABI } from 'abis/Airdrop.json'
 import { abi as DIFFUSION_BAR_ABI } from 'abis/DiffusionBar.json'
 
 import { ChainId } from 'constants/chains'
-import { WCANTO, DIFFUSION } from 'constants/tokens'
+import { WETH, DIFFUSION } from 'constants/tokens'
 
 import {
   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
@@ -100,7 +100,7 @@ export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: b
 
 export function useWETHContract(withSignerIfPossible?: boolean) {
   const { chainId } = useActiveWeb3React()
-  return useContract<Weth>(chainId ? WCANTO[chainId]?.address : undefined, WETH_ABI, withSignerIfPossible)
+  return useContract<Weth>(chainId ? WETH[chainId]?.address : undefined, WETH_ABI, withSignerIfPossible)
 }
 
 export function useArgentWalletDetectorContract() {

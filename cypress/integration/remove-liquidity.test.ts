@@ -1,17 +1,17 @@
 import { CONTRACTS } from './contracts'
-const { MCANTO, MUSDC, MATOM } = CONTRACTS
+const { METH, MUSDC, MATOM } = CONTRACTS
 
 describe('Remove Liquidity', () => {
   it('Native remove', () => {
-    cy.visit(`/remove/v2/CANTO/${MUSDC}`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'CANTO')
+    cy.visit(`/remove/v2/ETH/${MUSDC}`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'ETH')
     cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MUSDC')
   })
 
   it('Native remove swap order', () => {
-    cy.visit(`/remove/v2/${MUSDC}/CANTO`)
+    cy.visit(`/remove/v2/${MUSDC}/ETH`)
     cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'MUSDC')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'CANTO')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'ETH')
   })
 
   it('loads the two correct tokens', () => {
@@ -20,16 +20,16 @@ describe('Remove Liquidity', () => {
     cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MATOM')
   })
 
-  it('does not crash if WCANTO is duplicated', () => {
-    cy.visit(`/remove/v2/${MCANTO}/${MCANTO}`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'MCANTO')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'MCANTO')
+  it('does not crash if WETH is duplicated', () => {
+    cy.visit(`/remove/v2/${METH}/${METH}`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'METH')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'METH')
   })
 
-  it('does not crash if CANTO is duplicated', () => {
-    cy.visit(`/remove/v2/CANTO/CANTO`)
-    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'CANTO')
-    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'CANTO')
+  it('does not crash if ETH is duplicated', () => {
+    cy.visit(`/remove/v2/ETH/ETH`)
+    cy.get('#remove-liquidity-tokena-symbol').should('contain.text', 'ETH')
+    cy.get('#remove-liquidity-tokenb-symbol').should('contain.text', 'ETH')
   })
 
   it.skip('token not in storage is loaded', () => {

@@ -189,7 +189,7 @@ export default function WalletModal({
             try {
               await provider.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x1e14' }],
+                params: [{ chainId: '0x44d' }],
               })
             } catch (switchError: any) {
               if (switchError.code === 4902) {
@@ -198,18 +198,17 @@ export default function WalletModal({
                     method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: '0x1e14',
-                        chainName: 'CANTO',
+                        chainId: '0x44d',
+                        chainName: 'ETH',
                         nativeCurrency: {
-                          name: 'CANTO',
-                          symbol: 'CANTO',
+                          name: 'ETH',
+                          symbol: 'ETH',
                           decimals: 18,
                         },
                         rpcUrls: [
-                          // 'https://canto-rpc2.binary.host'
-                          'https://canto.slingshot.finance',
+                          'https://zkevm-rpc.com',
                         ],
-                        blockExplorerUrls: ['https://evm.explorer.canto.io'],
+                        blockExplorerUrls: ['https://zkevm.polygonscan.com'],
                       },
                     ],
                   })
@@ -330,7 +329,7 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to a CANTO network.</h5>
+              <h5>Please connect to a supported network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
