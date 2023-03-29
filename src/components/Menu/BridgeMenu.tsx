@@ -70,19 +70,14 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          <MenuItem href="https://bridge.eth.io/">
+          <MenuItem href="https://bridge.zkevm-rpc.com">
             <div>
               Eth Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
-          <MenuItem href="https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=7700">
+          <MenuItem href="https://app.multichain.org/#/router">
             <div>
               Synapse Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://bridge.blockscape.network/">
-            <div>
-              Gravity Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
         </Menu>
