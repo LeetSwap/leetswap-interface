@@ -28,7 +28,7 @@ const FAKE_CHAIN_ID = 3 // This is ropsten
 
 export const network = new NetworkConnector({
   urls: NETWORK_URLS,
-  defaultChainId: ChainId.TESTNET,
+  defaultChainId: ChainId.MAINNET,
 })
 
 let networkLibrary: Web3Provider | undefined
