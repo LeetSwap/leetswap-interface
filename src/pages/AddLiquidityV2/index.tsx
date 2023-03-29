@@ -178,7 +178,7 @@ export default function AddLiquidity({
       value = null
     }
 
-    estimate = (..._args: any) => Promise.resolve(BigNumber.from('1000000'))
+    // estimate = (..._args: any) => Promise.resolve(BigNumber.from('1000000'))
 
     setAttemptingTxn(true)
     await estimate(...args, value ? { value } : {})
