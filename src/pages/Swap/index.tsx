@@ -27,7 +27,7 @@ import TradePrice from '../../components/swap/TradePrice'
 import TokenWarningModal from '../../components/TokenWarningModal'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { useAllTokens, useCurrency } from '../../hooks/Tokens'
-import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
+import { ApprovalState, useApproveCallback, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
 import TuxImg from '../../assets/images/logo-no-bg.png'
 
 import useENSAddress from '../../hooks/useENSAddress'
@@ -52,6 +52,8 @@ import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { warningSeverity } from '../../utils/prices'
 import AppBody from '../AppBody'
 import { NomadWarningBanner } from 'components/WarningBanner/NomadWarningBanner'
+import { V2_ROUTER_ADDRESS } from 'constants/addresses'
+import { ChainId } from 'constants/chains'
 
 const StyledInfo = styled(Info)`
   opacity: 0.4;
@@ -97,7 +99,7 @@ export default function Swap({ history }: RouteComponentProps) {
       return !Boolean(token.address in defaultTokens)
     })
 
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
 
   // toggle wallet when disconnected
@@ -195,7 +197,9 @@ export default function Swap({ history }: RouteComponentProps) {
   const isLoadingRoute = false
 
   // check whether the user has approved the router on the input token
-  const [approvalState, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
+  // const [approvalState, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
+  const [approvalState, approveCallback] = useApproveCallback(parsedAmounts[Field.INPUT], V2_ROUTER_ADDRESS[chainId ?? ChainId.MAINNET])
+  console.log('approvalState', approvalState)
   const { state: signatureState, gatherPermitSignature } = useERC20PermitFromTrade(trade, allowedSlippage)
 
   const handleApprove = useCallback(async () => {
