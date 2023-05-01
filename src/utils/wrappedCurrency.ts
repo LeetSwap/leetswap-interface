@@ -1,6 +1,6 @@
 import { Currency, Token, CurrencyAmount } from '@uniswap/sdk-core'
 import { ChainId } from 'constants/chains'
-import { WCANTO, CANTO } from 'constants/tokens'
+import { WCANTO, Canto } from 'constants/tokens'
 import { supportedChainId } from './supportedChainId'
 import invariant from 'tiny-invariant'
 
@@ -16,6 +16,7 @@ export function wrappedCurrencyAmount(
 }
 
 export function unwrappedToken(token: Token): Currency {
+  const CANTO = Canto.onChain(token.chainId)
   if (token.isNative) return token
   const formattedChainId = supportedChainId(token.chainId)
   if (formattedChainId && token.equals(WCANTO[formattedChainId])) return CANTO
@@ -27,6 +28,9 @@ export function unwrappedToken(token: Token): Currency {
  */
 function wrappedCurrencyInternal(currency: Currency, chainId: ChainId): Token {
   if (currency.isToken) {
+    if (currency.chainId !== chainId) {
+        console.log('WRAPPED_CURRENCY_INTERNAL', currency, chainId)
+    }
     invariant(currency.chainId === chainId, 'CHAIN_ID')
     return currency
   }

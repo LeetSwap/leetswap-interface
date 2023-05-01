@@ -6,7 +6,7 @@ import { CurrencyAmount, Percent, Token, TradeType, Price } from '@uniswap/sdk-c
 import { Canto, WETH9 } from 'constants/native-token'
 
 describe('Trade', () => {
-  const CHAIN_ID = 740
+  const CHAIN_ID = 7701
   const ETHER = Canto.onChain(CHAIN_ID)
   const token0 = new Token(CHAIN_ID, '0x0000000000000000000000000000000000000001', 18, 't0')
   const token1 = new Token(CHAIN_ID, '0x0000000000000000000000000000000000000002', 18, 't1')

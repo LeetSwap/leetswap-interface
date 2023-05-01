@@ -22,7 +22,8 @@ import { Dots } from '../Pool/styleds'
 import { BlueCard } from '../../components/Card'
 import { TYPE } from '../../theme'
 import { useLocation } from 'react-router'
-import { CANTO } from 'constants/tokens'
+import { Canto } from 'constants/tokens'
+import { ChainId } from 'constants/chains'
 
 enum Fields {
   TOKEN0 = 0,
@@ -36,11 +37,12 @@ function useQuery() {
 export default function PoolFinder() {
   const query = useQuery()
 
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
+  const CANTO = Canto.onChain(chainId ?? ChainId.MAINNET)
   const [currency0, setCurrency0] = useState<Currency | null>(CANTO)
   const [currency1, setCurrency1] = useState<Currency | null>(null)
 

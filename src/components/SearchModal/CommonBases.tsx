@@ -9,7 +9,7 @@ import { AutoColumn } from '../Column'
 import QuestionHelper from '../QuestionHelper'
 import { AutoRow } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
-import { Canto, CANTO } from '../../constants/tokens'
+import { Canto } from '../../constants/tokens'
 import { CurrencyLogoFromList } from 'components/CurrencyLogo/CurrencyLogoFromList'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
@@ -37,6 +37,7 @@ export default function CommonBases({
   selectedCurrency?: Currency | null
   onSelect: (currency: Currency) => void
 }) {
+  const CANTO = Canto.onChain(chainId || ChainId.MAINNET)
   return (
     <AutoColumn gap="md">
       <AutoRow>

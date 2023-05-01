@@ -47,7 +47,7 @@ export class Pair {
     )
     const factory = shouldUseCantoDex ? CANTODEX_FACTORY_ADDRESS : V2_FACTORY_ADDRESS
     const factoryAddress = factory[tokenA.chainId as ChainId]
-    const initCodeHash = shouldUseCantoDex ? CANTODEX_INIT_CODE_HASH : INIT_CODE_HASH
+    const initCodeHash = shouldUseCantoDex ? CANTODEX_INIT_CODE_HASH[tokenA.chainId as ChainId] : INIT_CODE_HASH
     return computePairAddress({ factoryAddress, initCodeHash, tokenA, tokenB })
   }
 

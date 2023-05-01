@@ -19,7 +19,7 @@ export const TEST_ADDRESS_NEVER_USE_SHORTENED = `${TEST_ADDRESS_NEVER_USE.substr
   6
 )}...${TEST_ADDRESS_NEVER_USE.substr(-4, 4)}`
 
-const CHAIN_ID = 740
+const CHAIN_ID = 7701
 
 class CustomizedBridge extends Eip1193Bridge {
   chainId = CHAIN_ID

@@ -1,6 +1,6 @@
 export enum ChainId {
   MAINNET = 7700,
-  TESTNET = 740,
+  TESTNET = 7701,
 }
 
 export const NETWORK_URLS: {
