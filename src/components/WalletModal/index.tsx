@@ -189,7 +189,7 @@ export default function WalletModal({
             try {
               await provider.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x44d' }],
+                params: [{ chainId: '0xe708' }],
               })
             } catch (switchError: any) {
               if (switchError.code === 4902) {
@@ -198,7 +198,7 @@ export default function WalletModal({
                     method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: '0x44d',
+                        chainId: '0xe708',
                         chainName: 'ETH',
                         nativeCurrency: {
                           name: 'ETH',
@@ -206,9 +206,9 @@ export default function WalletModal({
                           decimals: 18,
                         },
                         rpcUrls: [
-                          'https://zkevm-rpc.com',
+                          'https://linea-mainnet.infura.io/v3/ab731bdff08a4a92a7d7176d7ffee512',
                         ],
-                        blockExplorerUrls: ['https://zkevm.polygonscan.com'],
+                        blockExplorerUrls: ['https://explorer.linea.build/'],
                       },
                     ],
                   })

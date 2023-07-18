@@ -1,7 +1,7 @@
 import { ChainId } from 'constants/chains'
 
 const EXPLORER_PREFIXES: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: 'zkevm.polygonscan.com',
+  [ChainId.MAINNET]: 'explorer.linea.build',
   [ChainId.TESTNET]: 'testnet-zkevm.polygonscan.com',
 }
 

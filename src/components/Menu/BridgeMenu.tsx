@@ -70,14 +70,14 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          <MenuItem href="https://bridge.zkevm-rpc.com">
+          <MenuItem href="https://bridge.linea.build/">
             <div>
-              Polygon zkEVM <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+              Linea Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
-          <MenuItem href="https://app.multichain.org/#/router">
+          <MenuItem href="https://app.rhino.fi/bridge">
             <div>
-              Multichain <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+              Rhino Finance <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
         </Menu>
