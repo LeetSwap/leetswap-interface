@@ -35,7 +35,7 @@ export default function useUSDCPrice(currency?: Currency): Price<Currency, Token
       return undefined
     }
 
-    const wethPrice = new Price(currency, WETH[chainId], JSBI.BigInt(1e6), JSBI.BigInt(1800*1e6))
+    const wethPrice = new Price(currency, WETH[chainId], JSBI.BigInt(1e6), JSBI.BigInt(1900*1e6))
 
     if (currency && _usdcCurrencyAmount.currency.equals(currency) || currency.equals(ETH)) {
       // return new Price(currency, USDC[chainId], JSBI.BigInt(1), JSBI.BigInt(1))
