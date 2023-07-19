@@ -206,7 +206,7 @@ export default function WalletModal({
                           decimals: 18,
                         },
                         rpcUrls: [
-                          'https://linea-mainnet.infura.io/v3/ab731bdff08a4a92a7d7176d7ffee512',
+                          'https://rpc.linea.build',
                         ],
                         blockExplorerUrls: ['https://explorer.linea.build/'],
                       },
