@@ -26,6 +26,7 @@ export default async function getDailyVolume(
         console.log('dailyVolumeInUSD', dailyVolumeInUSD)
 
         const pricePair = pairs.reduce((acc: any, pair: any) => {
+            if (!(pair.quoteToken.address.toLowerCase() !== token.address.toLowerCase())) return acc; // shouldn't this be baseToken? but it works with quoteToken instead lol idk maybe ds API fuckery
             return acc.liquidity.usd > pair.liquidity.usd ? acc : pair
         }, { liquidity: { usd: 0 } })
         const priceInUSD = pairs.find((pair: any) => pair.pairAddress.toLowerCase() === pricePair.pairAddress.toLowerCase())?.priceUsd as number
