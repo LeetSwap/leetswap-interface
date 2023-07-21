@@ -48,7 +48,8 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
       setAttempting(true)
 
       await miniChef
-        .harvest(stakingInfo.poolId, account, { gasLimit: 350000 })
+        // .harvest(stakingInfo.poolId, account, { gasLimit: 350000 })
+        .harvest(stakingInfo.poolId, account)
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Claim accumulated rewards`,
