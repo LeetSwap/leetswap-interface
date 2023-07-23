@@ -80,6 +80,11 @@ export function BridgeMenu() {
               Rhino Finance <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
+          <MenuItem href="https://cbridge.celer.network/56/59144/BUSD">
+            <div>
+              Celer Network <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
         </Menu>
       )}
     </div>
