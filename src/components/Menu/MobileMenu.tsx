@@ -9,6 +9,7 @@ import { usePopper } from 'react-popper'
 import { NavLink, useLocation } from 'react-router-dom'
 import { BridgeMenu } from './BridgeMenu'
 import { useTranslation } from 'react-i18next'
+import { ChartMenu } from './ChartMenu'
 
 const activeClassName = 'ACTIVE'
 
@@ -141,6 +142,7 @@ export function MobileMenu() {
           <StyledNavLink id={`stake-nav-link`} to={'/stake'}>
             {t('Stake')}
           </StyledNavLink>
+          <ChartMenu />
           <BridgeMenu />
         </Menu>
       )}

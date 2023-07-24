@@ -24,6 +24,7 @@ import Web3Status from '../Web3Status'
 // import UniBalanceContent from './UniBalanceContent'
 import { ChainId } from 'constants/chains'
 import LeetSwapLogo from '../../assets/svg/logo.svg'
+import { ChartMenu } from 'components/Menu/ChartMenu'
 // import { ExternalLink } from 'theme/components'
 
 const Logo = styled.img`
@@ -350,6 +351,7 @@ export default function Header() {
           >
             {t('My Assets')}
           </StyledNavLink>
+          <ChartMenu />
           <BridgeMenu />
         </HeaderLinks>
       </HideSmall>
