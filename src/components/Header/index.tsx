@@ -286,7 +286,7 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: Record<ChainId, string> = {
-  [ChainId.TESTNET]: 'Polygon zkEVM Testnet',
+  [ChainId.TESTNET]: 'Linea Testnet',
   [ChainId.MAINNET]: 'Linea',
 }
 

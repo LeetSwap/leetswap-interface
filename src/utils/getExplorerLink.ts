@@ -2,7 +2,7 @@ import { ChainId } from 'constants/chains'
 
 const EXPLORER_PREFIXES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: 'explorer.linea.build',
-  [ChainId.TESTNET]: 'testnet-zkevm.polygonscan.com',
+  [ChainId.TESTNET]: 'goerli.lineascan.build'
 }
 
 export enum ExplorerDataType {
