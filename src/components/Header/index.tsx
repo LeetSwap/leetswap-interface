@@ -287,7 +287,7 @@ export const StyledMenuButton = styled.button`
 
 const NETWORK_LABELS: Record<ChainId, string> = {
   [ChainId.TESTNET]: 'Linea Testnet',
-  [ChainId.MAINNET]: 'Linea',
+  [ChainId.MAINNET]: 'Base',
 }
 
 export default function Header() {
@@ -351,7 +351,7 @@ export default function Header() {
           >
             {t('My Assets')}
           </StyledNavLink>
-          <ChartMenu />
+          {/* <ChartMenu /> */}
           <BridgeMenu />
         </HeaderLinks>
       </HideSmall>

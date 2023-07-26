@@ -70,19 +70,9 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          <MenuItem href="https://bridge.linea.build/">
+          <MenuItem href="https://docs.base.org/tools/bridges">
             <div>
-              Linea Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://app.rhino.fi/bridge">
-            <div>
-              Rhino Finance <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
-            </div>
-          </MenuItem>
-          <MenuItem href="https://cbridge.celer.network/56/59144/BUSD">
-            <div>
-              Celer Network <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+              Base Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
         </Menu>

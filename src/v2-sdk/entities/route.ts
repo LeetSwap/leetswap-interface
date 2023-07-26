@@ -42,7 +42,7 @@ export class Route<TInput extends Currency, TOutput extends Currency> {
     if (this._midPrice !== null) return this._midPrice
     const prices: Price<Currency, Currency>[] = []
     for (const [i, pair] of this.pairs.entries()) {
-      if (STABLE_PAIR_ADDRESSES[59144].includes(pair.liquidityToken.address)) {
+      if (STABLE_PAIR_ADDRESSES[8453].includes(pair.liquidityToken.address)) {
         prices.push(
           this.path[i].equals(pair.token0)
             ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.quotient, pair.reserve1.quotient, pair)

@@ -189,7 +189,7 @@ export default function WalletModal({
             try {
               await provider.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0xe708' }],
+                params: [{ chainId: '0x2105' }],
               })
             } catch (switchError: any) {
               if (switchError.code === 4902) {
@@ -198,17 +198,17 @@ export default function WalletModal({
                     method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: '0xe708',
-                        chainName: 'ETH',
+                        chainId: '0x2105',
+                        chainName: 'Base',
                         nativeCurrency: {
                           name: 'ETH',
                           symbol: 'ETH',
                           decimals: 18,
                         },
                         rpcUrls: [
-                          'https://rpc.linea.build',
+                          'https://developer-access-mainnet.base.org',
                         ],
-                        blockExplorerUrls: ['https://explorer.linea.build/'],
+                        blockExplorerUrls: ['https://basescan.org'],
                       },
                     ],
                   })

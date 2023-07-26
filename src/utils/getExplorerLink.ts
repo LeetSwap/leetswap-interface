@@ -1,7 +1,7 @@
 import { ChainId } from 'constants/chains'
 
 const EXPLORER_PREFIXES: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: 'explorer.linea.build',
+  [ChainId.MAINNET]: 'basescan.org',
   [ChainId.TESTNET]: 'goerli.lineascan.build'
 }
 

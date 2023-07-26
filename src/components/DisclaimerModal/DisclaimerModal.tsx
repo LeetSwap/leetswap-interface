@@ -47,7 +47,7 @@ export function DisclaimerModal() {
               <p>
                 LeetSwap Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
                 trade ERC-20 tokens on Eth. This website is a public and free interface to help users interact with the
-                decentralized DEX smart contracts that are deployed on the Eth Blockchain. Your use of the
+                decentralized DEX smart contracts that are deployed on the Base Blockchain. Your use of the
                 LeetSwap protocol involves various risks, including, but not limited to, losses while digital assets
                 are being supplied to the LeetSwap protocol and losses due to the fluctuation of prices of tokens in a
                 trading pair or liquidity pool. Before using the LeetSwap protocol, you should review the relevant
