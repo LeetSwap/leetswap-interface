@@ -70,9 +70,9 @@ export function ChartMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
-          <MenuItem href="https://www.geckoterminal.com/linea/leetswap-linea/pools">
+          <MenuItem href="https://dexscreener.com/base/leetswap">
             <div>
-              GeckoTerminal <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+              DEX Screener <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
         </Menu>

@@ -351,7 +351,7 @@ export default function Header() {
           >
             {t('My Assets')}
           </StyledNavLink>
-          {/* <ChartMenu /> */}
+          <ChartMenu />
           <BridgeMenu />
         </HeaderLinks>
       </HideSmall>
