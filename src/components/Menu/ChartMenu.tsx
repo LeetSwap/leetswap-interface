@@ -75,6 +75,11 @@ export function ChartMenu() {
               GeckoTerminal <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
             </div>
           </MenuItem>
+          <MenuItem href="https://dexscreener.com/linea/leetswap">
+            <div>
+              DEX Screener <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
         </Menu>
       )}
     </div>
