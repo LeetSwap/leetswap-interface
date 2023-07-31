@@ -10,7 +10,7 @@ export { WETH, Eth }
 export const ETH = Eth.onChain(ChainId.MAINNET)
 
 export const USDC = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x7d43AABC515C356145049227CeE54B608342c0ad', 18, 'BUSD', 'BUSD (via Celer.Network)'),
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xEB466342C4d449BC9f53A865D5Cb90586f405215', 6, 'axlUSDC', 'Axelar Wrapped USDC'),
   [ChainId.TESTNET]: new Token(ChainId.TESTNET, TESTNET.mockUSDC, 18, 'MUSDC', 'Mock USDC'),
 }
 
