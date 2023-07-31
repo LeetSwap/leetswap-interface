@@ -12,7 +12,7 @@ import JSBI from 'jsbi'
 // @TODO: change back, but to bootstrap we dont have enought liquidity
 const usdcCurrencyAmount = {
   // [ChainId.MAINNET]: CurrencyAmount.fromRawAmount(USDC[ChainId.MAINNET], 100e6),
-  [ChainId.MAINNET]: CurrencyAmount.fromRawAmount(WETH[ChainId.MAINNET], 1e5),
+  [ChainId.MAINNET]: CurrencyAmount.fromRawAmount(WETH[ChainId.MAINNET], 5e16),
   [ChainId.TESTNET]: CurrencyAmount.fromRawAmount(USDC[ChainId.TESTNET], 100e18),
 }
 /**
