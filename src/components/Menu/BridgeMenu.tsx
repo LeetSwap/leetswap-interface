@@ -70,6 +70,11 @@ export function BridgeMenu() {
 
       {open && (
         <Menu ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
+          <MenuItem href="https://app.squidrouter.com">
+            <div>
+              Axelar Squid Router <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
+            </div>
+          </MenuItem>
           <MenuItem href="https://docs.base.org/tools/bridges">
             <div>
               Base Bridge <span style={{ fontSize: '11px', textDecoration: 'none !important' }}>↗</span>
