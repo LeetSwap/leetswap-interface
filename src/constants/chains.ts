@@ -6,6 +6,6 @@ export enum ChainId {
 export const NETWORK_URLS: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.MAINNET]: `https://developer-access-mainnet.base.org`,
+  [ChainId.MAINNET]: `https://mainnet.base.org`,
   [ChainId.TESTNET]: `https://rpc.goerli.linea.build`,
 }

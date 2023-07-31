@@ -206,7 +206,7 @@ export default function WalletModal({
                           decimals: 18,
                         },
                         rpcUrls: [
-                          'https://developer-access-mainnet.base.org',
+                          'https://mainnet.base.org',
                         ],
                         blockExplorerUrls: ['https://basescan.org'],
                       },
