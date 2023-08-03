@@ -14,10 +14,16 @@ export function NomadWarningBanner({ style }: { style?: any }) {
             The LeetSwap contracts were exploited. All of the pools are unsafe and liquidity can be stolen.
           </li>
           <li>
-            If you have still some tokens you can try to sell them for ETH and salvage what you can.
+            If you have still some tokens  you can try to sell them for ETH and salvage what you can.
           </li>
           <li>
-            DO NOT BUY ANY TOKEN OR YOU WILL LOSE YOUR FUNDS.
+          We will be back with a new version of the DEX. We were able to rescue some of the liquidity from the pools, check our socials for more info.
+          </li>
+          <li>
+           <b>DO NOT ADD LIQUIDITY TO ANY POOL OR YOU WILL LOSE YOUR FUNDS.</b>
+          </li>
+          <li>
+            <b>DO NOT BUY ANY TOKEN OR YOU WILL LOSE YOUR FUNDS.</b>
           </li>
         </ol>
       }
