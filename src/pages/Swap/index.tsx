@@ -356,7 +356,7 @@ export default function Swap({ history }: RouteComponentProps) {
 
       <Tux src={TuxImg} />
       <AppBody>
-        {false && <NomadWarningBanner />}
+        {<NomadWarningBanner />}
         <SwapHeader allowedSlippage={allowedSlippage} />
         <Wrapper id="swap-page">
           <ConfirmSwapModal
