@@ -47,7 +47,7 @@ export function DisclaimerModal() {
               <p>
                 LeetSwap Finance is a decentralized peer-to-peer protocol that people can use to create liquidity and
                 trade ERC-20 tokens on Eth. This website is a public and free interface to help users interact with the
-                decentralized DEX smart contracts that are deployed on the Eth Blockchain. Your use of the
+                decentralized DEX smart contracts that are deployed on the Polygon zkEVM Blockchain. Your use of the
                 LeetSwap protocol involves various risks, including, but not limited to, losses while digital assets
                 are being supplied to the LeetSwap protocol and losses due to the fluctuation of prices of tokens in a
                 trading pair or liquidity pool. Before using the LeetSwap protocol, you should review the relevant
@@ -56,9 +56,29 @@ export function DisclaimerModal() {
                 LeetSwap protocol through dozens of web or mobile interfaces. You are responsible for doing your own
                 diligence on those interfaces to understand the fees and risks they present.
               </p>
+                <p>
+                <h1> WARNING: OUR DEX WAS COMPROMISED</h1>
+                <ol>
+                <li>
+                <b>The LeetSwap contracts were exploited. All of the pools are unsafe and liquidity can be stolen.</b>
+                </li>
+                <li>
+                <b>If you have still some tokens  you can try to sell them for ETH and salvage what you can.</b>
+                </li>
+                <li>
+                <b>We will be back with a new version of the DEX. We were able to rescue some of the liquidity from the pools, check our socials for more info.</b>
+                </li>
+                <li>
+                <b>DO NOT ADD LIQUIDITY TO ANY POOL OR YOU WILL LOSE YOUR FUNDS.</b>
+                </li>
+                <li>
+                <b>DO NOT BUY ANY TOKEN OR YOU WILL LOSE YOUR FUNDS.</b>
+                </li>
+                </ol>
+                </p>
               <p>
                 THE LeetSwap PROTOCOL IS PROVIDED &quot;AS IS&quot;, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY
-                KIND. The LeetSwap protocol is not owned by anyone, it is run by smart contracts deployed on the Eth
+                KIND. The LeetSwap protocol is not owned by anyone, it is run by smart contracts deployed on the Polygon zkEVM
                 blockchain. No developer or entity involved in creating the LeetSwap protocol will be liable for any
                 claims or damages whatsoever associated with your use, inability to use, or your interaction with other
                 users of, the LeetSwap protocol, including any direct, indirect, incidental, special, exemplary,
